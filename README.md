@@ -17,12 +17,12 @@
 ## 収録形式
 
 - `skills/<category>/<name>/SKILL.md`: [Agent Skills](https://agentskills.io/) 形式。手順と必要な参照情報を同梱します。
-- 将来の `mcp/<name>/`: 公開済みサーバの固定バージョン、起動方式、必要な設定、提供する tool/resource を manifest で記述します。HTTP の説明 JSON だけでは MCP と呼びません。
+- `mcp/<name>/`: 実際に接続できるサーバの transport、URL、認証、権限、Tool を manifest で記述します。HTTP の説明 JSON だけでは MCP と呼びません。
 - 将来の `plugins/<name>/`: Mithril Desktop / Hermes UI への組み込み単位。署名済み artifact、対応する app version、UI と backend の権限を記述します。
-- 将来の `tools/<name>/`: 既存の認証済み API をエージェントに公開する最小の操作単位。入力・出力 schema、scope、料金、副作用を記述します。
+- `tools/<name>/`: 実在する MCP Tool と HTTP 操作を結び、入力・出力 schema、認証、権限、副作用を記述します。Tool は単体インストールの対象ではありません。
 - `index.json`, `categories.json`: 検証済みの内容から生成する配布 index。直接編集しません。
 
-初版は依存サービスを必要としない読み取り手順 Skill を1件収録します。MCP、Plugin、Tool は実体・権限・配布経路が確認できてから追加します。
+現在の登録物は読み取り手順 Skill 1件、[接続可能な Mithril Cloud MCP](mcp/mithril-cloud/manifest.json) 1件、その公開読み取り Tool 3件です。MCP の `kotoba_chat_completion` と `kotoba_research_status` は別途 personal API token が必要で、推論はアカウントの利用条件に従います。Tool manifest は MCP 内の操作を説明するもので、独立したインストール物ではありません。Graph MCP は現行公開 URL が MCP 応答を返すと確認できていないため収録していません。Plugin は実際の配布物と互換性が確認できてから追加します。
 
 ## 開発
 
@@ -31,6 +31,6 @@ python3 -m pip install -r requirements.txt
 python3 scripts/build_index.py --check
 ```
 
-追加する Skill は frontmatter に `name`, `description`, `version`, `author`, `license` を記入し、`skills/<category>/<name>/SKILL.md` に配置します。配布物の変更時は version を更新してください。`python3 scripts/build_index.py` で index を更新します。CI は内容と index の一致を確認します。
+追加する Skill は frontmatter に `name`, `description`, `version`, `author`, `license` を記入し、`skills/<category>/<name>/SKILL.md` に配置します。MCP と Tool は各 `manifest.json` に URL、認証、権限、操作の結び付きを記述します。配布物の変更時は version を更新してください。`python3 scripts/build_index.py` で index を更新します。CI は内容と index の一致を確認します。
 
 公開前に、リンク先の実在、ライセンス、秘密情報の混入、要求する権限、料金と副作用、利用可能な runtime を確認してください。公開データや外部製品の紹介だけなら配布物にせず、元のサイトへリンクします。

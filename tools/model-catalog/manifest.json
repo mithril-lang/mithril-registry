@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1",
+  "type": "tool",
+  "id": "model-catalog",
+  "category": "models",
+  "name": "Model Catalog",
+  "version": "1.0.0",
+  "description": "List Mithril inference models and their access gate state.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://github.com/cloud-kotoba/app-kotoba-cloud/blob/ff514610ec0a3f8bc7bf6dfdf220bc0df2955e84/src/app_kotoba_cloud/mcp.cljk",
+  "tags": ["models", "inference", "catalog"],
+  "mcp": {"entry": "mithril-cloud", "name": "kotoba_models"},
+  "http": {"method": "GET", "url": "https://api.mithril.fund/v1/models", "query": {}},
+  "authentication": "none",
+  "effect": "read",
+  "permissions": ["network:api.mithril.fund", "public-data:read"],
+  "inputSchema": {"type": "object", "properties": {}, "additionalProperties": false},
+  "outputSchema": {"type": "object", "required": ["data"], "properties": {"data": {"type": "array"}}}
+}
