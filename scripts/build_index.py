@@ -14,8 +14,8 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "skills"
-MANIFEST_TYPES = ("mcp", "tool")
-MANIFEST_DIRS = {"mcp": "mcp", "tool": "tools"}
+MANIFEST_TYPES = ("mcp", "tool", "plugin")
+MANIFEST_DIRS = {"mcp": "mcp", "tool": "tools", "plugin": "plugins"}
 NAME = re.compile(r"^[a-z][a-z0-9-]{0,63}$")
 VERSION = re.compile(r"^\d+\.\d+\.\d+$")
 REQUIRED = ("name", "description", "version", "author", "license")
@@ -59,10 +59,10 @@ def manifest(path: Path, expected_type: str) -> dict:
         for tool in tools:
             if not isinstance(tool, dict) or not isinstance(tool.get("name"), str) or not tool["name"]:
                 raise ValueError(f"{path}: invalid tool name")
-            if tool["name"] in names or tool.get("authentication") not in ("none", "personal-api-token") or tool.get("effect") not in ("read", "inference"):
+            if tool["name"] in names or tool.get("authentication") not in ("none", "personal-api-token", "tenant-service-account") or tool.get("effect") not in ("read", "write", "inference"):
                 raise ValueError(f"{path}: duplicate tool or invalid access/effect")
             names.add(tool["name"])
-    else:
+    elif expected_type == "tool":
         binding, http = data.get("mcp"), data.get("http")
         if not isinstance(binding, dict) or not all(isinstance(binding.get(k), str) and binding[k] for k in ("entry", "name")):
             raise ValueError(f"{path}: tool needs an MCP binding")
@@ -77,6 +77,31 @@ def manifest(path: Path, expected_type: str) -> dict:
                 raise ValueError(f"{path}: invalid {schema_field}")
         if set(http["query"]) != set(data["inputSchema"].get("required", [])):
             raise ValueError(f"{path}: HTTP query parameters and required input differ")
+    else:
+        artifact, compatibility = data.get("artifact"), data.get("compatibility")
+        if not isinstance(artifact, dict) or artifact.get("format") != "zip":
+            raise ValueError(f"{path}: plugin needs a zip artifact")
+        require_https(artifact.get("url"), f"{path}: artifact.url")
+        if not re.fullmatch(r"[0-9a-f]{64}", str(artifact.get("sha256", ""))):
+            raise ValueError(f"{path}: artifact.sha256 must be lowercase SHA-256")
+        if not isinstance(artifact.get("bytes"), int) or artifact["bytes"] <= 0:
+            raise ValueError(f"{path}: artifact.bytes must be positive")
+        clients = compatibility.get("clients") if isinstance(compatibility, dict) else None
+        platforms = compatibility.get("platforms") if isinstance(compatibility, dict) else None
+        if not isinstance(clients, list) or not clients or not all(
+            isinstance(client, dict) and all(isinstance(client.get(k), str) and client[k] for k in ("name", "version", "tested"))
+            for client in clients
+        ):
+            raise ValueError(f"{path}: plugin needs tested client compatibility")
+        if not isinstance(platforms, list) or not platforms or not all(isinstance(item, str) for item in platforms):
+            raise ValueError(f"{path}: plugin needs platforms")
+        package = path.parent / "package"
+        required_files = [package / "plugin.yaml", package / "desktop" / "plugin.js", package / "README.md", package / "LICENSE"]
+        if not all(item.is_file() and item.stat().st_size for item in required_files):
+            raise ValueError(f"{path}: plugin package is incomplete")
+        native = yaml.safe_load((package / "plugin.yaml").read_text(encoding="utf-8"))
+        if native.get("name") != data["id"] or native.get("version") != data["version"]:
+            raise ValueError(f"{path}: plugin.yaml identity does not match manifest")
     return data
 
 
@@ -159,12 +184,15 @@ def build() -> tuple[dict, dict]:
                 "icon": None, "checksum": package_checksum(path.parent),
                 "compatibility": None, "acceptsFunding": False,
                 "permissions": data["permissions"],
-                "installable": type_ == "mcp",
+                "installable": type_ in ("mcp", "plugin"),
             }
             if type_ == "mcp":
                 entry["connection"] = {"transport": data["transport"], "url": data["url"], "authentication": data["authentication"]["mode"]}
-            else:
+            elif type_ == "tool":
                 entry["connection"] = {"viaMcp": data["mcp"]}
+            else:
+                entry["artifact"] = data["artifact"]
+                entry["compatibility"] = data["compatibility"]
             entries.append(entry)
     for tool in manifests["tool"].values():
         binding = tool["mcp"]

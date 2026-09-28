@@ -1,0 +1,50 @@
+(mithril/desktop-application
+  :id "https://mithril.fund/id/app/hermes-desktop"
+  :goal "https://mithril.fund/id/goal/hermes-agent-loop"
+  :page
+  (mithril/page
+    :name "Mithril"
+    :description "Ontology-native coding and execution inside Hermes Desktop."
+    :headline "Build apps as semantic state transitions"
+    :summary "Coding workspace, agent chat, resumable sessions, and bot profiles are one Mithril-authored semantic state. Hermes executes only the admitted transitions."
+    :path "/mithril"
+    :nav-label "Mithril"
+    :codicon "symbol-structure")
+  :actor
+  (mithril/actor
+    :protocol "https://mithril.fund/id/protocol/hermes-coding-agent-v1"
+    :governor "https://mithril.fund/id/governor/user-commit-v1"
+    :receipt-policy "https://mithril.fund/id/receipt/append-only-v1"
+    :workspace-policy "https://mithril.fund/id/workspace/user-selected-local-v1"
+    :max-goal-chars 4096)
+  :activity
+  (mithril/activity
+    :scheduler-policy "https://mithril.fund/id/scheduler/hermes-profile-cron-v1"
+    :board-policy "https://mithril.fund/id/board/hermes-kanban-v1"
+    :worker-board "mithril-runtime"
+    :max-active-jobs 32
+    :max-dispatch-tasks 8)
+  :loop
+  (mithril/agent-loop
+    :max-steps 17
+    :max-polls 180
+    :poll-interval-ms 1000
+    :session-title "Mithril semantic coding agent"
+    :actions
+    ["https://mithril.fund/id/action/profiles-list"
+     "https://mithril.fund/id/action/session-list"
+     "https://mithril.fund/id/action/session-create"
+     "https://mithril.fund/id/action/session-resume"
+     "https://mithril.fund/id/action/prompt-submit"
+     "https://mithril.fund/id/action/session-status"
+     "https://mithril.fund/id/action/session-history"
+     "https://mithril.fund/id/action/session-interrupt"
+     "https://mithril.fund/id/action/cron-list"
+     "https://mithril.fund/id/action/cron-add"
+     "https://mithril.fund/id/action/cron-pause"
+     "https://mithril.fund/id/action/cron-resume"
+     "https://mithril.fund/id/action/cron-remove"
+     "https://mithril.fund/id/action/kanban-board-read"
+     "https://mithril.fund/id/action/kanban-task-create"
+     "https://mithril.fund/id/action/kanban-dispatch"
+     "https://mithril.fund/id/action/stop"]))

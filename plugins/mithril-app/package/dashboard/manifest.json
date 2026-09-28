@@ -1,0 +1,7 @@
+{
+  "name": "mithril-app",
+  "label": "Mithril App",
+  "description": "Governed adapter to the Mithril semantic-action queue",
+  "version": "0.3.0",
+  "api": "plugin_api.py"
+}

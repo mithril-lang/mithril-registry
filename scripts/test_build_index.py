@@ -14,7 +14,7 @@ class RegistryTest(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
-        for dirname in ("skills", "mcp", "tools"):
+        for dirname in ("skills", "mcp", "tools", "plugins"):
             shutil.copytree(build_index.ROOT / dirname, self.root / dirname)
         self.root_patch = patch.object(build_index, "ROOT", self.root)
         self.skills_patch = patch.object(build_index, "SKILLS", self.root / "skills")
@@ -34,12 +34,18 @@ class RegistryTest(unittest.TestCase):
 
     def test_public_tools_are_not_standalone_installs(self):
         index, categories = build_index.build()
-        self.assertEqual(index["count"], 6)
-        self.assertEqual({entry["type"] for entry in index["entries"]}, {"skill", "mcp", "tool"})
+        self.assertEqual(index["count"], 8)
+        self.assertEqual({entry["type"] for entry in index["entries"]}, {"skill", "mcp", "tool", "plugin"})
         self.assertEqual(sum(entry["type"] == "skill" for entry in index["entries"]), 2)
-        self.assertTrue(next(entry for entry in index["entries"] if entry["type"] == "mcp")["installable"])
+        self.assertTrue(all(entry["installable"] for entry in index["entries"] if entry["type"] in {"mcp", "plugin"}))
         self.assertTrue(all(not entry["installable"] for entry in index["entries"] if entry["type"] == "tool"))
-        self.assertEqual(sum(kind["count"] for kind in categories["types"]), 6)
+        self.assertEqual(sum(kind["count"] for kind in categories["types"]), 8)
+
+    def test_plugin_has_pinned_artifact_and_tested_client(self):
+        index, _ = build_index.build()
+        plugin = next(entry for entry in index["entries"] if entry["type"] == "plugin")
+        self.assertRegex(plugin["artifact"]["sha256"], r"^[0-9a-f]{64}$")
+        self.assertEqual(plugin["compatibility"]["clients"][0]["tested"], "0.21.4")
 
     def test_tool_binding_must_match_real_mcp_tool(self):
         self.write_manifest("tools/knowledge-search/manifest.json", lambda data: data["mcp"].update(name="imaginary_tool"))

@@ -31,13 +31,13 @@ Security services の8項目は8個の独立 Plugin にせず、共通の **Secu
 - **Skill:** エージェントに手順を教える文書。実行権限は付与しない。
 - **Tool:** 1つの明確な操作と入出力 schema。読み取りと書き込みを別 tool にする。書き込み、走査、課金には scope、確認、監査を設定する。
 - **MCP:** tool/resource を公開するサーバと transport。単なる `/mcp.json` の HTTP tool 一覧は MCP サーバではない。
-- **Plugin:** Hermes / Mithril Desktop の UI・実行統合。クライアント互換性、署名、sandbox、配布 artifact が揃ってから登録する。
+- **Plugin:** Hermes / Mithril Desktop の UI・実行統合。クライアント互換性、内容 checksum、sandbox 検査、再現可能な配布 artifact が揃ってから登録する。
 - **独立 UI / データ:** 人向けの画面や大規模データは元の host と API に置く。registry は接続方法と権限だけを配る。
 
 ## App が持つ導線
 
 2026-09-28 に `apps.mithril.fund` の独立ページを終了し、旧 URL と Mithril 各 host の旧 `/apps` を `app.mithril.fund/extensions` へ 301 転送しました。`?lang=ja` などのクエリは維持します。個別の公開 JSON、schema、API、文書の URL は既存の提供先に残し、Knowledge Search と Twin も現在の提供先を維持しています。公開確認では新一覧が HTTP 200、旧 URL が 301、Knowledge Search と Twin がそれぞれ HTTP 200 でした。
 
-App は現時点では検証済み Skill の source、接続可能な Mithril Cloud MCP と公開 Tool 3件、既存サービスへのリンクを表示する。将来は registry の index を読み、利用可能な拡張の検索・詳細表示・導入・無効化に進む。導入画面では source、version、checksum、権限、必要な account scope、料金、データ送信先を表示する。実行時の認証 token と秘密情報は registry に入れず app/API 側で扱う。導入履歴と使用履歴は account に紐づけて記録する。
+App は現時点では検証済み Skill の source、接続可能な Mithril Cloud / Graph MCP、公開 Tool 3件、Mithril App Plugin と既存サービスへのリンクを表示する。将来は registry の index を読み、利用可能な拡張の検索・詳細表示・導入・無効化に進む。導入画面では source、version、checksum、権限、必要な account scope、料金、データ送信先を表示する。実行時の認証 token と秘密情報は registry に入れず app/API 側で扱う。導入履歴と使用履歴は account に紐づけて記録する。
 
-現在 `mithril-evidence-review` と `mithril-pep-record-review` は Skill として配布でき、Mithril Cloud MCP は実際の URL に接続できます。登録した Knowledge Search / Context と Model Catalog の Tool manifest はその MCP 内の公開読み取り操作を説明します。ほかの Tool・MCP・Plugin は引き続き設計候補です。Graph の公開 `/mcp` は現時点で HTML を返すため MCP 登録は保留です。Mithril Desktop / Hermes Plugin はローカル build の source があるものの、公開配布物とクライアント互換性を確認してから登録します。旧 Apps の稼働ラベル、旧 API、旧ポリシーをそのまま移しません。
+現在 `mithril-evidence-review` と `mithril-pep-record-review` は Skill として配布でき、Mithril Cloud MCP と Mithril Graph MCP はそれぞれの公開 URL で接続できます。登録した Knowledge Search / Context と Model Catalog の Tool manifest は Cloud MCP 内の公開読み取り操作を説明します。Mithril App Plugin は再現可能な zip、SHA-256、公開 source、Hermes Agent/Desktop 0.21.4 の実検証結果を持ちます。Security workbench など、実装や配布物がない候補は引き続き登録しません。旧 Apps の稼働ラベル、旧 API、旧ポリシーをそのまま移しません。
