@@ -118,7 +118,10 @@ def frontmatter(path: Path) -> dict:
 
 def package_checksum(folder: Path) -> str:
     digest = hashlib.sha256()
-    files = sorted(path for path in folder.rglob("*") if path.is_file())
+    files = sorted(
+        path for path in folder.rglob("*")
+        if path.is_file() and "__pycache__" not in path.parts and path.suffix != ".pyc"
+    )
     for path in files:
         rel = path.relative_to(folder).as_posix().encode()
         digest.update(len(rel).to_bytes(4, "big"))
