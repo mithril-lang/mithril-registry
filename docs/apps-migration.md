@@ -1,28 +1,30 @@
 # Apps から拡張機能への移行マップ
 
-2026-09-28 時点の公開 `apps.mithril.fund` には19カードがあります。カードは製品、データ、API、文書、稼働状況が混在します。ここでは配布上の責務を整理します。以下の「候補」は実装済み・稼働中を意味しません。
+2026-09-28 時点の公開 `apps.mithril.fund` には19カードがあります。カードは製品、データ、API、文書、稼働状況が混在します。**既存のサイトと API を正本として維持し、App から使う接続面を足します。特に Knowledge Search と Twin の既存提供先は維持します。** 以下の拡張は、初版 Skill 以外すべて設計候補であり、実装・接続済みを意味しません。旧 Apps の「Live」「Beta」を拡張の状態へ転記しません。
 
-| 既存カード | 主な置き場所 | App 用の拡張候補 |
-| --- | --- | --- |
-| PEP Registry | 公開データ / 出典付き検索 API | PEP 調査 tool と調査 skill。現行 screening 判定とは分ける |
-| eKYC 登録ガイド | 登録 UI / 文書 | 登録案内 skill。本人確認の実操作は認証 UI に置く |
-| Security Data Hub | 公開データ / 検索 API | 出典付き evidence tool と調査 skill |
-| コンプライアンス & 製品カタログ | 公開データ / 比較 UI | 比較 tool と調査 skill |
-| Security Research AUP | 現行ポリシーの正本 | 権限境界を参照する skill。旧版 snapshot は現行規定にしない |
-| Knowledge Search | API | 読み取り tool。MCP は実プロトコルを実装・確認してから登録 |
-| Kyber orgbrain | 独立 UI / ontology | 組織分析 tool、Hermes 画面 plugin の候補 |
-| Enterprise Digital Twin | `twin.mithril.fund` の独立 UI | Twin 参照 tool と viewer plugin の候補 |
-| Model Catalog | API / console | モデル一覧 tool。利用権限と料金は app で表示 |
-| Itonami Bots | 独立の運用 status | 読み取り status tool の候補 |
-| Endpoint Care | ローカル配布物 | 権限を限定した endpoint plugin / tool の候補 |
-| CTEM | Security services の機能 | 対象 scope を受け取る scan tool と手順 skill の候補 |
-| DAST | Security services の機能 | 認証済み scan tool と手順 skill の候補 |
-| SAST | Security services の機能 | ローカル/CI tool とレビュー skill の候補 |
-| SPECT | Security services の機能 | メール解析 tool と判定 skill の候補 |
-| VM | Security services の機能 | 所見台帳 tool と triage skill の候補 |
-| GRC | Security services の機能 | 入力を保存しない評価 tool と説明 skill の候補 |
-| IR | Security services の機能 | 事実入力からの手順生成 tool と review skill の候補 |
-| DR | Security services の機能 | 復旧計画 tool と検証 skill の候補 |
+| 既存カード | 維持する本体 | Skill | Tool 候補 | MCP / Plugin の扱い |
+| --- | --- | --- | --- | --- |
+| PEP Registry | 出典・日付・ライセンス付き公開 snapshot と schema | PEP 記録と同名異人・鮮度の確認 | `pep.search`, `pep.get_record`（読取） | 研究 MCP に含める候補。専用 Plugin 不要。現行 screening 判定とは分ける |
+| eKYC 登録ガイド | `ekyc.md` と認証された登録 UI | 登録段階の案内 | `registration.get_status`（読取）のみ | 本人確認・決済は UI で実施。登録代行 Plugin は不要 |
+| Security Data Hub | KEV / ATT&CK / OTRF の公開データと閲覧 UI | 出典付き証跡の収集・照合。初版 Skill を活用 | `evidence.search`, `evidence.get_source` | 研究 MCP 候補。巨大データを Plugin に同梱しない |
+| コンプライアンス & 製品カタログ | 基準・製品データと比較 UI | 基準、対象国、版、出典を比較 | `catalog.search`, `catalog.compare` | 研究 MCP 候補。専用 Plugin 不要。価格・規制の鮮度を確認 |
+| Security Research AUP | 現行ポリシーの正本。旧 snapshot は履歴 | 許可範囲を読む手順 | `policy.get_current`（版・発効日付き） | MCP read resource 候補。Skill 自体は調査許可にならない |
+| Knowledge Search | **既存の検索 API と `knowledge.mithril.fund` を維持** | 結果の出典、期間、欠落を評価 | 既存 API に接続する `knowledge.search`, `knowledge.context` | 実 endpoint ができたら研究 MCP に登録。App は薄い検索入口とリンクのみ。基盤を複製しない |
+| Kyber orgbrain | 管理 UI、ontology、BPMN、export | RACI・プロセス・リスクの読み解き | `orgbrain.query`, `orgbrain.export`（読取） | 必要なら要約と deep link の Plugin。管理 UI は複製しない |
+| Enterprise Digital Twin | **`twin.mithril.fund` の viewer と ontology を維持** | 出典・snapshot・推論を読み解く | `twin.get_entity`, `twin.query`（まず読取） | 実 MCP は後で登録。App は deep link や要約のみ。viewer を置換しない |
+| Model Catalog | 既存のモデル API と利用条件 | 要件・料金・可用性の比較 | `models.list`, `models.get_requirements` | App 標準の model selector から使う。単独 Plugin は不要 |
+| Itonami Bots | 既存の status ページと JSON | `unmeasured` と障害を区別する運用確認 | `bots.get_status`（読取） | 運用 MCP 候補。専用 Plugin 不要 |
+| Endpoint Care | 開発中のローカル agent / binary | 端末監査と確認付き保守 | `endpoint.audit` と別権限の `endpoint.apply` | ローカル Plugin 候補。OS 権限・対象・dry run・変更確認が必要 |
+| CTEM | Security services の機能 | 所有資産の scope 設定、曝露検証 | `ctem.start_scan`, `ctem.get_exposure` | 共通 Security MCP / workbench Plugin。scan は許可済み資産のみ |
+| DAST | Security services の機能 | 認証シナリオ、範囲、再現証跡の確認 | `dast.start_scan`, `dast.get_finding` | 共通 Security MCP / workbench。実行前に対象と時間帯を確認 |
+| SAST | Security services の機能 | taint 経路と誤検知のレビュー | `sast.analyze`, `sast.get_finding` | 共通 Security MCP / workbench。コードの送信先を表示 |
+| SPECT | Security services の機能 | ヘッダ、ドメイン、URL の証跡確認 | `spect.analyze_message` | 共通 Security MCP / workbench。メールの機微情報と保持条件を明示 |
+| VM | 共通所見台帳 | 重複排除、優先順位、修正確認 | `vm.list_findings`, 別権限の `vm.update_finding` | 共通 Security MCP / workbench。台帳を正本にする |
+| GRC | 既存の決定論的評価 API | 入力と出典を確認しギャップを説明 | `grc.evaluate` | 共通 Security MCP / workbench。保存有無は API 契約に合わせる |
+| IR | 既存の対応手順 API | 事実と仮説を分けて手順をレビュー | `ir.generate_plan` | 共通 Security MCP / workbench。法定期限は人が確認し、自動提出しない |
+| DR | 既存の復旧計画 API | 依存関係、RTO/RPO、順序の検証 | `dr.generate_plan` | 共通 Security MCP / workbench。計画と復旧操作は別権限 |
+
+Security services の8項目は8個の独立 Plugin にせず、共通の **Security workbench** Plugin で表示・実行する案です。MCP は実装時に研究系・運用系・Security 系の接続先としてまとめ、Tool ごとの権限と入出力 schema は分けます。
 
 ## 登録の判定
 
@@ -33,6 +35,8 @@
 - **独立 UI / データ:** 人向けの画面や大規模データは元の host と API に置く。registry は接続方法と権限だけを配る。
 
 ## App が持つ導線
+
+`apps.mithril.fund` は公開製品・データ・文書の案内として維持できる。各カードの「サイトを開く」と「App で使う」は別の導線にし、後者は実際に配布可能な拡張だけに付ける。Knowledge Search と Twin のリンクは現在の提供先に向けたままにする。
 
 App は registry の index を読み、利用可能な拡張を検索・詳細表示・導入・無効化できるようにする。導入画面では source、version、checksum、権限、必要な account scope、料金、データ送信先を表示する。実行時の認証 token と秘密情報は registry に入れず app/API 側で扱う。導入履歴と使用履歴は account に紐づけて記録する。
 
