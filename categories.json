@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1",
+  "types": [
+    {
+      "type": "skill",
+      "count": 1,
+      "categories": [
+        {
+          "name": "research",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1",
+  "count": 1,
+  "entries": [
+    {
+      "id": "mithril-evidence-review",
+      "type": "skill",
+      "category": "research",
+      "name": "mithril-evidence-review",
+      "version": "0.1.0",
+      "description": "Review public security evidence with source links and dated claims when a user asks for a Mithril security research summary.",
+      "tags": [
+        "research",
+        "security",
+        "evidence"
+      ],
+      "author": "Mithril",
+      "license": "MIT",
+      "path": "skills/research/mithril-evidence-review",
+      "icon": null,
+      "checksum": "sha256:f7de80434835d821a0b83f4ebe4e9dad69729611d6b6e4b4db033e3c221596ec",
+      "compatibility": null,
+      "acceptsFunding": false
+    }
+  ]
+}
