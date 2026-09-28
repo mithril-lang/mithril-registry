@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1",
+  "type": "mcp",
+  "id": "mithril-graph",
+  "category": "data",
+  "name": "Mithril Graph MCP",
+  "version": "1.0.0",
+  "description": "Connect to Mithril's tenant-isolated Graph and Ontology database through authenticated read and write tools.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://github.com/cloud-kotoba/app-kotoba-cloud/blob/2b97b0236bcc71450c11dd62dc54d40b52be46a1/src/app_kotoba_cloud/mcp.cljk",
+  "tags": ["graph", "ontology", "database", "ipld"],
+  "transport": "streamable-http",
+  "url": "https://graph.mithril.fund/mcp",
+  "protocolVersion": "2025-06-18",
+  "authentication": {
+    "mode": "per-tool",
+    "credentialSource": "https://graph.mithril.fund/",
+    "credentialHeader": "Authorization",
+    "tenantHeader": "X-Kotobase-Tenant"
+  },
+  "permissions": ["network:graph.mithril.fund", "tenant-graph:read", "tenant-graph:write-optional"],
+  "tools": [
+    {"name": "graph_docs", "authentication": "none", "effect": "read"},
+    {"name": "graph_list_databases", "authentication": "tenant-service-account", "effect": "read"},
+    {"name": "graph_create_database", "authentication": "tenant-service-account", "effect": "write"},
+    {"name": "graph_db_stats", "authentication": "tenant-service-account", "effect": "read"},
+    {"name": "graph_transact", "authentication": "tenant-service-account", "effect": "write"},
+    {"name": "graph_query", "authentication": "tenant-service-account", "effect": "read"},
+    {"name": "graph_usage", "authentication": "tenant-service-account", "effect": "read"}
+  ],
+  "documentation": "https://graph.mithril.fund/agent-quickstart.md"
+}

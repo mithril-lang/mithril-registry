@@ -1,0 +1,16 @@
+name: mithril-app
+version: 0.3.0
+description: "Mithril governed Cron and semantic-action Kanban adapter for Hermes Desktop."
+author: kotoba-lang
+kind: standalone
+license: Apache-2.0
+homepage: https://github.com/mithril-lang/mithril-registry/tree/main/plugins/mithril-app
+requires_hermes: ">=0.21.4,<0.22"
+platforms:
+  - macos
+  - linux
+tags: [mithril, desktop, coding, automation, kanban]
+provides_tools: []
+provides_hooks: []
+provides_middleware: []
+requires_env: []

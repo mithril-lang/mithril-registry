@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1",
+  "type": "plugin",
+  "id": "mithril-app",
+  "category": "development",
+  "name": "Mithril App",
+  "version": "0.3.0",
+  "description": "Ontology-authored coding sessions, profile Cron controls, and governed Kanban dispatch for Hermes Desktop.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://github.com/mithril-lang/mithril-registry/tree/main/plugins/mithril-app",
+  "tags": ["desktop", "coding", "automation", "kanban"],
+  "permissions": ["local-workspace:user-selected", "hermes:sessions", "hermes:cron", "hermes:kanban"],
+  "artifact": {
+    "format": "zip",
+    "url": "https://github.com/mithril-lang/mithril-registry/releases/download/mithril-app-v0.3.0/mithril-app-0.3.0.zip",
+    "sha256": "f965a0f5fb565e803a64b4ef5001b616681b17a8f12758cacc0816bfb9c07c73",
+    "bytes": 10618
+  },
+  "compatibility": {
+    "clients": [
+      {"name": "Hermes Agent and Desktop", "version": ">=0.21.4,<0.22", "tested": "0.21.4"}
+    ],
+    "platforms": ["macos", "linux"]
+  },
+  "build": {
+    "sourceCommit": "3aca9fe0e568cdf6e19aa01ffd641716d705bd8a",
+    "artifactFormat": "https://mithril.fund/artifact/desktop-application-v1",
+    "graphDigest": "sha256:3458794e7977a624d1f215fbe2d2795dd57d717d03fc73e77fa60e7ea2848def"
+  }
+}

@@ -1,7 +1,39 @@
 {
   "schemaVersion": "1",
-  "count": 6,
+  "count": 8,
   "entries": [
+    {
+      "id": "mithril-graph",
+      "type": "mcp",
+      "category": "data",
+      "name": "Mithril Graph MCP",
+      "version": "1.0.0",
+      "description": "Connect to Mithril's tenant-isolated Graph and Ontology database through authenticated read and write tools.",
+      "tags": [
+        "graph",
+        "ontology",
+        "database",
+        "ipld"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-graph",
+      "icon": null,
+      "checksum": "sha256:202e9f0867d2f6e631ce24d4dc5df2c207220ec72fbbb09e79ea89ac98b9498d",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "network:graph.mithril.fund",
+        "tenant-graph:read",
+        "tenant-graph:write-optional"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "streamable-http",
+        "url": "https://graph.mithril.fund/mcp",
+        "authentication": "per-tool"
+      }
+    },
     {
       "id": "mithril-cloud",
       "type": "mcp",
@@ -32,6 +64,52 @@
         "transport": "streamable-http",
         "url": "https://mithril.fund/mcp",
         "authentication": "per-tool"
+      }
+    },
+    {
+      "id": "mithril-app",
+      "type": "plugin",
+      "category": "development",
+      "name": "Mithril App",
+      "version": "0.3.0",
+      "description": "Ontology-authored coding sessions, profile Cron controls, and governed Kanban dispatch for Hermes Desktop.",
+      "tags": [
+        "desktop",
+        "coding",
+        "automation",
+        "kanban"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "plugins/mithril-app",
+      "icon": null,
+      "checksum": "sha256:5816a7fde61f879868f6e79fa90c3ce372cda98e7249ebffc28e14fdeb7dab2a",
+      "compatibility": {
+        "clients": [
+          {
+            "name": "Hermes Agent and Desktop",
+            "version": ">=0.21.4,<0.22",
+            "tested": "0.21.4"
+          }
+        ],
+        "platforms": [
+          "macos",
+          "linux"
+        ]
+      },
+      "acceptsFunding": false,
+      "permissions": [
+        "local-workspace:user-selected",
+        "hermes:sessions",
+        "hermes:cron",
+        "hermes:kanban"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "zip",
+        "url": "https://github.com/mithril-lang/mithril-registry/releases/download/mithril-app-v0.3.0/mithril-app-0.3.0.zip",
+        "sha256": "f965a0f5fb565e803a64b4ef5001b616681b17a8f12758cacc0816bfb9c07c73",
+        "bytes": 10618
       }
     },
     {

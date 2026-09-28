@@ -13,8 +13,12 @@
     },
     {
       "type": "mcp",
-      "count": 1,
+      "count": 2,
       "categories": [
+        {
+          "name": "data",
+          "count": 1
+        },
         {
           "name": "research",
           "count": 1
@@ -32,6 +36,16 @@
         {
           "name": "research",
           "count": 2
+        }
+      ]
+    },
+    {
+      "type": "plugin",
+      "count": 1,
+      "categories": [
+        {
+          "name": "development",
+          "count": 1
         }
       ]
     }
