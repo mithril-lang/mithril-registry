@@ -8,11 +8,11 @@
 | 場所 | 責務 |
 | --- | --- |
 | この repository | Skill、MCP、Plugin、Tool の配布情報、権限、互換性、検証、生成 index |
-| `app.mithril.fund` | ユーザーの入口、インストールと有効化、Hermes セッション、実行履歴と権限確認 |
+| `app.mithril.fund` | ユーザーの入口、`/extensions` の発見画面、将来のインストールと有効化、Hermes セッション、実行履歴と権限確認 |
 | `api.mithril.fund` | 認証されたデータ操作、課金、監査、実際の API / MCP 実装 |
 | `mithril.fund` と専用 host | 人が読む製品情報、公開データ、ポリシー、Twin などの独立 UI |
 
-この repository の `index.json` は **実際に取得できる配布物だけ**を載せます。旧 Apps のカードを自動変換して「インストール可能」にしません。候補の振り分けは [移行マップ](docs/apps-migration.md) を参照してください。
+この repository の `index.json` は **実際に取得できる配布物だけ**を載せます。旧 Apps のカードを自動変換して「インストール可能」にしません。旧 `apps.mithril.fund` ページは廃止し、`app.mithril.fund/extensions` に入口を集める方針です。現在は両 host が旧 Worker 配信なので、本番切り替えは新しい行き先を検証してから行います。候補の振り分けは [移行マップ](docs/apps-migration.md) を参照してください。
 
 ## 収録形式
 

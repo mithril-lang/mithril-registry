@@ -36,8 +36,8 @@ Security services の8項目は8個の独立 Plugin にせず、共通の **Secu
 
 ## App が持つ導線
 
-`apps.mithril.fund` は公開製品・データ・文書の案内として維持できる。各カードの「サイトを開く」と「App で使う」は別の導線にし、後者は実際に配布可能な拡張だけに付ける。Knowledge Search と Twin のリンクは現在の提供先に向けたままにする。
+`apps.mithril.fund` の独立ページは終了し、旧 URL は `app.mithril.fund/extensions` へ転送する。個別の公開 JSON、schema、API、文書の URL は既存の提供先を維持する。Knowledge Search と Twin のリンクも現在の提供先に向けたままにする。転送は新 App の行き先が本番で確認できてから有効化する。
 
-App は registry の index を読み、利用可能な拡張を検索・詳細表示・導入・無効化できるようにする。導入画面では source、version、checksum、権限、必要な account scope、料金、データ送信先を表示する。実行時の認証 token と秘密情報は registry に入れず app/API 側で扱う。導入履歴と使用履歴は account に紐づけて記録する。
+App は現時点では検証済み Skill の source と既存サービスの行き先を表示する。将来は registry の index を読み、利用可能な拡張の検索・詳細表示・導入・無効化に進む。導入画面では source、version、checksum、権限、必要な account scope、料金、データ送信先を表示する。実行時の認証 token と秘密情報は registry に入れず app/API 側で扱う。導入履歴と使用履歴は account に紐づけて記録する。
 
 初版では `mithril-evidence-review` だけを installable とし、残りは設計上の候補です。旧 Apps の稼働ラベル、旧 API、旧ポリシーをそのまま移しません。
