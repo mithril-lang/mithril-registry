@@ -22,7 +22,7 @@
 - `tools/<name>/`: 実在する MCP Tool と HTTP 操作を結び、入力・出力 schema、認証、権限、副作用を記述します。Tool は単体インストールの対象ではありません。
 - `index.json`, `categories.json`: 検証済みの内容から生成する配布 index。直接編集しません。
 
-現在の登録物は読み取り手順 Skill 1件、[接続可能な Mithril Cloud MCP](mcp/mithril-cloud/manifest.json) 1件、その公開読み取り Tool 3件です。MCP の `kotoba_chat_completion` と `kotoba_research_status` は別途 personal API token が必要で、推論はアカウントの利用条件に従います。Tool manifest は MCP 内の操作を説明するもので、独立したインストール物ではありません。Graph MCP は現行公開 URL が MCP 応答を返すと確認できていないため収録していません。Plugin は実際の配布物と互換性が確認できてから追加します。
+現在の登録物は読み取り手順 Skill 2件、[接続可能な Mithril Cloud MCP](mcp/mithril-cloud/manifest.json) 1件、その公開読み取り Tool 3件です。MCP の `kotoba_chat_completion` と `kotoba_research_status` は別途 personal API token が必要で、推論はアカウントの利用条件に従います。Tool manifest は MCP 内の操作を説明するもので、独立したインストール物ではありません。Graph MCP は現行公開 URL が MCP 応答を返すと確認できていないため収録していません。Plugin は実際の配布物と互換性が確認できてから追加します。
 
 ## 開発
 

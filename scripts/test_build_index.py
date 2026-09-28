@@ -34,11 +34,12 @@ class RegistryTest(unittest.TestCase):
 
     def test_public_tools_are_not_standalone_installs(self):
         index, categories = build_index.build()
-        self.assertEqual(index["count"], 5)
+        self.assertEqual(index["count"], 6)
         self.assertEqual({entry["type"] for entry in index["entries"]}, {"skill", "mcp", "tool"})
+        self.assertEqual(sum(entry["type"] == "skill" for entry in index["entries"]), 2)
         self.assertTrue(next(entry for entry in index["entries"] if entry["type"] == "mcp")["installable"])
         self.assertTrue(all(not entry["installable"] for entry in index["entries"] if entry["type"] == "tool"))
-        self.assertEqual(sum(kind["count"] for kind in categories["types"]), 5)
+        self.assertEqual(sum(kind["count"] for kind in categories["types"]), 6)
 
     def test_tool_binding_must_match_real_mcp_tool(self):
         self.write_manifest("tools/knowledge-search/manifest.json", lambda data: data["mcp"].update(name="imaginary_tool"))
