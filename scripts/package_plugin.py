@@ -23,7 +23,10 @@ def main() -> None:
     output = args.output or ROOT / "dist" / f"{args.plugin}-{manifest['version']}.zip"
     output.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
-        for source in sorted(path for path in package.rglob("*") if path.is_file()):
+        for source in sorted(
+            path for path in package.rglob("*")
+            if path.is_file() and "__pycache__" not in path.parts and path.suffix != ".pyc"
+        ):
             relative = Path(args.plugin) / source.relative_to(package)
             info = zipfile.ZipInfo(relative.as_posix(), (1980, 1, 1, 0, 0, 0))
             info.compress_type = zipfile.ZIP_DEFLATED
