@@ -10,6 +10,30 @@
           "count": 1
         }
       ]
+    },
+    {
+      "type": "mcp",
+      "count": 1,
+      "categories": [
+        {
+          "name": "research",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "count": 3,
+      "categories": [
+        {
+          "name": "models",
+          "count": 1
+        },
+        {
+          "name": "research",
+          "count": 2
+        }
+      ]
     }
   ]
 }
