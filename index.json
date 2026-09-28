@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 5,
+  "count": 6,
   "entries": [
     {
       "id": "mithril-cloud",
@@ -51,6 +51,27 @@
       "path": "skills/research/mithril-evidence-review",
       "icon": null,
       "checksum": "sha256:f7de80434835d821a0b83f4ebe4e9dad69729611d6b6e4b4db033e3c221596ec",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true
+    },
+    {
+      "id": "mithril-pep-record-review",
+      "type": "skill",
+      "category": "research",
+      "name": "mithril-pep-record-review",
+      "version": "0.1.0",
+      "description": "Review a possible match in Mithril's public Japanese PEP snapshot with source and date checks; use for research on a named person, not for an automated clearance decision.",
+      "tags": [
+        "research",
+        "pep",
+        "source-review"
+      ],
+      "author": "Mithril",
+      "license": "MIT",
+      "path": "skills/research/mithril-pep-record-review",
+      "icon": null,
+      "checksum": "sha256:467eeda560bf7e0f839846f921a09b1f0d08e8868c0f250ffe3fba56a75e42cc",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true

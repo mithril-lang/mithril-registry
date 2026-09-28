@@ -4,7 +4,7 @@
 
 | 既存カード | 維持する本体 | Skill | Tool 候補 | MCP / Plugin の扱い |
 | --- | --- | --- | --- | --- |
-| PEP Registry | 出典・日付・ライセンス付き公開 snapshot と schema | PEP 記録と同名異人・鮮度の確認 | `pep.search`, `pep.get_record`（読取） | 研究 MCP に含める候補。専用 Plugin 不要。現行 screening 判定とは分ける |
+| PEP Registry | 出典・日付・ライセンス付き公開 snapshot と schema | `mithril-pep-record-review` を登録済み。PEP 記録と同名異人・鮮度の確認 | `pep.search`, `pep.get_record`（読取）は候補 | 研究 MCP に含める候補。専用 Plugin 不要。現行 screening 判定とは分ける |
 | eKYC 登録ガイド | `ekyc.md` と認証された登録 UI | 登録段階の案内 | `registration.get_status`（読取）のみ | 本人確認・決済は UI で実施。登録代行 Plugin は不要 |
 | Security Data Hub | KEV / ATT&CK / OTRF の公開データと閲覧 UI | 出典付き証跡の収集・照合。初版 Skill を活用 | `evidence.search`, `evidence.get_source` | 研究 MCP 候補。巨大データを Plugin に同梱しない |
 | コンプライアンス & 製品カタログ | 基準・製品データと比較 UI | 基準、対象国、版、出典を比較 | `catalog.search`, `catalog.compare` | 研究 MCP 候補。専用 Plugin 不要。価格・規制の鮮度を確認 |
@@ -38,6 +38,6 @@ Security services の8項目は8個の独立 Plugin にせず、共通の **Secu
 
 2026-09-28 に `apps.mithril.fund` の独立ページを終了し、旧 URL と Mithril 各 host の旧 `/apps` を `app.mithril.fund/extensions` へ 301 転送しました。`?lang=ja` などのクエリは維持します。個別の公開 JSON、schema、API、文書の URL は既存の提供先に残し、Knowledge Search と Twin も現在の提供先を維持しています。公開確認では新一覧が HTTP 200、旧 URL が 301、Knowledge Search と Twin がそれぞれ HTTP 200 でした。
 
-App は現時点では検証済み Skill の source と既存サービスの行き先を表示する。将来は registry の index を読み、利用可能な拡張の検索・詳細表示・導入・無効化に進む。導入画面では source、version、checksum、権限、必要な account scope、料金、データ送信先を表示する。実行時の認証 token と秘密情報は registry に入れず app/API 側で扱う。導入履歴と使用履歴は account に紐づけて記録する。
+App は現時点では検証済み Skill の source、接続可能な Mithril Cloud MCP と公開 Tool 3件、既存サービスへのリンクを表示する。将来は registry の index を読み、利用可能な拡張の検索・詳細表示・導入・無効化に進む。導入画面では source、version、checksum、権限、必要な account scope、料金、データ送信先を表示する。実行時の認証 token と秘密情報は registry に入れず app/API 側で扱う。導入履歴と使用履歴は account に紐づけて記録する。
 
-現在 `mithril-evidence-review` は Skill として配布でき、Mithril Cloud MCP は実際の URL に接続できます。登録した Knowledge Search / Context と Model Catalog の Tool manifest はその MCP 内の公開読み取り操作を説明します。ほかの Tool・MCP・Plugin は引き続き設計候補です。旧 Apps の稼働ラベル、旧 API、旧ポリシーをそのまま移しません。
+現在 `mithril-evidence-review` と `mithril-pep-record-review` は Skill として配布でき、Mithril Cloud MCP は実際の URL に接続できます。登録した Knowledge Search / Context と Model Catalog の Tool manifest はその MCP 内の公開読み取り操作を説明します。ほかの Tool・MCP・Plugin は引き続き設計候補です。Graph の公開 `/mcp` は現時点で HTML を返すため MCP 登録は保留です。Mithril Desktop / Hermes Plugin はローカル build の source があるものの、公開配布物とクライアント互換性を確認してから登録します。旧 Apps の稼働ラベル、旧 API、旧ポリシーをそのまま移しません。

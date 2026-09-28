@@ -3,11 +3,11 @@
   "types": [
     {
       "type": "skill",
-      "count": 1,
+      "count": 2,
       "categories": [
         {
           "name": "research",
-          "count": 1
+          "count": 2
         }
       ]
     },
