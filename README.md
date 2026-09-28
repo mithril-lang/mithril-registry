@@ -12,7 +12,7 @@
 | `api.mithril.fund` | 認証されたデータ操作、課金、監査、実際の API / MCP 実装 |
 | `mithril.fund` と専用 host | 人が読む製品情報、公開データ、ポリシー、Twin などの独立 UI |
 
-この repository の `index.json` は **実際に取得できる配布物だけ**を載せます。旧 Apps のカードを自動変換して「インストール可能」にしません。旧 `apps.mithril.fund` ページは廃止し、`app.mithril.fund/extensions` に入口を集める方針です。現在は両 host が旧 Worker 配信なので、本番切り替えは新しい行き先を検証してから行います。候補の振り分けは [移行マップ](docs/apps-migration.md) を参照してください。
+この repository の `index.json` は **実際に取得できる配布物だけ**を載せます。旧 Apps のカードを自動変換して「インストール可能」にしません。2026-09-28 に旧 `apps.mithril.fund` ページを終了し、`app.mithril.fund/extensions` に入口を移しました。旧 URL は 301 で転送されます。候補の振り分けは [移行マップ](docs/apps-migration.md) を参照してください。
 
 ## 収録形式
 
