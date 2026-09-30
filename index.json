@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1",
-  "count": 8,
+  "count": 7,
   "entries": [
     {
       "id": "mithril-graph",
       "type": "mcp",
       "category": "data",
       "name": "Mithril Graph MCP",
-      "version": "1.0.0",
-      "description": "Connect to Mithril's tenant-isolated Graph and Ontology database through authenticated read and write tools.",
+      "version": "1.0.1",
+      "description": "Connect to Mithril's Graph MCP endpoint, which currently serves one public read tool (graph_docs) returning documentation and receipt links.",
       "tags": [
         "graph",
         "ontology",
@@ -19,50 +19,17 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-graph",
       "icon": null,
-      "checksum": "sha256:202e9f0867d2f6e631ce24d4dc5df2c207220ec72fbbb09e79ea89ac98b9498d",
+      "checksum": "sha256:4ba0b8517934049b835222acfd92e79ee21e89b6b0c0c7b5be1098299c651f33",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
         "network:graph.mithril.fund",
-        "tenant-graph:read",
-        "tenant-graph:write-optional"
+        "public-data:read"
       ],
       "installable": true,
       "connection": {
         "transport": "streamable-http",
         "url": "https://graph.mithril.fund/mcp",
-        "authentication": "per-tool"
-      }
-    },
-    {
-      "id": "mithril-cloud",
-      "type": "mcp",
-      "category": "research",
-      "name": "Mithril Cloud MCP",
-      "version": "1.0.0",
-      "description": "Connect to Mithril's public evidence search and model catalog, with separate account authorization for research status and inference.",
-      "tags": [
-        "research",
-        "security",
-        "knowledge",
-        "models"
-      ],
-      "author": "Mithril",
-      "license": "Apache-2.0",
-      "path": "mcp/mithril-cloud",
-      "icon": null,
-      "checksum": "sha256:34814aa939c274f62123a6072a644ae44e354f37172decdccb6af0b72fa729f3",
-      "compatibility": null,
-      "acceptsFunding": false,
-      "permissions": [
-        "network:mithril.fund",
-        "public-data:read",
-        "research-inference:optional"
-      ],
-      "installable": true,
-      "connection": {
-        "transport": "streamable-http",
-        "url": "https://mithril.fund/mcp",
         "authentication": "per-tool"
       }
     },
@@ -159,7 +126,7 @@
       "type": "tool",
       "category": "models",
       "name": "Model Catalog",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "List Mithril inference models and their access gate state.",
       "tags": [
         "models",
@@ -170,7 +137,7 @@
       "license": "Apache-2.0",
       "path": "tools/model-catalog",
       "icon": null,
-      "checksum": "sha256:dc2d17f87c065ee80357bc2d24dceba32544575613284c42847d0921b37865dc",
+      "checksum": "sha256:bccb325b42eefc76b206b7697237f40948d2433afdfa93b9081fd7ef466d1cd6",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -179,9 +146,9 @@
       ],
       "installable": false,
       "connection": {
-        "viaMcp": {
-          "entry": "mithril-cloud",
-          "name": "kotoba_models"
+        "viaHttpCatalog": {
+          "url": "https://mithril.fund/.well-known/mcp.json",
+          "name": "mithril_models"
         }
       }
     },
@@ -190,7 +157,7 @@
       "type": "tool",
       "category": "research",
       "name": "Knowledge Context",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "Retrieve the source-linked evidence context for a public knowledge item ID.",
       "tags": [
         "research",
@@ -202,7 +169,7 @@
       "license": "Apache-2.0",
       "path": "tools/knowledge-context",
       "icon": null,
-      "checksum": "sha256:1a2cc1b9d8f3f87f6a0366c7307bff4259f76f889156022dd78fc9db33ce1087",
+      "checksum": "sha256:20b5c2b8c1d30a8480e50299b348f400b6a6ba5fdfeac4e7813b731a154bb260",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -211,9 +178,9 @@
       ],
       "installable": false,
       "connection": {
-        "viaMcp": {
-          "entry": "mithril-cloud",
-          "name": "kotoba_knowledge_context"
+        "viaHttpCatalog": {
+          "url": "https://mithril.fund/.well-known/mcp.json",
+          "name": "mithril_knowledge_context"
         }
       }
     },
@@ -222,7 +189,7 @@
       "type": "tool",
       "category": "research",
       "name": "Knowledge Search",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "Search public security evidence by query and return source-linked results.",
       "tags": [
         "research",
@@ -233,7 +200,7 @@
       "license": "Apache-2.0",
       "path": "tools/knowledge-search",
       "icon": null,
-      "checksum": "sha256:bec78410b9dda3ec3f3679c3ef64f17c5df6810ecb866da2f71d201703f47d9b",
+      "checksum": "sha256:7a3130b5d52611c4614996ba34ae920128fd3f526f3f0a95189baef49e4c1625",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -242,9 +209,9 @@
       ],
       "installable": false,
       "connection": {
-        "viaMcp": {
-          "entry": "mithril-cloud",
-          "name": "kotoba_knowledge_search"
+        "viaHttpCatalog": {
+          "url": "https://mithril.fund/.well-known/mcp.json",
+          "name": "mithril_knowledge_search"
         }
       }
     }

@@ -63,9 +63,10 @@ def manifest(path: Path, expected_type: str) -> dict:
                 raise ValueError(f"{path}: duplicate tool or invalid access/effect")
             names.add(tool["name"])
     elif expected_type == "tool":
-        binding, http = data.get("mcp"), data.get("http")
-        if not isinstance(binding, dict) or not all(isinstance(binding.get(k), str) and binding[k] for k in ("entry", "name")):
-            raise ValueError(f"{path}: tool needs an MCP binding")
+        binding, http = data.get("catalog"), data.get("http")
+        if not isinstance(binding, dict) or not all(isinstance(binding.get(k), str) and binding[k] for k in ("url", "name")):
+            raise ValueError(f"{path}: tool needs an HTTP tool catalog binding")
+        require_https(binding["url"], f"{path}: catalog.url")
         if not isinstance(http, dict) or http.get("method") != "GET" or not isinstance(http.get("query"), dict):
             raise ValueError(f"{path}: tool needs a GET HTTP fallback")
         require_https(http.get("url"), f"{path}: http.url")
@@ -192,19 +193,11 @@ def build() -> tuple[dict, dict]:
             if type_ == "mcp":
                 entry["connection"] = {"transport": data["transport"], "url": data["url"], "authentication": data["authentication"]["mode"]}
             elif type_ == "tool":
-                entry["connection"] = {"viaMcp": data["mcp"]}
+                entry["connection"] = {"viaHttpCatalog": data["catalog"]}
             else:
                 entry["artifact"] = data["artifact"]
                 entry["compatibility"] = data["compatibility"]
             entries.append(entry)
-    for tool in manifests["tool"].values():
-        binding = tool["mcp"]
-        server = manifests["mcp"].get(binding["entry"])
-        if server is None:
-            raise ValueError(f"{tool['id']}: MCP entry does not exist")
-        matched = next((item for item in server["tools"] if item["name"] == binding["name"]), None)
-        if matched is None or matched["authentication"] != tool["authentication"] or matched["effect"] != tool["effect"]:
-            raise ValueError(f"{tool['id']}: MCP tool contract does not match")
     if not entries:
         raise ValueError("registry must contain at least one validated package")
     entries.sort(key=lambda entry: (entry["type"], entry["category"], entry["id"]))
