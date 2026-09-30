@@ -4,30 +4,35 @@
   "id": "mithril-graph",
   "category": "data",
   "name": "Mithril Graph MCP",
-  "version": "1.0.0",
-  "description": "Connect to Mithril's tenant-isolated Graph and Ontology database through authenticated read and write tools.",
+  "version": "1.0.1",
+  "description": "Connect to Mithril's Graph MCP endpoint, which currently serves one public read tool (graph_docs) returning documentation and receipt links.",
   "author": "Mithril",
   "license": "Apache-2.0",
-  "source": "https://github.com/cloud-kotoba/app-kotoba-cloud/blob/2b97b0236bcc71450c11dd62dc54d40b52be46a1/src/app_kotoba_cloud/mcp.cljk",
-  "tags": ["graph", "ontology", "database", "ipld"],
+  "source": "https://graph.mithril.fund/.well-known/mcp.json",
+  "tags": [
+    "graph",
+    "ontology",
+    "database",
+    "ipld"
+  ],
   "transport": "streamable-http",
   "url": "https://graph.mithril.fund/mcp",
   "protocolVersion": "2025-06-18",
   "authentication": {
     "mode": "per-tool",
-    "credentialSource": "https://graph.mithril.fund/",
-    "credentialHeader": "Authorization",
-    "tenantHeader": "X-Kotobase-Tenant"
+    "credentialSource": "https://graph.mithril.fund/agent-quickstart.md",
+    "credentialHeader": "Authorization"
   },
-  "permissions": ["network:graph.mithril.fund", "tenant-graph:read", "tenant-graph:write-optional"],
+  "permissions": [
+    "network:graph.mithril.fund",
+    "public-data:read"
+  ],
   "tools": [
-    {"name": "graph_docs", "authentication": "none", "effect": "read"},
-    {"name": "graph_list_databases", "authentication": "tenant-service-account", "effect": "read"},
-    {"name": "graph_create_database", "authentication": "tenant-service-account", "effect": "write"},
-    {"name": "graph_db_stats", "authentication": "tenant-service-account", "effect": "read"},
-    {"name": "graph_transact", "authentication": "tenant-service-account", "effect": "write"},
-    {"name": "graph_query", "authentication": "tenant-service-account", "effect": "read"},
-    {"name": "graph_usage", "authentication": "tenant-service-account", "effect": "read"}
+    {
+      "name": "graph_docs",
+      "authentication": "none",
+      "effect": "read"
+    }
   ],
   "documentation": "https://graph.mithril.fund/agent-quickstart.md"
 }

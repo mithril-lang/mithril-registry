@@ -4,26 +4,65 @@
   "id": "knowledge-context",
   "category": "research",
   "name": "Knowledge Context",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Retrieve the source-linked evidence context for a public knowledge item ID.",
   "author": "Mithril",
   "license": "Apache-2.0",
-  "source": "https://github.com/cloud-kotoba/app-kotoba-cloud/blob/ff514610ec0a3f8bc7bf6dfdf220bc0df2955e84/src/app_kotoba_cloud/mcp.cljk",
-  "tags": ["research", "security", "knowledge", "evidence"],
-  "mcp": {"entry": "mithril-cloud", "name": "kotoba_knowledge_context"},
-  "http": {"method": "GET", "url": "https://mithril.fund/v1/knowledge/context", "query": {"id": "id"}},
+  "source": "https://mithril.fund/.well-known/mcp.json",
+  "tags": [
+    "research",
+    "security",
+    "knowledge",
+    "evidence"
+  ],
+  "catalog": {
+    "url": "https://mithril.fund/.well-known/mcp.json",
+    "name": "mithril_knowledge_context"
+  },
+  "http": {
+    "method": "GET",
+    "url": "https://mithril.fund/v1/knowledge/context",
+    "query": {
+      "id": "id"
+    }
+  },
   "authentication": "none",
   "effect": "read",
-  "permissions": ["network:mithril.fund", "public-data:read"],
+  "permissions": [
+    "network:mithril.fund",
+    "public-data:read"
+  ],
   "inputSchema": {
     "type": "object",
-    "required": ["id"],
-    "properties": {"id": {"type": "string", "minLength": 1, "maxLength": 200}},
+    "required": [
+      "id"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      }
+    },
     "additionalProperties": false
   },
   "outputSchema": {
     "type": "object",
-    "required": ["contextCid", "contextUrl", "context"],
-    "properties": {"contextCid": {"type": "object"}, "contextUrl": {"type": "string"}, "context": {"type": "object"}}
+    "required": [
+      "contextCid",
+      "contextUrl",
+      "context"
+    ],
+    "properties": {
+      "contextCid": {
+        "type": "object"
+      },
+      "contextUrl": {
+        "type": "string"
+      },
+      "context": {
+        "type": "object"
+      }
+    }
   }
 }

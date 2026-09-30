@@ -13,14 +13,10 @@
     },
     {
       "type": "mcp",
-      "count": 2,
+      "count": 1,
       "categories": [
         {
           "name": "data",
-          "count": 1
-        },
-        {
-          "name": "research",
           "count": 1
         }
       ]

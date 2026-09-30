@@ -9,10 +9,10 @@
 | Security Data Hub | KEV / ATT&CK / OTRF の公開データと閲覧 UI | 出典付き証跡の収集・照合。初版 Skill を活用 | `evidence.search`, `evidence.get_source` | 研究 MCP 候補。巨大データを Plugin に同梱しない |
 | コンプライアンス & 製品カタログ | 基準・製品データと比較 UI | 基準、対象国、版、出典を比較 | `catalog.search`, `catalog.compare` | 研究 MCP 候補。専用 Plugin 不要。価格・規制の鮮度を確認 |
 | Security Research AUP | 現行ポリシーの正本。旧 snapshot は履歴 | 許可範囲を読む手順 | `policy.get_current`（版・発効日付き） | MCP read resource 候補。Skill 自体は調査許可にならない |
-| Knowledge Search | **既存の検索 API と `knowledge.mithril.fund` を維持** | 結果の出典、期間、欠落を評価 | `kotoba_knowledge_search`, `kotoba_knowledge_context` を登録済み | 実際の `https://mithril.fund/mcp` に接続。App は薄い検索入口とリンクのみ。基盤を複製しない |
+| Knowledge Search | **既存の検索 API と `knowledge.mithril.fund` を維持** | 結果の出典、期間、欠落を評価 | `mithril_knowledge_search`, `mithril_knowledge_context` を登録済み（HTTP ツール） | `https://mithril.fund/v1/knowledge/*` の HTTP で接続（`mithril.fund/mcp` に MCP サーバはない）。App は薄い検索入口とリンクのみ。基盤を複製しない |
 | Kyber orgbrain | 管理 UI、ontology、BPMN、export | RACI・プロセス・リスクの読み解き | `orgbrain.query`, `orgbrain.export`（読取） | 必要なら要約と deep link の Plugin。管理 UI は複製しない |
 | Enterprise Digital Twin | **`twin.mithril.fund` の viewer と ontology を維持** | 出典・snapshot・推論を読み解く | `twin.get_entity`, `twin.query`（まず読取） | 実 MCP は後で登録。App は deep link や要約のみ。viewer を置換しない |
-| Model Catalog | 既存のモデル API と利用条件 | 要件・料金・可用性の比較 | `kotoba_models` を登録済み | 同じ MCP から公開読み取り可能。App 標準の model selector から使う。単独 Plugin は不要 |
+| Model Catalog | 既存のモデル API と利用条件 | 要件・料金・可用性の比較 | `mithril_models` を登録済み（HTTP ツール） | `api.mithril.fund/v1/models` から公開読み取り可能。App 標準の model selector から使う。単独 Plugin は不要 |
 | Itonami Bots | 既存の status ページと JSON | `unmeasured` と障害を区別する運用確認 | `bots.get_status`（読取） | 運用 MCP 候補。専用 Plugin 不要 |
 | Endpoint Care | 開発中のローカル agent / binary | 端末監査と確認付き保守 | `endpoint.audit` と別権限の `endpoint.apply` | ローカル Plugin 候補。OS 権限・対象・dry run・変更確認が必要 |
 | CTEM | Security services の機能 | 所有資産の scope 設定、曝露検証 | `ctem.start_scan`, `ctem.get_exposure` | 共通 Security MCP / workbench Plugin。scan は許可済み資産のみ |
