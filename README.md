@@ -18,11 +18,11 @@
 
 - `skills/<category>/<name>/SKILL.md`: [Agent Skills](https://agentskills.io/) 形式。手順と必要な参照情報を同梱します。
 - `mcp/<name>/`: 実際に接続できる（`initialize` と `tools/list` に応答する）サーバの transport、URL、認証、権限、Tool を manifest で記述します。HTTP の説明 JSON だけでは MCP と呼びません。
-- `plugins/<name>/`: Mithril Desktop / Hermes UI への組み込み単位。再現可能な artifact、SHA-256、検証した client version、UI と backend の権限を記述します。
+- `plugins/<name>/`: Mithril Desktop / Hermes UI への組み込み単位。再現可能な ZIP artifact、または review 済みの公開 Git commit、検証した client version、UI と backend の権限を記述します。
 - `tools/<name>/`: 公開 HTTP ツール一覧（`https://mithril.fund/.well-known/mcp.json`）の操作と HTTP 操作を結び、入力・出力 schema、認証、権限、副作用を記述します。Tool は単体インストールの対象ではありません。
 - `index.json`, `categories.json`: 検証済みの内容から生成する配布 index。直接編集しません。
 
-現在の登録物は読み取り手順 Skill 2件、接続可能な MCP 1件（Graph）、公開読み取り Tool 3件（HTTP のみ。`mithril.fund/mcp` に MCP サーバはありません）、Mithril App Plugin 1件です。[Mithril Graph MCP](mcp/mithril-graph/manifest.json) は公開 docs と tenant service account を使う graph 操作を分離しています。Tool manifest は公開 HTTP ツール一覧の操作を説明するもので、独立したインストール物ではありません。[Mithril App Plugin](plugins/mithril-app/manifest.json) は Hermes Agent/Desktop 0.21.4 で validator と Plugin Doctor を通した unified package です。
+現在の登録物は読み取り手順 Skill 2件、接続可能な MCP 1件（Graph）、公開読み取り Tool 3件（HTTP のみ。`mithril.fund/mcp` に MCP サーバはありません）、Plugin 2件です。[Mithril Graph MCP](mcp/mithril-graph/manifest.json) は公開 docs と tenant service account を使う graph 操作を分離しています。Tool manifest は公開 HTTP ツール一覧の操作を説明するもので、独立したインストール物ではありません。[Mithril App Plugin](plugins/mithril-app/manifest.json) は Hermes Agent/Desktop 0.21.4 で validator と Plugin Doctor を通した unified package です。[ZAP Proxy DAST](plugins/hermes-zap-proxy/README.md) は固定 Git commit から導入し、許可済み target だけを passive scan します。active scan は target ごとの明示許可が必要です。
 
 ## 開発
 
