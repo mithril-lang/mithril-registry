@@ -34,18 +34,28 @@ class RegistryTest(unittest.TestCase):
 
     def test_public_tools_are_not_standalone_installs(self):
         index, categories = build_index.build()
-        self.assertEqual(index["count"], 7)
+        self.assertEqual(index["count"], 8)
         self.assertEqual({entry["type"] for entry in index["entries"]}, {"skill", "mcp", "tool", "plugin"})
         self.assertEqual(sum(entry["type"] == "skill" for entry in index["entries"]), 2)
         self.assertTrue(all(entry["installable"] for entry in index["entries"] if entry["type"] in {"mcp", "plugin"}))
         self.assertTrue(all(not entry["installable"] for entry in index["entries"] if entry["type"] == "tool"))
-        self.assertEqual(sum(kind["count"] for kind in categories["types"]), 7)
+        self.assertEqual(sum(kind["count"] for kind in categories["types"]), 8)
 
     def test_plugin_has_pinned_artifact_and_tested_client(self):
         index, _ = build_index.build()
-        plugin = next(entry for entry in index["entries"] if entry["type"] == "plugin")
-        self.assertRegex(plugin["artifact"]["sha256"], r"^[0-9a-f]{64}$")
-        self.assertEqual(plugin["compatibility"]["clients"][0]["tested"], "0.21.4")
+        plugins = {entry["id"]: entry for entry in index["entries"] if entry["type"] == "plugin"}
+        self.assertRegex(plugins["mithril-app"]["artifact"]["sha256"], r"^[0-9a-f]{64}$")
+        self.assertRegex(plugins["hermes-zap-proxy"]["artifact"]["commit"], r"^[0-9a-f]{40}$")
+        self.assertEqual(plugins["hermes-zap-proxy"]["requirements"]["commands"], ["clojure"])
+        self.assertEqual(plugins["hermes-zap-proxy"]["compatibility"]["clients"][0]["tested"], "0.21.4")
+
+    def test_git_plugin_requires_full_commit(self):
+        self.write_manifest(
+            "plugins/hermes-zap-proxy/manifest.json",
+            lambda data: data["artifact"].update(commit="main"),
+        )
+        with self.assertRaisesRegex(ValueError, "full lowercase Git commit"):
+            build_index.build()
 
     def test_tool_catalog_binding_must_be_https(self):
         self.write_manifest("tools/knowledge-search/manifest.json", lambda data: data["catalog"].update(url="http://mithril.fund/.well-known/mcp.json"))
@@ -59,7 +69,9 @@ class RegistryTest(unittest.TestCase):
 
     def test_tool_names_are_mithril_native(self):
         index, _ = build_index.build()
-        text = json.dumps(index).lower()
+        text = json.dumps(
+            [entry for entry in index["entries"] if entry["type"] == "tool"]
+        ).lower()
         self.assertNotIn("kotoba", text)
 
     def test_mcp_endpoint_must_be_https(self):

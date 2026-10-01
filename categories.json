@@ -37,10 +37,14 @@
     },
     {
       "type": "plugin",
-      "count": 1,
+      "count": 2,
       "categories": [
         {
           "name": "development",
+          "count": 1
+        },
+        {
+          "name": "security",
           "count": 1
         }
       ]

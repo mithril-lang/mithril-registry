@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1",
+  "type": "plugin",
+  "id": "hermes-zap-proxy",
+  "category": "security",
+  "name": "ZAP Proxy DAST",
+  "version": "0.2.0",
+  "description": "Run passive or explicitly authorized active DAST scans with the clean-room kotoba-lang/zap-proxy decision core.",
+  "author": "Mithril",
+  "license": "MIT",
+  "source": "https://github.com/kotoba-lang/zap-proxy",
+  "tags": ["security", "dast", "web", "scanner"],
+  "permissions": [
+    "network:user-approved-targets",
+    "subprocess:clojure",
+    "active-scan:explicit-per-target-opt-in"
+  ],
+  "artifact": {
+    "format": "git",
+    "url": "https://github.com/kotoba-lang/zap-proxy",
+    "commit": "0c2d30f144b1bbfd58ec20331f0dfceadafbf77d"
+  },
+  "compatibility": {
+    "clients": [
+      {
+        "name": "Hermes Agent and Mithril Desktop",
+        "version": ">=0.21.4,<0.22",
+        "tested": "0.21.4"
+      }
+    ],
+    "platforms": ["macos", "linux"]
+  },
+  "requirements": {
+    "commands": ["clojure"]
+  },
+  "tools": ["zap_scan", "zap_scan_active", "zap_scan_rules"]
+}
