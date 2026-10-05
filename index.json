@@ -180,7 +180,7 @@
       "type": "skill",
       "category": "security",
       "name": "mithril-security-suite",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Run Mithril-defined VM, CSPM, DAST, SAST, dependency, container, host baseline, network, HTTP template and IaC assessments with bounded inputs and tenant-bound evidence receipts.",
       "tags": [
         "security",
@@ -196,7 +196,7 @@
       "license": "MIT",
       "path": "skills/security/mithril-security-suite",
       "icon": null,
-      "checksum": "sha256:76de3f114d9e92bfec2be4573bbe45694a5e139d81447d90ad7d59ac99dcfe63",
+      "checksum": "sha256:4a29d0f3f1ec7adf8608ac6c857245a2c9be5d7e41962c06c8d6c293c6d13bae",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,

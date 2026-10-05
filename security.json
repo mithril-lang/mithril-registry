@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1",
   "runtime": "mithril-security-suite/v1",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "operations": [
     {
       "id": "vm",
@@ -28,15 +28,18 @@
       "summary": "Assess cloud resources, permissions and reachable attack paths",
       "features": [
         "AWS Azure GCP Kubernetes normalizers",
-        "posture and attack paths"
+        "posture and attack paths",
+        "authenticated AWS Azure GCP collectors",
+        "wire-compatible sandbox conformance"
       ],
       "maturity": "local-conformance",
       "verification": "local-conformance",
       "gaps": [
-        "live cloud collection; agentless VM disk scanning"
+        "live cloud account qualification; agentless VM disk scanning"
       ],
       "tests": [
-        "scripts/test_security_core.py"
+        "scripts/test_security_core.py",
+        "scripts/test_security_executor.py"
       ]
     },
     {
@@ -46,7 +49,8 @@
       "summary": "Inspect HTTP responses and explicitly approved active probes",
       "features": [
         "passive ZAP rules",
-        "five active rule families"
+        "five active rule families",
+        "origin-bound credential references and authenticated response assertions"
       ],
       "maturity": "local-conformance",
       "verification": "local-conformance",
@@ -54,7 +58,8 @@
         "authenticated browser workflows; POST and JSON mutation"
       ],
       "tests": [
-        "scripts/test_security_core.py"
+        "scripts/test_security_core.py",
+        "scripts/test_security_executor.py"
       ]
     },
     {

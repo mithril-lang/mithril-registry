@@ -1,7 +1,7 @@
 ---
 name: mithril-security-suite
 description: Run Mithril-defined VM, CSPM, DAST, SAST, dependency, container, host baseline, network, HTTP template and IaC assessments with bounded inputs and tenant-bound evidence receipts.
-version: 0.1.0
+version: 0.1.1
 author: Mithril
 license: MIT
 metadata:
@@ -52,3 +52,11 @@ does not print source bodies or secret candidate values, mutate infrastructure,
 apply patches, create update PRs, deploy, or send notifications. Store receipts
 only in the authorized tenant's evidence store; external delivery requires its
 own authorization and authenticated adapter.
+
+## Provisioned executors and sandbox validation
+
+The App/Desktop security protocol selects operator-provisioned target IDs; it never carries cloud credentials or scan scope. Run `runtime/executor.py HOST.json --journal /private/path/security.sqlite` once per poll. The host registers its descriptors, claims one job, journals intent before effects, and reports a bounded receipt to the owner-scoped API. Repeat polls retry receipt acknowledgement without repeating scans.
+
+`--target TARGET --id OPERATION` performs one local provisioned operation without the API. A repeated operation ID is refused, including after restart. Configure credential environment references in host policy only. Authenticated DAST supports an origin-bound Authorization, Cookie or X-API-Key header with explicit successful status and body assertions; login redirects, failed assertions and out-of-scope requests are refused.
+
+AWS, Azure and GCP use the pinned security-core agent's authenticated read-only collectors and posture engine. Sandbox mode requires a loopback emulator and scopes every provider fetch, pagination link and redirect. Real account qualification and production maturity remain separate. See [executor contract](executor.md).
