@@ -1,0 +1,11 @@
+(mithril/component
+  :id "https://mithril.fund/lib/fund/mithril/security/sca/v1"
+  :domain "fund.mithril.security.sca"
+  :version 1
+  :provides ["contract"]
+  :requires ["fund.mithril.security.evidence"]
+  :exports [(mithril/export
+              :symbol "https://mithril.fund/lib/fund/mithril/security/sca/v1/analyzer/assess"
+              :kind "mith:analyzer"
+              :label "Read supplied lock files and match resolved dependencies"
+              :confidence-floor 10000)])

@@ -1,0 +1,11 @@
+(mithril/component
+  :id "https://mithril.fund/lib/fund/mithril/security/infra/v1"
+  :domain "fund.mithril.security.infra"
+  :version 1
+  :provides ["contract"]
+  :requires ["fund.mithril.security.evidence"]
+  :exports [(mithril/export
+              :symbol "https://mithril.fund/lib/fund/mithril/security/infra/v1/analyzer/assess"
+              :kind "mith:analyzer"
+              :label "Compare reported host settings against explicit baselines"
+              :confidence-floor 10000)])

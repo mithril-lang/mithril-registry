@@ -11,6 +11,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 import yaml
+import security_catalog
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "skills"
@@ -140,7 +141,7 @@ def package_checksum(folder: Path) -> str:
     digest = hashlib.sha256()
     files = sorted(
         path for path in folder.rglob("*")
-        if path.is_file() and "__pycache__" not in path.parts and path.suffix != ".pyc"
+        if path.is_file() and not {"__pycache__", ".nbb"}.intersection(path.parts) and path.suffix != ".pyc"
     )
     for path in files:
         rel = path.relative_to(folder).as_posix().encode()
@@ -172,7 +173,7 @@ def build() -> tuple[dict, dict]:
         tags = metadata.get("tags", [])
         if not isinstance(tags, list) or not all(isinstance(tag, str) for tag in tags):
             raise ValueError(f"{path}: tags must be strings")
-        entries.append({
+        entry = {
             "id": data["name"],
             "type": "skill",
             "category": category,
@@ -188,7 +189,14 @@ def build() -> tuple[dict, dict]:
             "compatibility": metadata.get("compatibility"),
             "acceptsFunding": False,
             "installable": True,
-        })
+        }
+        if data['name'] == 'mithril-security-suite':
+            security = security_catalog.build(ROOT)
+            if security['version'] != data['version']:
+                raise ValueError('security skill and capability versions differ')
+            entry['security'] = {'catalog': 'security.json',
+                                 'operations': [op['id'] for op in security['operations']]}
+        entries.append(entry)
     manifests = {type_: {} for type_ in MANIFEST_TYPES}
     for type_ in MANIFEST_TYPES:
         for path in sorted((ROOT / MANIFEST_DIRS[type_]).glob("*/manifest.json")):
@@ -240,7 +248,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
-    for name, value in zip(("index.json", "categories.json"), build()):
+    index, categories = build()
+    for name, value in (("index.json", index), ("categories.json", categories),
+                        ("security.json", security_catalog.build(ROOT))):
         target = ROOT / name
         expected = json.dumps(value, ensure_ascii=False, indent=2) + "\n"
         if args.check:

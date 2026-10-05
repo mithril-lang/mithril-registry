@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1",
+  "tenant": "synthetic-demo",
+  "operations": [
+    {
+      "id": "sast",
+      "input": {
+        "files": [
+          {
+            "path": "app.py",
+            "content": "import os\nx = input()\nos.system(x)\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "infra",
+      "input": {
+        "baseline": {
+          "firewallEnabled": true
+        },
+        "assets": [
+          {
+            "id": "host-demo",
+            "settings": {
+              "firewallEnabled": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "templates",
+      "input": {
+        "responses": [
+          {
+            "url": "https://example.test/",
+            "headers": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "iac",
+      "input": {
+        "files": [
+          {
+            "path": "pod.json",
+            "content": "{\"kind\": \"Pod\", \"spec\": {\"containers\": [{\"name\": \"demo\", \"securityContext\": {\"privileged\": true}}]}}"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+(mithril/component
+  :id "https://mithril.fund/lib/fund/mithril/security/dast/v1"
+  :domain "fund.mithril.security.dast"
+  :version 1
+  :provides ["contract"]
+  :requires ["fund.mithril.security.evidence"]
+  :exports [(mithril/export
+              :symbol "https://mithril.fund/lib/fund/mithril/security/dast/v1/analyzer/assess"
+              :kind "mith:analyzer"
+              :label "Inspect HTTP responses and explicitly approved active probes"
+              :confidence-floor 10000)])

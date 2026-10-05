@@ -1,0 +1,11 @@
+(mithril/component
+  :id "https://mithril.fund/lib/fund/mithril/security/templates/v1"
+  :domain "fund.mithril.security.templates"
+  :version 1
+  :provides ["contract"]
+  :requires ["fund.mithril.security.evidence"]
+  :exports [(mithril/export
+              :symbol "https://mithril.fund/lib/fund/mithril/security/templates/v1/analyzer/assess"
+              :kind "mith:analyzer"
+              :label "Evaluate curated passive HTTP configuration templates"
+              :confidence-floor 10000)])

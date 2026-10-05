@@ -1,0 +1,212 @@
+{
+  "schemaVersion": "1",
+  "runtime": "mithril-security-suite/v1",
+  "version": "0.1.0",
+  "operations": [
+    {
+      "id": "vm",
+      "symbol": "https://mithril.fund/lib/fund/mithril/security/vm/v1/analyzer/assess",
+      "engine": "core",
+      "summary": "Match installed components and SBOM against supplied OSV advisories",
+      "features": [
+        "ecosystem-aware matching",
+        "CVSS and VEX"
+      ],
+      "maturity": "local-conformance",
+      "verification": "local-conformance",
+      "gaps": [
+        "network credentialed scanner; advisory feed acquisition"
+      ],
+      "tests": [
+        "scripts/test_security_core.py"
+      ]
+    },
+    {
+      "id": "cspm",
+      "symbol": "https://mithril.fund/lib/fund/mithril/security/cspm/v1/analyzer/assess",
+      "engine": "core",
+      "summary": "Assess cloud resources, permissions and reachable attack paths",
+      "features": [
+        "AWS Azure GCP Kubernetes normalizers",
+        "posture and attack paths"
+      ],
+      "maturity": "local-conformance",
+      "verification": "local-conformance",
+      "gaps": [
+        "live cloud collection; agentless VM disk scanning"
+      ],
+      "tests": [
+        "scripts/test_security_core.py"
+      ]
+    },
+    {
+      "id": "dast",
+      "symbol": "https://mithril.fund/lib/fund/mithril/security/dast/v1/analyzer/assess",
+      "engine": "core",
+      "summary": "Inspect HTTP responses and explicitly approved active probes",
+      "features": [
+        "passive ZAP rules",
+        "five active rule families"
+      ],
+      "maturity": "local-conformance",
+      "verification": "local-conformance",
+      "gaps": [
+        "authenticated browser workflows; POST and JSON mutation"
+      ],
+      "tests": [
+        "scripts/test_security_core.py"
+      ]
+    },
+    {
+      "id": "sast",
+      "symbol": "https://mithril.fund/lib/fund/mithril/security/sast/v1/analyzer/assess",
+      "engine": "native",
+      "summary": "Track Python request input into command, SQL and eval sinks",
+      "features": [
+        "Python AST source and sink candidate analysis"
+      ],
+      "maturity": "local-conformance",
+      "verification": "local-conformance",
+      "gaps": [
+        "interprocedural dataflow; JavaScript Java and native language analysis"
+      ],
+      "tests": [
+        "scripts/test_security_suite.py"
+      ]
+    },
+    {
+      "id": "sca",
+      "symbol": "https://mithril.fund/lib/fund/mithril/security/sca/v1/analyzer/assess",
+      "engine": "core",
+      "summary": "Read supplied lock files and match resolved dependencies",
+      "features": [
+        "manifest parsing",
+        "OSV matching"
+      ],
+      "maturity": "local-conformance",
+      "verification": "local-conformance",
+      "gaps": [
+        "automatic advisory feed; dependency update PRs"
+      ],
+      "tests": [
+        "scripts/test_security_core.py"
+      ]
+    },
+    {
+      "id": "container",
+      "symbol": "https://mithril.fund/lib/fund/mithril/security/container/v1/analyzer/assess",
+      "engine": "core",
+      "summary": "Inspect supplied extracted OCI filesystem metadata",
+      "features": [
+        "Debian Alpine inventory",
+        "manifest and OSV matching"
+      ],
+      "maturity": "local-conformance",
+      "verification": "local-conformance",
+      "gaps": [
+        "registry transport and layer integrity are upstream collector responsibilities"
+      ],
+      "tests": [
+        "scripts/test_security_core.py"
+      ]
+    },
+    {
+      "id": "infra",
+      "symbol": "https://mithril.fund/lib/fund/mithril/security/infra/v1/analyzer/assess",
+      "engine": "native",
+      "summary": "Compare reported host settings against explicit baselines",
+      "features": [
+        "known host settings",
+        "missing-setting coverage"
+      ],
+      "maturity": "local-conformance",
+      "verification": "local-conformance",
+      "gaps": [
+        "remote authenticated OS collection; broad service vulnerability probes"
+      ],
+      "tests": [
+        "scripts/test_security_suite.py"
+      ]
+    },
+    {
+      "id": "network",
+      "symbol": "https://mithril.fund/lib/fund/mithril/security/network/v1/analyzer/assess",
+      "engine": "native",
+      "summary": "Connect to a finite list of approved IP and port pairs",
+      "features": [
+        "bounded TCP connect",
+        "open closed and unmeasured distinction"
+      ],
+      "maturity": "local-conformance",
+      "verification": "local-conformance",
+      "gaps": [
+        "UDP discovery; OS fingerprinting; service version detection"
+      ],
+      "tests": [
+        "scripts/test_security_suite.py"
+      ]
+    },
+    {
+      "id": "templates",
+      "symbol": "https://mithril.fund/lib/fund/mithril/security/templates/v1/analyzer/assess",
+      "engine": "native",
+      "summary": "Evaluate curated passive HTTP configuration templates",
+      "features": [
+        "security header templates",
+        "response evidence digests"
+      ],
+      "maturity": "local-conformance",
+      "verification": "local-conformance",
+      "gaps": [
+        "Nuclei template compatibility; large CVE template feed"
+      ],
+      "tests": [
+        "scripts/test_security_suite.py"
+      ]
+    },
+    {
+      "id": "iac",
+      "symbol": "https://mithril.fund/lib/fund/mithril/security/iac/v1/analyzer/assess",
+      "engine": "native",
+      "summary": "Inspect JSON Terraform and Kubernetes config and source secret candidates",
+      "features": [
+        "public admin ingress",
+        "privileged pods",
+        "secret candidate metadata"
+      ],
+      "maturity": "local-conformance",
+      "verification": "local-conformance",
+      "gaps": [
+        "HCL YAML parsing; cloud provider completeness; secret validity checks"
+      ],
+      "tests": [
+        "scripts/test_security_suite.py"
+      ]
+    }
+  ],
+  "engines": {
+    "security-core": {
+      "commit": "c4d63825241e91347ec30fef4b7a2bbfee6768cd",
+      "sourceAccess": "operator-provided; not redistributed"
+    },
+    "vm": {
+      "commit": "c16dc77d4cf4be4cae900d7ce9d67c6676d82988",
+      "sourceAccess": "operator-provided; not redistributed"
+    },
+    "cspm": {
+      "commit": "ecb65a25c136aba2afe602394264fd50ab3e5364",
+      "sourceAccess": "operator-provided; not redistributed"
+    },
+    "zap-proxy": {
+      "commit": "0c2d30f144b1bbfd58ec20331f0dfceadafbf77d",
+      "sourceAccess": "operator-provided; not redistributed"
+    }
+  },
+  "verificationReceipt": "docs/security-verification-2026-10-05.md",
+  "distribution": {
+    "type": "skill",
+    "id": "mithril-security-suite",
+    "path": "skills/security/mithril-security-suite"
+  },
+  "policyDigest": "1b50472e3741471f7da855fe8535d7dcc4f9ec3ef5801d2f735da16fbad2c453"
+}

@@ -1,0 +1,11 @@
+(mithril/component
+  :id "https://mithril.fund/lib/fund/mithril/security/evidence/v1"
+  :domain "fund.mithril.security.evidence"
+  :version 1
+  :provides ["contract"]
+  :requires []
+  :exports [(mithril/export
+              :symbol "https://mithril.fund/lib/fund/mithril/security/evidence/v1/validator/receipt"
+              :kind "mith:validator"
+              :label "Bind tenant, inputs, policy, coverage and finding identity"
+              :confidence-floor 10000)])

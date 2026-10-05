@@ -14,7 +14,7 @@ class RegistryTest(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
-        for dirname in ("skills", "mcp", "tools", "plugins"):
+        for dirname in ("skills", "mcp", "tools", "plugins", "scripts"):
             shutil.copytree(build_index.ROOT / dirname, self.root / dirname)
         self.root_patch = patch.object(build_index, "ROOT", self.root)
         self.skills_patch = patch.object(build_index, "SKILLS", self.root / "skills")
@@ -34,12 +34,20 @@ class RegistryTest(unittest.TestCase):
 
     def test_public_tools_are_not_standalone_installs(self):
         index, categories = build_index.build()
-        self.assertEqual(index["count"], 8)
+        self.assertEqual(index["count"], 9)
         self.assertEqual({entry["type"] for entry in index["entries"]}, {"skill", "mcp", "tool", "plugin"})
-        self.assertEqual(sum(entry["type"] == "skill" for entry in index["entries"]), 2)
+        self.assertEqual(sum(entry["type"] == "skill" for entry in index["entries"]), 3)
         self.assertTrue(all(entry["installable"] for entry in index["entries"] if entry["type"] in {"mcp", "plugin"}))
         self.assertTrue(all(not entry["installable"] for entry in index["entries"] if entry["type"] == "tool"))
-        self.assertEqual(sum(kind["count"] for kind in categories["types"]), 8)
+        self.assertEqual(sum(kind["count"] for kind in categories["types"]), 9)
+
+    def test_runtime_dependency_cache_does_not_change_distribution_checksum(self):
+        folder = self.root / 'skills/security/mithril-security-suite'
+        before = build_index.package_checksum(folder)
+        cache = folder / '.nbb/.cache/test-runtime'
+        cache.mkdir(parents=True, exist_ok=True)
+        (cache / 'dependency.jar').write_bytes(b'local cache')
+        self.assertEqual(before, build_index.package_checksum(folder))
 
     def test_plugin_has_pinned_artifact_and_tested_client(self):
         index, _ = build_index.build()
