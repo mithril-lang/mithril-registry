@@ -1,0 +1,11 @@
+(mithril/component
+  :id "https://mithril.fund/lib/fund/mithril/security/network/v1"
+  :domain "fund.mithril.security.network"
+  :version 1
+  :provides ["contract"]
+  :requires ["fund.mithril.security.evidence"]
+  :exports [(mithril/export
+              :symbol "https://mithril.fund/lib/fund/mithril/security/network/v1/analyzer/assess"
+              :kind "mith:analyzer"
+              :label "Connect to a finite list of approved IP and port pairs"
+              :confidence-floor 10000)])

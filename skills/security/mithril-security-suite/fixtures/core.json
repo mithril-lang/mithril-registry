@@ -1,0 +1,113 @@
+{
+  "schemaVersion": "1",
+  "tenant": "synthetic-demo",
+  "operations": [
+    {
+      "id": "vm",
+      "input": {
+        "components": [
+          {
+            "name": "demo",
+            "version": "1.0.0",
+            "ecosystem": "npm"
+          }
+        ],
+        "advisories": [
+          {
+            "id": "SYNTHETIC-ADVISORY",
+            "affected": [
+              {
+                "package": {
+                  "ecosystem": "npm",
+                  "name": "demo"
+                },
+                "versions": [
+                  "1.0.0"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cspm",
+      "input": {
+        "resources": [
+          {
+            "resource/id": "sg-demo",
+            "resource/provider": "aws",
+            "resource/type": "firewall-rule",
+            "resource/config": {
+              "world-open-admin-port?": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "dast",
+      "input": {
+        "responses": [
+          {
+            "url": "https://example.test/",
+            "status": 200,
+            "headers": {},
+            "body": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "sca",
+      "input": {
+        "files": [
+          {
+            "path": "package-lock.json",
+            "content": "{\"lockfileVersion\": 2, \"packages\": {\"node_modules/demo\": {\"version\": \"1.0.0\"}}}"
+          }
+        ],
+        "advisories": [
+          {
+            "id": "SYNTHETIC-ADVISORY",
+            "affected": [
+              {
+                "package": {
+                  "ecosystem": "npm",
+                  "name": "demo"
+                },
+                "versions": [
+                  "1.0.0"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "container",
+      "input": {
+        "extracted": {
+          "app/package-lock.json": "{\"lockfileVersion\": 2, \"packages\": {\"node_modules/demo\": {\"version\": \"1.0.0\"}}}"
+        },
+        "advisories": [
+          {
+            "id": "SYNTHETIC-ADVISORY",
+            "affected": [
+              {
+                "package": {
+                  "ecosystem": "npm",
+                  "name": "demo"
+                },
+                "versions": [
+                  "1.0.0"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

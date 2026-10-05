@@ -1,0 +1,11 @@
+(mithril/component
+  :id "https://mithril.fund/lib/fund/mithril/security/cspm/v1"
+  :domain "fund.mithril.security.cspm"
+  :version 1
+  :provides ["contract"]
+  :requires ["fund.mithril.security.evidence"]
+  :exports [(mithril/export
+              :symbol "https://mithril.fund/lib/fund/mithril/security/cspm/v1/analyzer/assess"
+              :kind "mith:analyzer"
+              :label "Assess cloud resources, permissions and reachable attack paths"
+              :confidence-floor 10000)])

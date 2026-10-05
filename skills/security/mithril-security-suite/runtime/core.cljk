@@ -1,0 +1,82 @@
+(ns mithril.security-core-adapter
+  "JSON-only host seam. Reuses installed engines; performs no network or file discovery."
+  (:require [kotoba-cloud.vm.service :as vm]
+            [kotoba-cloud.cspm.service :as cspm]
+            [ai-gftd.cybersecurity.product.manifest :as manifest]
+            [ai-gftd.cybersecurity.product.oci :as oci]
+            [ai-gftd.cybersecurity.product.inventory :as inventory]
+            [kotoba.zap-proxy.passive :as passive]
+            [kotoba.zap-proxy.active :as active]
+            ["node:fs" :as fs]))
+
+(defn json-safe [x]
+  (cond
+    (keyword? x) (subs (str x) 1)
+    (map? x) (into {} (map (fn [[k v]] [(if (keyword? k) (subs (str k) 1) k)
+                                      (json-safe v)]) x))
+    (sequential? x) (mapv json-safe x)
+    (set? x) (mapv json-safe (sort x))
+    :else x))
+
+(defn components-json [components]
+  (mapv (fn [c] {:name (:package/name c) :version (:package/version c)
+                :ecosystem (name (:package/ecosystem c))
+                :distro (:package/distro c) :architecture (:package/architecture c)}) components))
+
+(defn parse-manifest [path text]
+  (manifest/parse path (if (re-find #"\.json$" path)
+                        (js->clj (.parse js/JSON text)) text)))
+
+(defn run [operation input]
+  (case operation
+    "vm" (vm/match input)
+    "cspm" (cspm/assess input)
+    "sca" (let [parsed (mapv (fn [{:keys [path content]}]
+                                 (or (parse-manifest path content)
+                                     {:manifest/gaps [{:path path :error "unsupported-manifest"}]}))
+                               (:files input))
+                result (update (manifest/summarize parsed) :manifest/gaps
+                               into (mapcat :manifest/gaps parsed))]
+            {:inventory result
+             :match (when (seq (:manifest/components result))
+                      (vm/match {:components (components-json (:manifest/components result))
+                                 :advisories (:advisories input) :vex (:vex input)}))})
+    "container" (let [result (oci/image-inventory
+                              {:extracted (json-safe (:extracted input))
+                               :os-release (:os-release input)
+                               :unreadable-layers (:unreadable-layers input)
+                               :parsers {:debian inventory/parse-dpkg-status
+                                         :alpine inventory/parse-apk-installed}
+                               :manifest-parse parse-manifest
+                               :manifest-summarize manifest/summarize})]
+                  {:inventory result
+                   :match (when (seq (:image/components result))
+                            (vm/match {:components (components-json (:image/components result))
+                                       :advisories (:advisories input) :vex (:vex input)}))})
+    "dast" {:findings (mapv json-safe
+                            (mapcat (fn [{:keys [url status headers body]}]
+                                      (passive/passive-scan {:url url}
+                                                            {:status status :headers (json-safe headers) :body body}))
+                                    (:responses input)))}
+    "dast-probes" {:findings (active/active-scan
+                              {:url (:url input) :baseline {:body (:baseline input)}
+                               :send-fn (fn [{:keys [url]}]
+                                          (get (:probes input) (keyword url)))})}
+    "dast-plan" (let [requests (atom [])]
+                  (active/active-scan {:url (:url input) :baseline {:body ""}
+                                       :send-fn (fn [request]
+                                                  (swap! requests conj (:url request))
+                                                  {:body ""})})
+                  {:requests (vec (distinct @requests))})
+    (throw (ex-info "unknown engine operation" {}))))
+
+(try
+  (let [raw (.readFileSync fs 0 "utf8")
+        _ (when (> (count raw) (* 2 1024 1024)) (throw (ex-info "over input limit" {})))
+        request (js->clj (.parse js/JSON raw) :keywordize-keys true)
+        result (run (:operation request) (:input request))]
+    (println (.stringify js/JSON (clj->js (json-safe result)))))
+  (catch :default _
+    ;; Engine errors can contain input values. Keep them out of public receipts.
+    (println "{\"ok\":false,\"error\":\"engine-refused\"}")
+    (set! (.-exitCode js/process) 1)))

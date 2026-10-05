@@ -1,0 +1,11 @@
+(mithril/component
+  :id "https://mithril.fund/lib/fund/mithril/security/container/v1"
+  :domain "fund.mithril.security.container"
+  :version 1
+  :provides ["contract"]
+  :requires ["fund.mithril.security.evidence"]
+  :exports [(mithril/export
+              :symbol "https://mithril.fund/lib/fund/mithril/security/container/v1/analyzer/assess"
+              :kind "mith:analyzer"
+              :label "Inspect supplied extracted OCI filesystem metadata"
+              :confidence-floor 10000)])

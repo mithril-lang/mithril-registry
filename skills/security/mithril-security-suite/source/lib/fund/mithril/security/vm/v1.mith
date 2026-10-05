@@ -1,0 +1,11 @@
+(mithril/component
+  :id "https://mithril.fund/lib/fund/mithril/security/vm/v1"
+  :domain "fund.mithril.security.vm"
+  :version 1
+  :provides ["contract"]
+  :requires ["fund.mithril.security.evidence"]
+  :exports [(mithril/export
+              :symbol "https://mithril.fund/lib/fund/mithril/security/vm/v1/analyzer/assess"
+              :kind "mith:analyzer"
+              :label "Match installed components and SBOM against supplied OSV advisories"
+              :confidence-floor 10000)])

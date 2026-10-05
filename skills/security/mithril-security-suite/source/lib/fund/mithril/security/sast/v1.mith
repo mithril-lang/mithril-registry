@@ -1,0 +1,11 @@
+(mithril/component
+  :id "https://mithril.fund/lib/fund/mithril/security/sast/v1"
+  :domain "fund.mithril.security.sast"
+  :version 1
+  :provides ["contract"]
+  :requires ["fund.mithril.security.evidence"]
+  :exports [(mithril/export
+              :symbol "https://mithril.fund/lib/fund/mithril/security/sast/v1/analyzer/assess"
+              :kind "mith:analyzer"
+              :label "Track Python request input into command, SQL and eval sinks"
+              :confidence-floor 10000)])

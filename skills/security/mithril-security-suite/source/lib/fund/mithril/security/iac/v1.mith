@@ -1,0 +1,11 @@
+(mithril/component
+  :id "https://mithril.fund/lib/fund/mithril/security/iac/v1"
+  :domain "fund.mithril.security.iac"
+  :version 1
+  :provides ["contract"]
+  :requires ["fund.mithril.security.evidence"]
+  :exports [(mithril/export
+              :symbol "https://mithril.fund/lib/fund/mithril/security/iac/v1/analyzer/assess"
+              :kind "mith:analyzer"
+              :label "Inspect JSON Terraform and Kubernetes config and source secret candidates"
+              :confidence-floor 10000)])

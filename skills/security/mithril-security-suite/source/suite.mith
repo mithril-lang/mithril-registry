@@ -1,0 +1,3 @@
+(mithril/assembly
+  :id "https://mithril.fund/security/suite/v1"
+  :components ["fund.mithril.security.vm" "fund.mithril.security.cspm" "fund.mithril.security.dast" "fund.mithril.security.sast" "fund.mithril.security.sca" "fund.mithril.security.container" "fund.mithril.security.infra" "fund.mithril.security.network" "fund.mithril.security.templates" "fund.mithril.security.iac"])

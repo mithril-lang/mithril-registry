@@ -1,0 +1,123 @@
+{
+  "compiler": {
+    "commit": "439a202fcf5ad5d0712217c98deb0bfac56de4e9",
+    "files": {
+      "bin/mithril-components.cljk": "8bdca14e6f08628da33d55d6c5fb2bd45e5782dcfc2ffb7f48246c2517dc21ff",
+      "src/mithril/components.cljk": "810a7dd040df15245ca10c0c8daffad1fb7e12d8ecb8538ecdf22d1a604c74f6",
+      "src/mithril/form.cljk": "d485d0e0dc212023f1d7c39b370fd40a0d2047ff942b8015aee8a71688c25daa"
+    }
+  },
+  "composition": {
+    "domains": [
+      "fund.mithril.security.evidence",
+      "fund.mithril.security.container",
+      "fund.mithril.security.cspm",
+      "fund.mithril.security.dast",
+      "fund.mithril.security.iac",
+      "fund.mithril.security.infra",
+      "fund.mithril.security.network",
+      "fund.mithril.security.sast",
+      "fund.mithril.security.sca",
+      "fund.mithril.security.templates",
+      "fund.mithril.security.vm"
+    ],
+    "exports": [
+      {
+        "confidence-floor": 10000,
+        "domain": "fund.mithril.security.evidence",
+        "kind": "mith:validator",
+        "label": "Bind tenant, inputs, policy, coverage and finding identity",
+        "symbol": "https://mithril.fund/lib/fund/mithril/security/evidence/v1/validator/receipt"
+      },
+      {
+        "confidence-floor": 10000,
+        "domain": "fund.mithril.security.container",
+        "kind": "mith:analyzer",
+        "label": "Inspect supplied extracted OCI filesystem metadata",
+        "symbol": "https://mithril.fund/lib/fund/mithril/security/container/v1/analyzer/assess"
+      },
+      {
+        "confidence-floor": 10000,
+        "domain": "fund.mithril.security.cspm",
+        "kind": "mith:analyzer",
+        "label": "Assess cloud resources, permissions and reachable attack paths",
+        "symbol": "https://mithril.fund/lib/fund/mithril/security/cspm/v1/analyzer/assess"
+      },
+      {
+        "confidence-floor": 10000,
+        "domain": "fund.mithril.security.dast",
+        "kind": "mith:analyzer",
+        "label": "Inspect HTTP responses and explicitly approved active probes",
+        "symbol": "https://mithril.fund/lib/fund/mithril/security/dast/v1/analyzer/assess"
+      },
+      {
+        "confidence-floor": 10000,
+        "domain": "fund.mithril.security.iac",
+        "kind": "mith:analyzer",
+        "label": "Inspect JSON Terraform and Kubernetes config and source secret candidates",
+        "symbol": "https://mithril.fund/lib/fund/mithril/security/iac/v1/analyzer/assess"
+      },
+      {
+        "confidence-floor": 10000,
+        "domain": "fund.mithril.security.infra",
+        "kind": "mith:analyzer",
+        "label": "Compare reported host settings against explicit baselines",
+        "symbol": "https://mithril.fund/lib/fund/mithril/security/infra/v1/analyzer/assess"
+      },
+      {
+        "confidence-floor": 10000,
+        "domain": "fund.mithril.security.network",
+        "kind": "mith:analyzer",
+        "label": "Connect to a finite list of approved IP and port pairs",
+        "symbol": "https://mithril.fund/lib/fund/mithril/security/network/v1/analyzer/assess"
+      },
+      {
+        "confidence-floor": 10000,
+        "domain": "fund.mithril.security.sast",
+        "kind": "mith:analyzer",
+        "label": "Track Python request input into command, SQL and eval sinks",
+        "symbol": "https://mithril.fund/lib/fund/mithril/security/sast/v1/analyzer/assess"
+      },
+      {
+        "confidence-floor": 10000,
+        "domain": "fund.mithril.security.sca",
+        "kind": "mith:analyzer",
+        "label": "Read supplied lock files and match resolved dependencies",
+        "symbol": "https://mithril.fund/lib/fund/mithril/security/sca/v1/analyzer/assess"
+      },
+      {
+        "confidence-floor": 10000,
+        "domain": "fund.mithril.security.templates",
+        "kind": "mith:analyzer",
+        "label": "Evaluate curated passive HTTP configuration templates",
+        "symbol": "https://mithril.fund/lib/fund/mithril/security/templates/v1/analyzer/assess"
+      },
+      {
+        "confidence-floor": 10000,
+        "domain": "fund.mithril.security.vm",
+        "kind": "mith:analyzer",
+        "label": "Match installed components and SBOM against supplied OSV advisories",
+        "symbol": "https://mithril.fund/lib/fund/mithril/security/vm/v1/analyzer/assess"
+      }
+    ],
+    "provides": [
+      "contract"
+    ]
+  },
+  "kind": "mithril-security-composition/v1",
+  "schemaVersion": "1",
+  "sources": {
+    "source/lib/fund/mithril/security/container/v1.mith": "a80c6b3583059eff63a829d50ac37740e1fb5a001b670f9cacd2579d9a3a84da",
+    "source/lib/fund/mithril/security/cspm/v1.mith": "9e0abefb4ca949b8d34db56839c12110bae8ae1a8d33c47de5a23cac3ebfd75b",
+    "source/lib/fund/mithril/security/dast/v1.mith": "e576266df1e3aff065f227d9b0c98adaf38c2e688e20ceb03edf57570c392d6a",
+    "source/lib/fund/mithril/security/evidence/v1.mith": "5759b4bfc34f7cee779325a8cc95a4f3e7409d1f0c8684fd01bb73599f7d2fcb",
+    "source/lib/fund/mithril/security/iac/v1.mith": "3c6d378f584fab1968e5916d099bfb0c998488638aaf59a8202eef166fa1be3f",
+    "source/lib/fund/mithril/security/infra/v1.mith": "065a326ce8d0aacf62289047264bfb6add8e19de891b448ea407819d51fb56c3",
+    "source/lib/fund/mithril/security/network/v1.mith": "f850cd4c9db9b9bf3203645d4d1d91f68bb6a50556e7d08f963216b3ddbf8ce9",
+    "source/lib/fund/mithril/security/sast/v1.mith": "43c4ce27c6c7d34982463decad356cef6f499754eaabfbdb4006e89a1cd17b90",
+    "source/lib/fund/mithril/security/sca/v1.mith": "0b11f5723db5a1c20eb2e7741fb6038c1c2ec3dca9618a9371c25b2c18b7bccf",
+    "source/lib/fund/mithril/security/templates/v1.mith": "baf0eb049f0bc802302d167c80c3abc9c513db9bc1f79b9d617d65b2b79348c0",
+    "source/lib/fund/mithril/security/vm/v1.mith": "22d7cb168d81d835d225e2ed1fed941b9919fb355452e1814fafecb5f13f1d4c",
+    "source/suite.mith": "955932348e9c44de4aa4e533f1866ec8b120cb7f4f2134347b3a17478f9daf03"
+  }
+}
