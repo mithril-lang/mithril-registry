@@ -11,6 +11,7 @@ import hashlib
 import http.client
 import ipaddress
 import json
+import os
 import re
 import socket
 import subprocess
@@ -126,7 +127,7 @@ class CoreHost:
 
 class NetworkHost:
     """Operator-owned finite IP:port scope. No DNS, redirects, cookies or ambient proxy."""
-    def __init__(self, endpoints, active=False, budget=64, timeout=3):
+    def __init__(self, endpoints, active=False, budget=64, timeout=3, authentication=None):
         if not isinstance(endpoints, list) or not endpoints or len(endpoints) > MAX_ITEMS:
             raise Refusal('operator must supply finite endpoint scope')
         self.endpoints = set()
@@ -149,6 +150,22 @@ class NetworkHost:
         if type(active) is not bool or type(budget) is not int or not 1 <= budget <= 128 or type(timeout) not in (int, float) or not 0 < timeout <= 10:
             raise Refusal('invalid host budget or timeout')
         self.active, self.remaining, self.timeout = active, budget, timeout
+        self.authentication = {}
+        for auth in authentication or []:
+            if not isinstance(auth, dict) or set(auth) != {'origin', 'header', 'env', 'expectedStatus', 'bodyContains'}:
+                raise Refusal('invalid authentication policy')
+            parsed, address, port = self.check(auth['origin'])
+            if not isinstance(auth['header'], str) or not isinstance(auth['env'], str) or auth['header'].lower() not in ('authorization', 'cookie', 'x-api-key') or not re.fullmatch(r'[A-Z][A-Z0-9_]{0,127}', auth['env']):
+                raise Refusal('invalid credential reference')
+            secret = os.environ.get(auth['env'])
+            if not secret or len(secret) > 8192 or any(c in secret for c in '\r\n'):
+                raise Refusal('credential unavailable')
+            if type(auth['expectedStatus']) is not int or not 200 <= auth['expectedStatus'] < 300 or not isinstance(auth['bodyContains'], str) or not 1 <= len(auth['bodyContains']) <= 256:
+                raise Refusal('authenticated response assertion required')
+            key = (parsed.scheme, address, port)
+            if key in self.authentication:
+                raise Refusal('duplicate authentication policy')
+            self.authentication[key] = (auth, secret)
 
     def check(self, url, active=False):
         if not isinstance(url, str) or len(url.encode()) > 4096:
@@ -196,18 +213,25 @@ class NetworkHost:
             path = quote(parsed.path or '/', safe='/%:@')
             if parsed.query:
                 path += '?' + quote(parsed.query, safe='=&%')
-            connection.request('GET', path, headers={'User-Agent': 'MithrilSecurity/0.1'})
+            headers = {'User-Agent': 'MithrilSecurity/0.1'}
+            auth = self.authentication.get((parsed.scheme, address, port))
+            if auth:
+                headers[auth[0]['header']] = auth[1]
+            connection.request('GET', path, headers=headers)
             response = connection.getresponse()
             if 300 <= response.status < 400:
                 raise Refusal('redirects require separate scoped observations')
             body = response.read(65537)
             if len(body) > 65536:
                 raise Refusal('HTTP response exceeds 64 KiB')
+            decoded = body.decode('utf-8', errors='replace')
+            if auth and (response.status != auth[0]['expectedStatus'] or auth[0]['bodyContains'] not in decoded):
+                raise Refusal('authenticated response assertion failed')
             headers = {}
             for key, value in response.getheaders():
                 headers.setdefault(key.lower(), []).append(value)
             return {'url': url, 'status': response.status, 'headers': headers,
-                    'body': body.decode('utf-8', errors='replace')}
+                    'body': decoded}
         finally:
             connection.close()
 

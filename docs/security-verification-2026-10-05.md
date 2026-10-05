@@ -49,3 +49,13 @@ integration pass. Real provider, registry, authenticated tenant-storage and
 production/installed-client qualification remain pending.
 
 Full Registry validation: 40 tests passed with both installed roots configured, zero skips. Native and core sample requests also completed through the public CLI (9 operations); TCP probing was exercised separately against loopback. Local Python was 3.9.6. Existing plugin artifact regeneration and generated index checks passed.
+
+## Provisioned executor and sandbox extension (0.1.1)
+
+AWS, Azure and GCP collectors successfully authenticated against kotoba-lang/opencloud commit `b9b9e3f23fda1da0879a074a3c4e166531342ef8` on loopback and produced shared posture findings. Wrong Azure credentials failed the job instead of reporting a clean assessment. These are emulator conformance results, not real-account qualification. The checked-in security-core agent artifact is tracked by the pinned engine commit and remained clean.
+
+Six executor tests passed without skips with the emulator and engine roots configured. They cover authenticated provider collection, denied credentials, origin-bound Web headers and authenticated page assertions, sandbox scope refusal, immutable policy binding, persistent SQLite intent/replay refusal, owner isolation and the data-only agent wire codec. Registry version and catalog checks were regenerated for 0.1.1.
+
+Fund's four local D1/API tests passed without skips with the Registry checkout configured, including an actual bearer-authenticated HTTP executor run through claim, assessment and result persistence. The shared Security UI's two tests passed, covering explicit execution, lost acknowledgements and account-change isolation. Workspace 0.6.5 compiled successfully for the App/Desktop consumer artifact. No production cloud account, production D1 migration or external scan was used.
+
+The final Registry regression run passed all 46 tests with zero skips, including the real installed core engines, Mithril compiler and all three cloud emulators. Desktop's 12 transport tests, node/renderer typechecks and lat checks passed. Fund's API/Web typechecks and shared package build passed.
