@@ -54,5 +54,5 @@ python3 scripts/package_plugin.py mithril-app --check
 
 ## Knowledge contributions
 
-[Knowledge Contributions MCP](mcp/mithril-knowledge-contributions/README.md) integrates owner-private submission, history, withdrawal and appeal using `knowledge:read` / `knowledge:write`. Console and Admin expose explanation only. Existing review, publication receipts and idempotent credit gates remain on the server.
+[Knowledge Contributions MCP](mcp/mithril-knowledge-contributions/README.md) integrates owner-private submission, history, withdrawal and appeal using `knowledge:read` / `knowledge:write`, alongside the existing authenticated REST API. Console and Admin expose explanation only. Existing review, publication receipts and idempotent credit gates remain on the server.
 
