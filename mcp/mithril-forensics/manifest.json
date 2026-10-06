@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1",
+  "type": "mcp",
+  "id": "mithril-forensics",
+  "category": "security",
+  "name": "Mithril Forensics MCP",
+  "version": "1.0.0",
+  "description": "Import external forensic reports into the account-owned evidence vault, retain provenance and reported timelines, and verify stored bytes. Volatility/Velociraptor structured reports, Autopsy CSV, and opaque commercial reports; no remote acquisition or authenticated vendor attestation.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://api.mithril.fund/v1/forensics/.well-known/mcp.json",
+  "tags": ["forensics", "evidence", "dfir", "volatility", "velociraptor"],
+  "transport": "streamable-http",
+  "url": "https://api.mithril.fund/v1/forensics/mcp",
+  "protocolVersion": "2025-06-18",
+  "authentication": {
+    "mode": "per-tool",
+    "credentialSource": "https://github.com/mithril-lang/mithril-fund/blob/main/docs/design/forensics-api-mcp.md",
+    "credentialHeader": "Authorization"
+  },
+  "permissions": ["network:api.mithril.fund", "cases:read", "cases:write"],
+  "tools": [
+    {"name": "forensics_products", "authentication": "personal-api-token", "effect": "read"},
+    {"name": "forensics_import", "authentication": "personal-api-token", "effect": "write"},
+    {"name": "forensics_list", "authentication": "personal-api-token", "effect": "read"},
+    {"name": "forensics_get", "authentication": "personal-api-token", "effect": "read"},
+    {"name": "forensics_verify", "authentication": "personal-api-token", "effect": "read"}
+  ],
+  "documentation": "https://github.com/mithril-lang/mithril-fund/blob/main/docs/design/forensics-api-mcp.md"
+}

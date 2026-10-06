@@ -22,7 +22,7 @@
 - `tools/<name>/`: 公開 HTTP ツール一覧（`https://mithril.fund/.well-known/mcp.json`）の操作と HTTP 操作を結び、入力・出力 schema、認証、権限、副作用を記述します。Tool は単体インストールの対象ではありません。
 - `index.json`, `categories.json`: 検証済みの内容から生成する配布 index。直接編集しません。
 
-現在の登録物は読み取り手順 Skill 2件・セキュリティ診断 Skill 1件、接続可能な MCP 1件（Graph）、公開読み取り Tool 3件（HTTP のみ。`mithril.fund/mcp` に MCP サーバはありません）、Plugin 2件です。[Mithril Graph MCP](mcp/mithril-graph/manifest.json) は公開 docs と tenant service account を使う graph 操作を分離しています。Tool manifest は公開 HTTP ツール一覧の操作を説明するもので、独立したインストール物ではありません。[Mithril App Plugin](plugins/mithril-app/manifest.json) は Hermes Agent/Desktop 0.21.4 で validator と Plugin Doctor を通した unified package です。[ZAP Proxy DAST](plugins/hermes-zap-proxy/README.md) は固定 Git commit から導入し、許可済み target だけを passive scan します。active scan は target ごとの明示許可が必要です。
+現在の登録物は読み取り手順 Skill 2件・セキュリティ診断 Skill 1件、接続可能な MCP 2件（Graph、Forensics）、公開読み取り Tool 3件（HTTP のみ。`mithril.fund/mcp` に MCP サーバはありません）、Plugin 2件です。[Mithril Graph MCP](mcp/mithril-graph/manifest.json) は公開 docs と tenant service account を使う graph 操作を分離しています。Tool manifest は公開 HTTP ツール一覧の操作を説明するもので、独立したインストール物ではありません。[Mithril App Plugin](plugins/mithril-app/manifest.json) は Hermes Agent/Desktop 0.21.4 で validator と Plugin Doctor を通した unified package です。[ZAP Proxy DAST](plugins/hermes-zap-proxy/README.md) は固定 Git commit から導入し、許可済み target だけを passive scan します。active scan は target ごとの明示許可が必要です。
 
 ## 開発
 
@@ -39,3 +39,7 @@ python3 scripts/package_plugin.py mithril-app --check
 ## Mithril セキュリティ統合
 
 [Security Suite](skills/security/mithril-security-suite/SKILL.md) は `.mith` で定義した VM・CSPM・DAST・SAST・SCA・コンテナ・ホスト基準・TCP資産調査・HTTPテンプレート・IaC の10操作を共通の証跡形式で実行します。実装範囲・成熟度・検証水準は生成した `security.json` に分離します。既存エンジンの利用には、利用者が用意した固定コミットの checkout が必要です。本番サービスの稼働や商用製品との同等性は示しません。[統合設計と検証手順](docs/security-integration.md) を参照してください。
+
+## Forensic report integration
+
+[Mithril Forensics MCP](mcp/mithril-forensics/README.md) adds five scoped tools for external report import, retained analysis, provenance and byte-integrity verification. Volatility and Velociraptor structured reports, Autopsy CSV and opaque commercial reports use the existing Mithril evidence vault. Connector and vendor qualification are explicit; this registration does not grant remote acquisition or proprietary vendor API access.

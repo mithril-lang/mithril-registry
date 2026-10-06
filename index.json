@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 9,
+  "count": 10,
   "entries": [
     {
       "id": "mithril-graph",
@@ -30,6 +30,39 @@
       "connection": {
         "transport": "streamable-http",
         "url": "https://graph.mithril.fund/mcp",
+        "authentication": "per-tool"
+      }
+    },
+    {
+      "id": "mithril-forensics",
+      "type": "mcp",
+      "category": "security",
+      "name": "Mithril Forensics MCP",
+      "version": "1.0.0",
+      "description": "Import external forensic reports into the account-owned evidence vault, retain provenance and reported timelines, and verify stored bytes. Volatility/Velociraptor structured reports, Autopsy CSV, and opaque commercial reports; no remote acquisition or authenticated vendor attestation.",
+      "tags": [
+        "forensics",
+        "evidence",
+        "dfir",
+        "volatility",
+        "velociraptor"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-forensics",
+      "icon": null,
+      "checksum": "sha256:d382df7f10951bc084c3fd91ee30f1ce7466a275c22002dfa752edafbfe5988c",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "network:api.mithril.fund",
+        "cases:read",
+        "cases:write"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "streamable-http",
+        "url": "https://api.mithril.fund/v1/forensics/mcp",
         "authentication": "per-tool"
       }
     },
