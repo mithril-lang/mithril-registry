@@ -95,6 +95,20 @@ class RegistryTest(unittest.TestCase):
         ).lower()
         self.assertNotIn("kotoba", text)
 
+    def test_contributions_mcp_keeps_private_and_review_authority_separate(self):
+        index, _ = build_index.build()
+        entry = next(e for e in index["entries"] if e["id"] == "mithril-knowledge-contributions")
+        self.assertEqual(entry["connection"]["url"], "https://api.mithril.fund/v1/knowledge/mcp")
+        self.assertEqual(set(entry["permissions"]), {"network:api.mithril.fund", "knowledge:read", "knowledge:write"})
+        manifest = json.loads((self.root / "mcp/mithril-knowledge-contributions/manifest.json").read_text())
+        tools = {tool["name"]: tool for tool in manifest["tools"]}
+        self.assertEqual(set(tools), {"mithril_knowledge_" + name for name in (
+            "history", "contributor_summary", "submission_status", "submit", "withdraw", "appeal", "profile"
+        )})
+        self.assertTrue(all(t["authentication"] == "personal-api-token" for t in tools.values()))
+        self.assertEqual(tools["mithril_knowledge_submit"]["effect"], "write")
+        self.assertEqual(tools["mithril_knowledge_submission_status"]["effect"], "read")
+
     def test_mcp_endpoint_must_be_https(self):
         self.write_manifest("mcp/mithril-graph/manifest.json", lambda data: data.update(url="http://graph.mithril.fund/mcp"))
         with self.assertRaisesRegex(ValueError, "expected an HTTPS URL"):

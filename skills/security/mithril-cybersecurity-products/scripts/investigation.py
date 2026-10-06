@@ -16,12 +16,16 @@ def investigate(name,args,decode,normalize,refusal):
   with (root/'source.json').open('rb') as stream: raw=stream.read(2*1024*1024+1)
   if hashlib.sha256(raw).hexdigest()!=receipt.get('sourceSha256'):raise refusal('source_integrity_failed')
   data=normalize(receipt['product'],raw)
+  from coverage import coverage
+  data['coverage']=coverage(receipt['product'],data,'retained-bytes')
+  # A source digest does not attest mutable receipt metadata. Do not promote it to facts.
+  data['coverageClaims']=receipt.get('coverage',dict(status='incomplete-or-unknown',gaps=['legacy-receipt-no-coverage']))
   return data,receipt['sourceSha256']
  def runs(paths):
   if not isinstance(paths,list) or not 1<=len(paths)<=16 or len(set(map(text,paths)))!=len(paths):raise refusal('invalid_runs')
   out=[];sources=[]
   for path in paths:
-   data,digest=load(path);sources.append(dict(product=data['product'],sourceSha256=digest,pagination=data['pagination'],gaps=data['gaps']))
+   data,digest=load(path);sources.append(dict(product=data['product'],sourceSha256=digest,pagination=data['pagination'],gaps=data['gaps'],coverage=data['coverage'],coverageClaims=data['coverageClaims'],coverageAttestation='unsigned-local-receipt'))
    out.extend(dict(f,product=data['product'],sourceSha256=digest) for f in data['findings'])
   return out,sources
  def paging(values):
@@ -30,8 +34,8 @@ def investigate(name,args,decode,normalize,refusal):
   page=dict(data=values[offset:offset+limit],total=len(values),limit=limit,offset=offset)
   if len(json.dumps(page).encode())>2*1024*1024:raise refusal('result_page_limit')
   return page
- required={'cybersecurity_search':{'runs','query'},'cybersecurity_timeline':{'runs'},'cybersecurity_compare':{'before','after'},'cybersecurity_export':{'runs','output'}}[name]
- optional={'limit','offset'} if name in ('cybersecurity_search','cybersecurity_timeline') else set()
+ required={'cybersecurity_search':{'runs','query'},'cybersecurity_timeline':{'runs'},'cybersecurity_compare':{'before','after'},'cybersecurity_export':{'runs','output'},'cybersecurity_correlate':{'runs','address'}}[name]
+ optional={'limit','offset'} if name in ('cybersecurity_search','cybersecurity_timeline','cybersecurity_correlate') else set()
  if not isinstance(args,dict) or not required<=set(args) or set(args)-required-optional:raise refusal('invalid_arguments')
  if name=='cybersecurity_compare':
   before,bhash=load(args['before']);after,ahash=load(args['after'])
@@ -56,6 +60,11 @@ def investigate(name,args,decode,normalize,refusal):
   return result
  rows,sources=runs(args['runs'])
  base=dict(sources=sources,gaps=['samples-not-complete','vendor-claims-not-verdicts'])
+ if name=='cybersecurity_correlate':
+  from context_adapters import address
+  ip=address(args['address'],refusal)
+  matches=[row for row in rows if ip in row.get('observedIPs',[])]
+  return dict(**base,**paging(matches),address=ip,matchBasis='exact-IP-observation-only',identityConclusion='not-established',correlationGaps=['NAT-proxy-and-IP-reuse','tenant-scope-not-verified','observation-times-may-differ'])
  if name=='cybersecurity_search':
   query=text(args['query'])
   if len(query)>200:raise refusal('query_limit')

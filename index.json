@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 12,
+  "count": 13,
   "entries": [
     {
       "id": "mithril-graph",
@@ -30,6 +30,38 @@
       "connection": {
         "transport": "streamable-http",
         "url": "https://graph.mithril.fund/mcp",
+        "authentication": "per-tool"
+      }
+    },
+    {
+      "id": "mithril-knowledge-contributions",
+      "type": "mcp",
+      "category": "data",
+      "name": "Mithril Knowledge Contributions MCP",
+      "version": "1.1.1",
+      "description": "Submit consented Knowledge contributions, read owner-private history, withdraw publication consent, appeal and manage leaderboard participation. Review and confirmed publication gate rewards; these tools cannot approve or grant credits.",
+      "tags": [
+        "knowledge",
+        "contributions",
+        "evidence",
+        "consent"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-knowledge-contributions",
+      "icon": null,
+      "checksum": "sha256:eacfd10dd6c89cabaa3ab20951358cc160e8ce850525c64c3866c1bdb6d499c8",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "network:api.mithril.fund",
+        "knowledge:read",
+        "knowledge:write"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "streamable-http",
+        "url": "https://api.mithril.fund/v1/knowledge/mcp",
         "authentication": "per-tool"
       }
     },
@@ -250,8 +282,8 @@
       "type": "skill",
       "category": "security",
       "name": "mithril-cybersecurity-products",
-      "version": "0.2.0",
-      "description": "Collect and investigate authorized cybersecurity exports from seven products using verified local sources, search, timeline, comparison and evidence export.",
+      "version": "0.3.0",
+      "description": "Collect authorized observations from ten cybersecurity products; investigate byte-verified local sources with coverage, search, timeline, IP correlation, comparison and evidence export.",
       "tags": [
         "security",
         "xdr",
@@ -262,13 +294,19 @@
         "defender",
         "crowdstrike",
         "tenable",
-        "wazuh"
+        "wazuh",
+        "runzero",
+        "okta",
+        "censys",
+        "assets",
+        "identity",
+        "coverage"
       ],
       "author": "Mithril",
       "license": "Apache-2.0",
       "path": "skills/security/mithril-cybersecurity-products",
       "icon": null,
-      "checksum": "sha256:fcb1669b8554263cf362fb8fa521c7c86645f8516cf08f59c317c3a9c61fb8ed",
+      "checksum": "sha256:d6f88c658a19564f2a2ddaf116935f4766cfa6bdf8dade4ee9829c5e3057b64b",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true

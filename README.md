@@ -22,7 +22,7 @@
 - `tools/<name>/`: 公開 HTTP ツール一覧（`https://mithril.fund/.well-known/mcp.json`）の操作と HTTP 操作を結び、入力・出力 schema、認証、権限、副作用を記述します。Tool は単体インストールの対象ではありません。
 - `index.json`, `categories.json`: 検証済みの内容から生成する配布 index。直接編集しません。
 
-現在の登録物は読み取り手順 Skill 2件・セキュリティ Skill 2件・統合計画 Skill 1件、接続可能な MCP 2件（Graph、Forensics）、公開読み取り Tool 3件（HTTP のみ。`mithril.fund/mcp` に MCP サーバはありません）、Plugin 2件です。[Mithril Graph MCP](mcp/mithril-graph/manifest.json) は公開 docs と tenant service account を使う graph 操作を分離しています。Tool manifest は公開 HTTP ツール一覧の操作を説明するもので、独立したインストール物ではありません。[Mithril App Plugin](plugins/mithril-app/manifest.json) は Hermes Agent/Desktop 0.21.4 で validator と Plugin Doctor を通した unified package です。[ZAP Proxy DAST](plugins/hermes-zap-proxy/README.md) は固定 Git commit から導入し、許可済み target だけを passive scan します。active scan は target ごとの明示許可が必要です。
+現在の登録物は読み取り手順 Skill 2件・セキュリティ Skill 2件・統合計画 Skill 1件、接続可能な MCP 3件（Graph、Forensics、Knowledge Contributions）、公開読み取り Tool 3件（HTTP のみ。`mithril.fund/mcp` に MCP サーバはありません）、Plugin 2件です。[Mithril Graph MCP](mcp/mithril-graph/manifest.json) は公開 docs と tenant service account を使う graph 操作を分離しています。Tool manifest は公開 HTTP ツール一覧の操作を説明するもので、独立したインストール物ではありません。[Mithril App Plugin](plugins/mithril-app/manifest.json) は Hermes Agent/Desktop 0.21.4 で validator と Plugin Doctor を通した unified package です。[ZAP Proxy DAST](plugins/hermes-zap-proxy/README.md) は固定 Git commit から導入し、許可済み target だけを passive scan します。active scan は target ごとの明示許可が必要です。
 
 ## 開発
 
@@ -53,3 +53,9 @@ python3 scripts/package_plugin.py mithril-app --check
 [Cybersecurity Products](skills/security/mithril-cybersecurity-products/SKILL.md) は Palo Alto Cortex XDR、Wiz、Trend Vision One、Microsoft Defender、CrowdStrike Falcon、Tenable VM、Wazuh の供給済み JSON を元 byte と SHA-256 を保持して正規化します。Wiz を除く6製品の固定読み取り API は明示 opt-in で利用できます。Wiz は JSON export のみ。自己完結した Python CLI と local stdio MCP を同梱し、認証付き vendor tenant の qualification は未実施です。hosted MCP 登録、App/Desktop installer、既存 Forensics API への自動 upload は追加していません。[対応範囲と追加契約](skills/security/mithril-cybersecurity-products/references/products.md) を参照してください。
 
 0.2.0 は byte 検証済みの local run に対する MCP search / timeline / compare / export と、alert triage・vulnerability correlation・evidence report の3手順を同梱します。Tenable は既存 chunk、CrowdStrike は指定 ID、Wazuh は明示許可した Indexer のみ。比較から解消を推定せず、時刻不明・asset namespace・未取得ページを保持します。
+
+0.3.0 は runZero asset export、Okta System Log の明示時間範囲1page、Censys Platform の指定public IP lookupを加え、10製品のsourceを扱います（Wizはexportのみ）。読取要求と未取得範囲をreceipt v2に記録し、local MCPのIP観測相関toolと契約/coverage resourceを公開します。同一IPから同一端末/人物を推定しません。[context correlation](skills/security/mithril-cybersecurity-products/references/context-correlation.md) と [Black Hat調査・実装段階](docs/security-integrations/blackhat-2026.md) を参照してください。実tenantのqualification、hosted vendor MCP接続、App/Desktop公開は未実施です。
+
+## Knowledge contributions
+
+[Knowledge Contributions MCP](mcp/mithril-knowledge-contributions/README.md) integrates owner-private submission, history, withdrawal and appeal using `knowledge:read` / `knowledge:write`, alongside the existing authenticated REST API. Console and Admin expose explanation only. Existing review, publication receipts and idempotent credit gates remain on the server.
