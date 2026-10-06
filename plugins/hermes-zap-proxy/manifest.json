@@ -5,7 +5,7 @@
   "category": "security",
   "name": "ZAP Proxy DAST",
   "version": "0.2.0",
-  "description": "Run passive or explicitly authorized active DAST scans with the clean-room kotoba-lang/zap-proxy decision core.",
+  "description": "Run passive or explicitly authorized active DAST scans with the kotoba-lang/zap-proxy decision core, an independent Kotoba/Clojure implementation that neither includes nor calls OWASP ZAP.",
   "author": "Mithril",
   "license": "MIT",
   "source": "https://github.com/kotoba-lang/zap-proxy",
