@@ -22,7 +22,7 @@
 - `tools/<name>/`: 公開 HTTP ツール一覧（`https://mithril.fund/.well-known/mcp.json`）の操作と HTTP 操作を結び、入力・出力 schema、認証、権限、副作用を記述します。Tool は単体インストールの対象ではありません。
 - `index.json`, `categories.json`: 検証済みの内容から生成する配布 index。直接編集しません。
 
-現在の登録物は読み取り手順 Skill 2件・セキュリティ診断 Skill 1件、接続可能な MCP 2件（Graph、Forensics）、公開読み取り Tool 3件（HTTP のみ。`mithril.fund/mcp` に MCP サーバはありません）、Plugin 2件です。[Mithril Graph MCP](mcp/mithril-graph/manifest.json) は公開 docs と tenant service account を使う graph 操作を分離しています。Tool manifest は公開 HTTP ツール一覧の操作を説明するもので、独立したインストール物ではありません。[Mithril App Plugin](plugins/mithril-app/manifest.json) は Hermes Agent/Desktop 0.21.4 で validator と Plugin Doctor を通した unified package です。[ZAP Proxy DAST](plugins/hermes-zap-proxy/README.md) は固定 Git commit から導入し、許可済み target だけを passive scan します。active scan は target ごとの明示許可が必要です。
+現在の登録物は読み取り手順 Skill 2件・セキュリティ Skill 2件、接続可能な MCP 2件（Graph、Forensics）、公開読み取り Tool 3件（HTTP のみ。`mithril.fund/mcp` に MCP サーバはありません）、Plugin 2件です。[Mithril Graph MCP](mcp/mithril-graph/manifest.json) は公開 docs と tenant service account を使う graph 操作を分離しています。Tool manifest は公開 HTTP ツール一覧の操作を説明するもので、独立したインストール物ではありません。[Mithril App Plugin](plugins/mithril-app/manifest.json) は Hermes Agent/Desktop 0.21.4 で validator と Plugin Doctor を通した unified package です。[ZAP Proxy DAST](plugins/hermes-zap-proxy/README.md) は固定 Git commit から導入し、許可済み target だけを passive scan します。active scan は target ごとの明示許可が必要です。
 
 ## 開発
 
@@ -43,3 +43,7 @@ python3 scripts/package_plugin.py mithril-app --check
 ## Forensic report integration
 
 [Mithril Forensics MCP](mcp/mithril-forensics/README.md) adds five scoped tools for external report import, retained analysis, provenance and byte-integrity verification. Volatility and Velociraptor structured reports, Autopsy CSV and opaque commercial reports use the existing Mithril evidence vault. Connector and vendor qualification are explicit; this registration does not grant remote acquisition or proprietary vendor API access.
+
+## Cybersecurity product support
+
+[Cybersecurity Products](skills/security/mithril-cybersecurity-products/SKILL.md) は Palo Alto Cortex XDR、Wiz、Trend Vision One の供給済み JSON を元 byte と SHA-256 を保持して正規化します。Cortex XDR basic-key と Vision One の固定読み取り API は明示 opt-in で利用できます。Wiz は JSON export のみ。自己完結した Python CLI と local stdio MCP を同梱し、認証付き vendor tenant の qualification は未実施です。hosted MCP 登録、App/Desktop installer、既存 Forensics API への自動 upload は追加していません。[対応範囲と追加契約](skills/security/mithril-cybersecurity-products/references/products.md) を参照してください。

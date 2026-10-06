@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 10,
+  "count": 11,
   "entries": [
     {
       "id": "mithril-graph",
@@ -204,6 +204,30 @@
       "path": "skills/research/mithril-pep-record-review",
       "icon": null,
       "checksum": "sha256:467eeda560bf7e0f839846f921a09b1f0d08e8868c0f250ffe3fba56a75e42cc",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true
+    },
+    {
+      "id": "mithril-cybersecurity-products",
+      "type": "skill",
+      "category": "security",
+      "name": "mithril-cybersecurity-products",
+      "version": "0.1.0",
+      "description": "Collect or normalize authorized Cortex XDR, Wiz and Trend Vision One alert exports with retained source bytes and explicit coverage gaps.",
+      "tags": [
+        "security",
+        "xdr",
+        "cspm",
+        "paloalto",
+        "wiz",
+        "trendmicro"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/security/mithril-cybersecurity-products",
+      "icon": null,
+      "checksum": "sha256:9a3270c352d672c2c7a99291e979f1268d4b081376ba2251a49a3d854990d0d5",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true
