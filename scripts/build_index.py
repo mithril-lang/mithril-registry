@@ -12,6 +12,7 @@ from urllib.parse import urlsplit
 
 import yaml
 import security_catalog
+import integration_catalog
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "skills"
@@ -196,6 +197,15 @@ def build() -> tuple[dict, dict]:
                 raise ValueError('security skill and capability versions differ')
             entry['security'] = {'catalog': 'security.json',
                                  'operations': [op['id'] for op in security['operations']]}
+        if data['name'] == 'mithril-enterprise-integrations':
+            integration = integration_catalog.build(ROOT)
+            if integration['version'] != data['version']:
+                raise ValueError('integration skill and definition versions differ')
+            entry['integration'] = {
+                'catalog': 'integrations.json', 'digest': integration['digest'],
+                'runtimeReady': False,
+                'kinds': sorted({node['kind'] for node in integration['definition']['components']}),
+            }
         entries.append(entry)
     manifests = {type_: {} for type_ in MANIFEST_TYPES}
     for type_ in MANIFEST_TYPES:
@@ -250,7 +260,8 @@ def main() -> None:
     args = parser.parse_args()
     index, categories = build()
     for name, value in (("index.json", index), ("categories.json", categories),
-                        ("security.json", security_catalog.build(ROOT))):
+                        ("security.json", security_catalog.build(ROOT)),
+                        ("integrations.json", integration_catalog.build(ROOT))):
         target = ROOT / name
         expected = json.dumps(value, ensure_ascii=False, indent=2) + "\n"
         if args.check:

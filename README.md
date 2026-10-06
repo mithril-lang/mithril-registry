@@ -22,7 +22,7 @@
 - `tools/<name>/`: 公開 HTTP ツール一覧（`https://mithril.fund/.well-known/mcp.json`）の操作と HTTP 操作を結び、入力・出力 schema、認証、権限、副作用を記述します。Tool は単体インストールの対象ではありません。
 - `index.json`, `categories.json`: 検証済みの内容から生成する配布 index。直接編集しません。
 
-現在の登録物は読み取り手順 Skill 2件・セキュリティ Skill 2件、接続可能な MCP 2件（Graph、Forensics）、公開読み取り Tool 3件（HTTP のみ。`mithril.fund/mcp` に MCP サーバはありません）、Plugin 2件です。[Mithril Graph MCP](mcp/mithril-graph/manifest.json) は公開 docs と tenant service account を使う graph 操作を分離しています。Tool manifest は公開 HTTP ツール一覧の操作を説明するもので、独立したインストール物ではありません。[Mithril App Plugin](plugins/mithril-app/manifest.json) は Hermes Agent/Desktop 0.21.4 で validator と Plugin Doctor を通した unified package です。[ZAP Proxy DAST](plugins/hermes-zap-proxy/README.md) は固定 Git commit から導入し、許可済み target だけを passive scan します。active scan は target ごとの明示許可が必要です。
+現在の登録物は読み取り手順 Skill 2件・セキュリティ Skill 2件・統合計画 Skill 1件、接続可能な MCP 3件（Graph、Forensics、Knowledge Contributions）、公開読み取り Tool 3件（HTTP のみ。`mithril.fund/mcp` に MCP サーバはありません）、Plugin 2件です。[Mithril Graph MCP](mcp/mithril-graph/manifest.json) は公開 docs と tenant service account を使う graph 操作を分離しています。Tool manifest は公開 HTTP ツール一覧の操作を説明するもので、独立したインストール物ではありません。[Mithril App Plugin](plugins/mithril-app/manifest.json) は Hermes Agent/Desktop 0.21.4 で validator と Plugin Doctor を通した unified package です。[ZAP Proxy DAST](plugins/hermes-zap-proxy/README.md) は固定 Git commit から導入し、許可済み target だけを passive scan します。active scan は target ごとの明示許可が必要です。
 
 ## 開発
 
@@ -35,6 +35,10 @@ python3 scripts/package_plugin.py mithril-app --check
 追加する Skill は frontmatter に `name`, `description`, `version`, `author`, `license` を記入し、`skills/<category>/<name>/SKILL.md` に配置します。MCP と Tool は各 `manifest.json` に URL、認証、権限、操作の結び付きを記述します。配布物の変更時は version を更新してください。`python3 scripts/build_index.py` で index を更新します。CI は内容と index の一致を確認します。
 
 公開前に、リンク先の実在、ライセンス、秘密情報の混入、要求する権限、料金と副作用、利用可能な runtime を確認してください。公開データや外部製品の紹介だけなら配布物にせず、元のサイトへリンクします。
+
+## Enterprise integrations
+
+[Enterprise Integrations](skills/productivity/mithril-enterprise-integrations/SKILL.md) は Google Workspace と Copilot Studio を skills・MCP bindings・agents・workflows・plugins の共通構成として定義します。実際に配布するのはローカルの検証・計画生成 Skill です。生成した `integrations.json` の10構成要素は設計契約であり、実行可能な MCP サーバ・native plugin として登録しません。認証済み接続、外部操作、Studio 公開、App/Desktop の利用可能状態は未検証です。[統合設計](docs/enterprise-integrations.md) に GitHub 管理、権限、認証、依存関係、実行基盤への接続境界を記載しています。
 
 ## Mithril セキュリティ統合
 
@@ -55,4 +59,3 @@ python3 scripts/package_plugin.py mithril-app --check
 ## Knowledge contributions
 
 [Knowledge Contributions MCP](mcp/mithril-knowledge-contributions/README.md) integrates owner-private submission, history, withdrawal and appeal using `knowledge:read` / `knowledge:write`, alongside the existing authenticated REST API. Console and Admin expose explanation only. Existing review, publication receipts and idempotent credit gates remain on the server.
-

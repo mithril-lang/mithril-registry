@@ -34,12 +34,17 @@ class RegistryTest(unittest.TestCase):
 
     def test_public_tools_are_not_standalone_installs(self):
         index, categories = build_index.build()
-        self.assertEqual(index["count"], 12)
+        expected = len(list((self.root / "skills").glob("*/*/SKILL.md"))) + sum(
+            len(list((self.root / directory).glob("*/manifest.json")))
+            for directory in build_index.MANIFEST_DIRS.values()
+        )
+        self.assertEqual(index["count"], expected)
         self.assertEqual({entry["type"] for entry in index["entries"]}, {"skill", "mcp", "tool", "plugin"})
-        self.assertEqual(sum(entry["type"] == "skill" for entry in index["entries"]), 4)
+        self.assertEqual(sum(entry["type"] == "skill" for entry in index["entries"]),
+                         len(list((self.root / "skills").glob("*/*/SKILL.md"))))
         self.assertTrue(all(entry["installable"] for entry in index["entries"] if entry["type"] in {"mcp", "plugin"}))
         self.assertTrue(all(not entry["installable"] for entry in index["entries"] if entry["type"] == "tool"))
-        self.assertEqual(sum(kind["count"] for kind in categories["types"]), 12)
+        self.assertEqual(sum(kind["count"] for kind in categories["types"]), expected)
 
     def test_runtime_dependency_cache_does_not_change_distribution_checksum(self):
         folder = self.root / 'skills/security/mithril-security-suite'
@@ -63,6 +68,14 @@ class RegistryTest(unittest.TestCase):
             lambda data: data["artifact"].update(commit="main"),
         )
         with self.assertRaisesRegex(ValueError, "full lowercase Git commit"):
+            build_index.build()
+
+    def test_integration_definition_and_skill_versions_must_agree(self):
+        path = self.root / 'skills/productivity/mithril-enterprise-integrations/integration.json'
+        data = json.loads(path.read_text())
+        data['version'] = '0.2.0'
+        path.write_text(json.dumps(data))
+        with self.assertRaisesRegex(ValueError, 'integration skill and definition versions differ'):
             build_index.build()
 
     def test_tool_catalog_binding_must_be_https(self):

@@ -3,8 +3,12 @@
   "types": [
     {
       "type": "skill",
-      "count": 4,
+      "count": 5,
       "categories": [
+        {
+          "name": "productivity",
+          "count": 1
+        },
         {
           "name": "research",
           "count": 2

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 12,
+  "count": 13,
   "entries": [
     {
       "id": "mithril-graph",
@@ -197,6 +197,43 @@
         "zap_scan_active",
         "zap_scan_rules"
       ]
+    },
+    {
+      "id": "mithril-enterprise-integrations",
+      "type": "skill",
+      "category": "productivity",
+      "name": "mithril-enterprise-integrations",
+      "version": "0.1.0",
+      "description": "Design and validate Google Workspace and Copilot Studio compositions of skills, MCP bindings, agents, workflows and plugins; generate scoped plans without authenticating or executing external actions.",
+      "tags": [
+        "google-workspace",
+        "copilot-studio",
+        "integration",
+        "agents",
+        "workflows",
+        "plugins",
+        "mcp"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/productivity/mithril-enterprise-integrations",
+      "icon": null,
+      "checksum": "sha256:206e63c1aa32ec067d1d648526c44e9a52f73b40caddf0e40057e9dc54f91052",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
+      "integration": {
+        "catalog": "integrations.json",
+        "digest": "sha256:ca6adc8cd9e1dafb8e340578399a860d58777e1d992aa6cac289fb1338a1c0cf",
+        "runtimeReady": false,
+        "kinds": [
+          "agent",
+          "mcp",
+          "plugin",
+          "skill",
+          "workflow"
+        ]
+      }
     },
     {
       "id": "mithril-evidence-review",
