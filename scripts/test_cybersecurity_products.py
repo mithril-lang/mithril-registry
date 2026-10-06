@@ -83,7 +83,7 @@ class ProductTests(unittest.TestCase):
    messages=[{'jsonrpc':'2.0','id':1,'method':'initialize','params':{'protocolVersion':'2025-06-18'}},{'jsonrpc':'2.0','id':2,'method':'tools/list'},{'jsonrpc':'2.0','method':'tools/call','params':{'name':'cybersecurity_import','arguments':args}},{'jsonrpc':'2.0','id':3,'method':'tools/call','params':{'name':'cybersecurity_import','arguments':args}}]
    run=subprocess.run(['python3',str(SCRIPT),'--mcp'],input='\n'.join(map(json.dumps,messages))+'\n',text=True,capture_output=True,timeout=10)
    self.assertEqual(run.returncode,0); replies=[json.loads(v) for v in run.stdout.splitlines()]
-   self.assertEqual(len(replies),3);self.assertEqual(len(replies[1]['result']['tools']),6)
+   self.assertEqual(len(replies),3);self.assertEqual(len(replies[1]['result']['tools']),7)
    self.assertFalse(replies[2]['result']['isError']);self.assertEqual(replies[2]['result']['structuredContent']['count'],1)
 
 real = p.urllib.request.build_opener(p.urllib.request.ProxyHandler({}))
