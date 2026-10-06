@@ -18,6 +18,6 @@ Measured 2026-10-06 JST, Registry. Extends the existing 0.1.0 standalone skill/C
 
 ## Remaining qualification
 
-Actual Wazuh installation and authentication, representative vendor exports, real vendor API credentials, entitlement, bearer refresh, deployment-region coverage and end-to-end case/cloud-vault consumption remain unverified. The execution environment had no Docker executable for a local real Wazuh deployment. Simulators do not qualify real vendor servers.
+Actual Wazuh installation and authentication, representative vendor exports, real vendor API credentials, entitlement, bearer refresh, deployment-region coverage and end-to-end case/cloud-vault consumption remain unverified. Docker CLI was present, but the configured OrbStack daemon socket was absent (docker info failed), so no local real Wazuh deployment was started. Simulators do not qualify real vendor servers.
 
 Network responses are bounded to2MiB and1000rows per supplied report. Vendor API requests select at most100 records/IDs where the contract allows. No automatic pagination/retry. Each investigation accepts at most16 runs; result pages at most200rows/2MiB. Timeline orders explicit zoned ISO and Tenable declared epoch-seconds; unknown times remain excluded with counts, and submicrosecond ordering/clock skew remain gaps. Digests detect retained-byte drift; editing both source and receipt is not prevented and is not vendor attestation. Export includes normalized claims and references, not original raw runs or automatic redaction.
