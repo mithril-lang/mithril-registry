@@ -150,7 +150,7 @@
       "category": "security",
       "name": "ZAP Proxy DAST",
       "version": "0.2.0",
-      "description": "Run passive or explicitly authorized active DAST scans with the clean-room kotoba-lang/zap-proxy decision core.",
+      "description": "Run passive or explicitly authorized active DAST scans with the kotoba-lang/zap-proxy decision core, an independent Kotoba/Clojure implementation that neither includes nor calls OWASP ZAP.",
       "tags": [
         "security",
         "dast",
@@ -161,7 +161,7 @@
       "license": "MIT",
       "path": "plugins/hermes-zap-proxy",
       "icon": null,
-      "checksum": "sha256:b815ff23651c4a31238596e241cf9b01c85ff65b59724b88ff5f3e75c7676e78",
+      "checksum": "sha256:c11d414f56759647b59fe0664d0d5143ed3abbc89c3fcf34e12994301678a901",
       "compatibility": {
         "clients": [
           {

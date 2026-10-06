@@ -1,7 +1,10 @@
 # ZAP Proxy DAST
 
-This entry installs the clean-room `kotoba-lang/zap-proxy` DAST core and its
-Hermes tools from the exact public Git commit recorded in `manifest.json`.
+This entry installs the `kotoba-lang/zap-proxy` DAST core and its Hermes tools
+from the exact public Git commit recorded in `manifest.json`. The core is an
+independent Kotoba/Clojure implementation: it does not include OWASP ZAP code or
+rules and does not call OWASP ZAP at runtime. Licence: MIT, Copyright (c) 2026
+Kotoba Labs, Inc.
 
 - `zap_scan` performs passive inspection only.
 - `zap_scan_active` sends non-destructive detection payloads and requires
@@ -51,3 +54,7 @@ plugins:
 
 The host must have the `clojure` CLI available. Only scan systems you own or
 are explicitly authorized to test.
+
+## Licence
+
+`kotoba-lang/zap-proxy` is MIT-licensed, Copyright (c) 2026 Kotoba Labs, Inc.
