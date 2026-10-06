@@ -4,7 +4,7 @@
   "id": "mithril-knowledge-contributions",
   "category": "data",
   "name": "Mithril Knowledge Contributions MCP",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Submit consented Knowledge contributions, read owner-private history, withdraw publication consent, appeal and manage leaderboard participation. Review and confirmed publication gate rewards; these tools cannot approve or grant credits.",
   "author": "Mithril",
   "license": "Apache-2.0",

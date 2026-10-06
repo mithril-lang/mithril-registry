@@ -1,6 +1,6 @@
 # Mithril Knowledge Contributions MCP
 
-Console の `/knowledge/contributions` は説明専用です。投稿フォーム、非公開履歴、撤回・異議申立て、管理者の処理画面は提供しません。情報提供者の操作は次の MCP に統一します。
+Console の `/knowledge/contributions` は説明専用です。投稿フォーム、非公開履歴、撤回・異議申立て、管理者の処理画面は提供しません。情報提供者の操作は次の MCP または認証済み REST API から行います。
 
 - URL: `https://api.mithril.fund/v1/knowledge/mcp`
 - Transport: stateless Streamable HTTP, POST only
@@ -26,4 +26,4 @@ This client has no review, publication or credit-grant tool. Removing the human 
 
 The Registry owns discoverability, declared scopes and generated checksums; `api.mithril.fund` owns authentication, owner isolation, records and side effects. No extra DB, fallback service, local reviewer or automatic approval is introduced. Public Knowledge search/context and leaderboard stay separate from private contributions.
 
-Fund 1.1.0 adds discovery and closes private submission REST paths with HTTP 410 `mcp_only`. Publish the compatible Fund API via its existing main-only CI before treating this Registry entry as production-qualified. Source tests and Registry validation do not prove authenticated live MCP operation.
+Fund 1.1.1 retains both REST and MCP alongside the explanation-only screens. REST supports `POST/GET /v1/knowledge/submissions`, `GET /v1/knowledge/submissions/:id`, and `POST /v1/knowledge/submissions/:id/withdraw` or `/appeal`. Existing session/Origin protection and scoped bearer authentication remain; both transports use the same owner, consent, idempotency and reward checks. Publish the compatible Fund API via its existing main-only CI before treating this Registry entry as production-qualified. Source tests and Registry validation do not prove authenticated live MCP operation.
