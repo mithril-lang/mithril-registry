@@ -34,12 +34,12 @@ class RegistryTest(unittest.TestCase):
 
     def test_public_tools_are_not_standalone_installs(self):
         index, categories = build_index.build()
-        self.assertEqual(index["count"], 9)
+        self.assertEqual(index["count"], 10)
         self.assertEqual({entry["type"] for entry in index["entries"]}, {"skill", "mcp", "tool", "plugin"})
         self.assertEqual(sum(entry["type"] == "skill" for entry in index["entries"]), 3)
         self.assertTrue(all(entry["installable"] for entry in index["entries"] if entry["type"] in {"mcp", "plugin"}))
         self.assertTrue(all(not entry["installable"] for entry in index["entries"] if entry["type"] == "tool"))
-        self.assertEqual(sum(kind["count"] for kind in categories["types"]), 9)
+        self.assertEqual(sum(kind["count"] for kind in categories["types"]), 10)
 
     def test_runtime_dependency_cache_does_not_change_distribution_checksum(self):
         folder = self.root / 'skills/security/mithril-security-suite'

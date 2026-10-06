@@ -17,10 +17,14 @@
     },
     {
       "type": "mcp",
-      "count": 1,
+      "count": 2,
       "categories": [
         {
           "name": "data",
+          "count": 1
+        },
+        {
+          "name": "security",
           "count": 1
         }
       ]
