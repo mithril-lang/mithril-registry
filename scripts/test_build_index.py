@@ -90,7 +90,7 @@ class RegistryTest(unittest.TestCase):
         manifest = json.loads((self.root / "mcp/mithril-knowledge-contributions/manifest.json").read_text())
         tools = {tool["name"]: tool for tool in manifest["tools"]}
         self.assertEqual(set(tools), {"mithril_knowledge_" + name for name in (
-            "history", "contributor_summary", "submission_status", "submit", "withdraw", "appeal"
+            "history", "contributor_summary", "submission_status", "submit", "withdraw", "appeal", "profile"
         )})
         self.assertTrue(all(t["authentication"] == "personal-api-token" for t in tools.values()))
         self.assertEqual(tools["mithril_knowledge_submit"]["effect"], "write")

@@ -15,6 +15,7 @@ Console の `/knowledge/contributions` は説明専用です。投稿フォー�
 | `mithril_knowledge_submission_status` | `knowledge:read` | Own private record and review history |
 | `mithril_knowledge_submit` | `knowledge:write` | Private evidence and consented public preview |
 | `mithril_knowledge_withdraw` | `knowledge:write` | Queue public removal; retain earned credits |
+| `mithril_knowledge_profile` | `knowledge:write` | Set own pseudonym and explicitly enable/disable public leaderboard participation |
 | `mithril_knowledge_appeal` | `knowledge:write` | Private clarification; no additional reward |
 
 Initialize the connection, then request `tools/list` for authoritative input schemas and scoped tool availability. `GET /v1/knowledge/program` reports reward intake availability. Save one stable `requestId` for a submission and reuse it after a lost acknowledgement. A changed package requires a new ID. Do not split or copy submissions to claim extra rewards.

@@ -39,7 +39,7 @@
       "category": "data",
       "name": "Mithril Knowledge Contributions MCP",
       "version": "1.1.0",
-      "description": "Submit consented Knowledge contributions, read owner-private history, withdraw publication consent and appeal. Review and confirmed publication gate rewards; these tools cannot approve or grant credits.",
+      "description": "Submit consented Knowledge contributions, read owner-private history, withdraw publication consent, appeal and manage leaderboard participation. Review and confirmed publication gate rewards; these tools cannot approve or grant credits.",
       "tags": [
         "knowledge",
         "contributions",
@@ -50,7 +50,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-knowledge-contributions",
       "icon": null,
-      "checksum": "sha256:ed6182a9986af28d62a0d80f42ea61b0e2f0dd75a4ca5fa1a200a60a03ef9626",
+      "checksum": "sha256:d4ee0da65fb91381ecf7c1614416458ffe107037e8633b530039d75ee1a55a13",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [

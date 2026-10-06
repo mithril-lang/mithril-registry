@@ -5,7 +5,7 @@
   "category": "data",
   "name": "Mithril Knowledge Contributions MCP",
   "version": "1.1.0",
-  "description": "Submit consented Knowledge contributions, read owner-private history, withdraw publication consent and appeal. Review and confirmed publication gate rewards; these tools cannot approve or grant credits.",
+  "description": "Submit consented Knowledge contributions, read owner-private history, withdraw publication consent, appeal and manage leaderboard participation. Review and confirmed publication gate rewards; these tools cannot approve or grant credits.",
   "author": "Mithril",
   "license": "Apache-2.0",
   "source": "https://api.mithril.fund/v1/knowledge/.well-known/mcp.json",
@@ -56,6 +56,11 @@
     },
     {
       "name": "mithril_knowledge_appeal",
+      "authentication": "personal-api-token",
+      "effect": "write"
+    },
+    {
+      "name": "mithril_knowledge_profile",
       "authentication": "personal-api-token",
       "effect": "write"
     }
