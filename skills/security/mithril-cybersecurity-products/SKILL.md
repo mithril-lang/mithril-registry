@@ -7,7 +7,7 @@ license: Apache-2.0
 platforms: [linux, macos, windows]
 metadata:
   hermes:
-    tags: [security, xdr, cspm, paloalto, wiz, trendmicro]
+    tags: [security, xdr, cspm, paloalto, wiz, trendmicro, defender, crowdstrike, tenable, wazuh]
     category: security
 ---
 

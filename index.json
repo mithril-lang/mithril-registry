@@ -221,13 +221,17 @@
         "cspm",
         "paloalto",
         "wiz",
-        "trendmicro"
+        "trendmicro",
+        "defender",
+        "crowdstrike",
+        "tenable",
+        "wazuh"
       ],
       "author": "Mithril",
       "license": "Apache-2.0",
       "path": "skills/security/mithril-cybersecurity-products",
       "icon": null,
-      "checksum": "sha256:8ef775aef0572d1c616cd1af3745a1114686fde8ad4547febd399861773d9b46",
+      "checksum": "sha256:fcb1669b8554263cf362fb8fa521c7c86645f8516cf08f59c317c3a9c61fb8ed",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true
