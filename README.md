@@ -49,3 +49,7 @@ python3 scripts/package_plugin.py mithril-app --check
 [Cybersecurity Products](skills/security/mithril-cybersecurity-products/SKILL.md) は Palo Alto Cortex XDR、Wiz、Trend Vision One、Microsoft Defender、CrowdStrike Falcon、Tenable VM、Wazuh の供給済み JSON を元 byte と SHA-256 を保持して正規化します。Wiz を除く6製品の固定読み取り API は明示 opt-in で利用できます。Wiz は JSON export のみ。自己完結した Python CLI と local stdio MCP を同梱し、認証付き vendor tenant の qualification は未実施です。hosted MCP 登録、App/Desktop installer、既存 Forensics API への自動 upload は追加していません。[対応範囲と追加契約](skills/security/mithril-cybersecurity-products/references/products.md) を参照してください。
 
 0.2.0 は byte 検証済みの local run に対する MCP search / timeline / compare / export と、alert triage・vulnerability correlation・evidence report の3手順を同梱します。Tenable は既存 chunk、CrowdStrike は指定 ID、Wazuh は明示許可した Indexer のみ。比較から解消を推定せず、時刻不明・asset namespace・未取得ページを保持します。
+
+## Knowledge contributions
+
+[Knowledge Contributions MCP](mcp/mithril-knowledge-contributions/README.md) integrates owner-private submission, history, withdrawal and appeal using `knowledge:read` / `knowledge:write`. Console and Admin expose explanation only. Existing review, publication receipts and idempotent credit gates remain on the server.

@@ -34,12 +34,12 @@ class RegistryTest(unittest.TestCase):
 
     def test_public_tools_are_not_standalone_installs(self):
         index, categories = build_index.build()
-        self.assertEqual(index["count"], 11)
+        self.assertEqual(index["count"], 12)
         self.assertEqual({entry["type"] for entry in index["entries"]}, {"skill", "mcp", "tool", "plugin"})
         self.assertEqual(sum(entry["type"] == "skill" for entry in index["entries"]), 4)
         self.assertTrue(all(entry["installable"] for entry in index["entries"] if entry["type"] in {"mcp", "plugin"}))
         self.assertTrue(all(not entry["installable"] for entry in index["entries"] if entry["type"] == "tool"))
-        self.assertEqual(sum(kind["count"] for kind in categories["types"]), 11)
+        self.assertEqual(sum(kind["count"] for kind in categories["types"]), 12)
 
     def test_runtime_dependency_cache_does_not_change_distribution_checksum(self):
         folder = self.root / 'skills/security/mithril-security-suite'
@@ -81,6 +81,20 @@ class RegistryTest(unittest.TestCase):
             [entry for entry in index["entries"] if entry["type"] == "tool"]
         ).lower()
         self.assertNotIn("kotoba", text)
+
+    def test_contributions_mcp_keeps_private_and_review_authority_separate(self):
+        index, _ = build_index.build()
+        entry = next(e for e in index["entries"] if e["id"] == "mithril-knowledge-contributions")
+        self.assertEqual(entry["connection"]["url"], "https://api.mithril.fund/v1/knowledge/mcp")
+        self.assertEqual(set(entry["permissions"]), {"network:api.mithril.fund", "knowledge:read", "knowledge:write"})
+        manifest = json.loads((self.root / "mcp/mithril-knowledge-contributions/manifest.json").read_text())
+        tools = {tool["name"]: tool for tool in manifest["tools"]}
+        self.assertEqual(set(tools), {"mithril_knowledge_" + name for name in (
+            "history", "contributor_summary", "submission_status", "submit", "withdraw", "appeal"
+        )})
+        self.assertTrue(all(t["authentication"] == "personal-api-token" for t in tools.values()))
+        self.assertEqual(tools["mithril_knowledge_submit"]["effect"], "write")
+        self.assertEqual(tools["mithril_knowledge_submission_status"]["effect"], "read")
 
     def test_mcp_endpoint_must_be_https(self):
         self.write_manifest("mcp/mithril-graph/manifest.json", lambda data: data.update(url="http://graph.mithril.fund/mcp"))
