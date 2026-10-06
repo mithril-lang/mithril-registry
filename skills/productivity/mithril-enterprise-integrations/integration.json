@@ -1,0 +1,292 @@
+{
+  "schemaVersion": "1",
+  "version": "0.1.0",
+  "providers": {
+    "google-workspace": {
+      "targetFields": [
+        "workspace",
+        "account"
+      ],
+      "credentialReferences": [
+        "host:google-oauth"
+      ],
+      "prerequisites": [
+        "Use the existing Mithril Google Workspace skill via gws or its Python API adapter.",
+        "Bind a user-selected MCP server and verify initialize plus tools/list before using its tools.",
+        "Authorize only the Google API scopes required by the chosen workflow."
+      ],
+      "qualification": "not-verified"
+    },
+    "copilot-studio": {
+      "targetFields": [
+        "tenant",
+        "environment",
+        "agent"
+      ],
+      "credentialReferences": [
+        "host:power-platform-auth"
+      ],
+      "prerequisites": [
+        "Use the authenticated Power Platform CLI profile selected by the user; always supply an explicit environment.",
+        "Authoring integration requires a tested pac CLI version and a local Copilot Studio workspace.",
+        "Bind a user-selected MCP server; authoring MCP is distinct from calling a published Studio agent.",
+        "Published-agent invocation requires a separate authenticated adapter; it is not provided by this definition."
+      ],
+      "qualification": "not-verified"
+    }
+  },
+  "components": [
+    {
+      "id": "google-workspace-skill",
+      "kind": "skill",
+      "version": "0.1.0",
+      "provider": "google-workspace",
+      "description": "Portable instructions for scoped authoring and operations with existing host adapters.",
+      "execution": "design-only",
+      "requires": [],
+      "permissions": [
+        "google:drive.read",
+        "google:docs.write",
+        "google:gmail.send"
+      ],
+      "instructions": "references/google-workspace.md"
+    },
+    {
+      "id": "google-workspace-mcp",
+      "kind": "mcp",
+      "version": "0.1.0",
+      "provider": "google-workspace",
+      "description": "Connection contract for a user-configured server; no endpoint or server implementation is bundled.",
+      "execution": "design-only",
+      "requires": [],
+      "permissions": [
+        "google:drive.read"
+      ],
+      "binding": {
+        "mode": "user-configured",
+        "verification": [
+          "initialize",
+          "tools/list"
+        ]
+      }
+    },
+    {
+      "id": "google-workspace-agent",
+      "kind": "agent",
+      "version": "0.1.0",
+      "provider": "google-workspace",
+      "description": "Agent composition with explicit task scope and declared skill/tool dependencies.",
+      "execution": "design-only",
+      "requires": [
+        "google-workspace-skill",
+        "google-workspace-mcp"
+      ],
+      "permissions": [
+        "google:drive.read",
+        "google:docs.write",
+        "google:gmail.send"
+      ],
+      "instructions": "Use only the bound principal, target and declared permissions. Return the proposed actions and provenance. Do not infer connected state or delegate with broader authority."
+    },
+    {
+      "id": "google-workspace-workflow",
+      "kind": "workflow",
+      "version": "0.1.0",
+      "provider": "google-workspace",
+      "description": "Ordered operations with permissions and approval boundaries; planning only.",
+      "execution": "design-only",
+      "requires": [
+        "google-workspace-agent"
+      ],
+      "permissions": [
+        "google:drive.read",
+        "google:docs.write",
+        "google:gmail.send"
+      ],
+      "steps": [
+        {
+          "id": "retrieve",
+          "component": "google-workspace-mcp",
+          "operation": "drive.search",
+          "effect": "read",
+          "permissions": [
+            "google:drive.read"
+          ],
+          "approval": "none",
+          "after": []
+        },
+        {
+          "id": "draft",
+          "component": "google-workspace-skill",
+          "operation": "docs.create",
+          "effect": "write",
+          "permissions": [
+            "google:docs.write"
+          ],
+          "approval": "explicit",
+          "after": [
+            "retrieve"
+          ]
+        },
+        {
+          "id": "send",
+          "component": "google-workspace-skill",
+          "operation": "gmail.send",
+          "effect": "write",
+          "permissions": [
+            "google:gmail.send"
+          ],
+          "approval": "explicit",
+          "after": [
+            "draft"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "google-workspace-plugin",
+      "kind": "plugin",
+      "version": "0.1.0",
+      "provider": "google-workspace",
+      "description": "Composition blueprint joining skills, MCP bindings, agents and workflows; not a native runtime plugin.",
+      "execution": "design-only",
+      "requires": [
+        "google-workspace-skill",
+        "google-workspace-mcp",
+        "google-workspace-agent",
+        "google-workspace-workflow"
+      ],
+      "permissions": [
+        "google:drive.read",
+        "google:docs.write",
+        "google:gmail.send"
+      ]
+    },
+    {
+      "id": "copilot-studio-skill",
+      "kind": "skill",
+      "version": "0.1.0",
+      "provider": "copilot-studio",
+      "description": "Portable instructions for scoped authoring and operations with existing host adapters.",
+      "execution": "design-only",
+      "requires": [],
+      "permissions": [
+        "studio:read",
+        "studio:write",
+        "studio:publish"
+      ],
+      "instructions": "references/copilot-studio.md"
+    },
+    {
+      "id": "copilot-studio-mcp",
+      "kind": "mcp",
+      "version": "0.1.0",
+      "provider": "copilot-studio",
+      "description": "Connection contract for a user-configured server; no endpoint or server implementation is bundled.",
+      "execution": "design-only",
+      "requires": [],
+      "permissions": [
+        "studio:read"
+      ],
+      "binding": {
+        "mode": "user-configured",
+        "verification": [
+          "initialize",
+          "tools/list"
+        ]
+      }
+    },
+    {
+      "id": "copilot-studio-agent",
+      "kind": "agent",
+      "version": "0.1.0",
+      "provider": "copilot-studio",
+      "description": "Agent composition with explicit task scope and declared skill/tool dependencies.",
+      "execution": "design-only",
+      "requires": [
+        "copilot-studio-skill",
+        "copilot-studio-mcp"
+      ],
+      "permissions": [
+        "studio:read",
+        "studio:write",
+        "studio:publish"
+      ],
+      "instructions": "Use only the bound principal, target and declared permissions. Return the proposed actions and provenance. Do not infer connected state or delegate with broader authority."
+    },
+    {
+      "id": "copilot-studio-workflow",
+      "kind": "workflow",
+      "version": "0.1.0",
+      "provider": "copilot-studio",
+      "description": "Ordered operations with permissions and approval boundaries; planning only.",
+      "execution": "design-only",
+      "requires": [
+        "copilot-studio-agent"
+      ],
+      "permissions": [
+        "studio:read",
+        "studio:write",
+        "studio:publish"
+      ],
+      "steps": [
+        {
+          "id": "inspect",
+          "component": "copilot-studio-mcp",
+          "operation": "studio.inspect-definition",
+          "effect": "read",
+          "permissions": [
+            "studio:read"
+          ],
+          "approval": "none",
+          "after": []
+        },
+        {
+          "id": "push",
+          "component": "copilot-studio-skill",
+          "operation": "studio.push-definition",
+          "effect": "write",
+          "permissions": [
+            "studio:write"
+          ],
+          "approval": "explicit",
+          "after": [
+            "inspect"
+          ]
+        },
+        {
+          "id": "publish",
+          "component": "copilot-studio-skill",
+          "operation": "studio.publish-agent",
+          "effect": "publish",
+          "permissions": [
+            "studio:publish"
+          ],
+          "approval": "explicit",
+          "after": [
+            "push"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "copilot-studio-plugin",
+      "kind": "plugin",
+      "version": "0.1.0",
+      "provider": "copilot-studio",
+      "description": "Composition blueprint joining skills, MCP bindings, agents and workflows; not a native runtime plugin.",
+      "execution": "design-only",
+      "requires": [
+        "copilot-studio-skill",
+        "copilot-studio-mcp",
+        "copilot-studio-agent",
+        "copilot-studio-workflow"
+      ],
+      "permissions": [
+        "studio:read",
+        "studio:write",
+        "studio:publish"
+      ]
+    }
+  ]
+}
