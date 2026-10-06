@@ -51,3 +51,8 @@ python3 scripts/package_plugin.py mithril-app --check
 0.2.0 は byte 検証済みの local run に対する MCP search / timeline / compare / export と、alert triage・vulnerability correlation・evidence report の3手順を同梱します。Tenable は既存 chunk、CrowdStrike は指定 ID、Wazuh は明示許可した Indexer のみ。比較から解消を推定せず、時刻不明・asset namespace・未取得ページを保持します。
 
 0.3.0 は runZero asset export、Okta System Log の明示時間範囲1page、Censys Platform の指定public IP lookupを加え、10製品のsourceを扱います（Wizはexportのみ）。読取要求と未取得範囲をreceipt v2に記録し、local MCPのIP観測相関toolと契約/coverage resourceを公開します。同一IPから同一端末/人物を推定しません。[context correlation](skills/security/mithril-cybersecurity-products/references/context-correlation.md) と [Black Hat調査・実装段階](docs/security-integrations/blackhat-2026.md) を参照してください。実tenantのqualification、hosted vendor MCP接続、App/Desktop公開は未実施です。
+
+## Knowledge contributions
+
+[Knowledge Contributions MCP](mcp/mithril-knowledge-contributions/README.md) integrates owner-private submission, history, withdrawal and appeal using `knowledge:read` / `knowledge:write`. Console and Admin expose explanation only. Existing review, publication receipts and idempotent credit gates remain on the server.
+

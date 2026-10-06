@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1",
+  "type": "mcp",
+  "id": "mithril-knowledge-contributions",
+  "category": "data",
+  "name": "Mithril Knowledge Contributions MCP",
+  "version": "1.1.0",
+  "description": "Submit consented Knowledge contributions, read owner-private history, withdraw publication consent, appeal and manage leaderboard participation. Review and confirmed publication gate rewards; these tools cannot approve or grant credits.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://api.mithril.fund/v1/knowledge/.well-known/mcp.json",
+  "tags": [
+    "knowledge",
+    "contributions",
+    "evidence",
+    "consent"
+  ],
+  "transport": "streamable-http",
+  "url": "https://api.mithril.fund/v1/knowledge/mcp",
+  "protocolVersion": "2025-06-18",
+  "authentication": {
+    "mode": "per-tool",
+    "credentialSource": "https://console.mithril.fund/knowledge/contributions",
+    "credentialHeader": "Authorization"
+  },
+  "permissions": [
+    "network:api.mithril.fund",
+    "knowledge:read",
+    "knowledge:write"
+  ],
+  "tools": [
+    {
+      "name": "mithril_knowledge_history",
+      "authentication": "personal-api-token",
+      "effect": "read"
+    },
+    {
+      "name": "mithril_knowledge_contributor_summary",
+      "authentication": "personal-api-token",
+      "effect": "read"
+    },
+    {
+      "name": "mithril_knowledge_submit",
+      "authentication": "personal-api-token",
+      "effect": "write"
+    },
+    {
+      "name": "mithril_knowledge_submission_status",
+      "authentication": "personal-api-token",
+      "effect": "read"
+    },
+    {
+      "name": "mithril_knowledge_withdraw",
+      "authentication": "personal-api-token",
+      "effect": "write"
+    },
+    {
+      "name": "mithril_knowledge_appeal",
+      "authentication": "personal-api-token",
+      "effect": "write"
+    },
+    {
+      "name": "mithril_knowledge_profile",
+      "authentication": "personal-api-token",
+      "effect": "write"
+    }
+  ],
+  "documentation": "https://github.com/mithril-lang/mithril-registry/tree/main/mcp/mithril-knowledge-contributions"
+}
