@@ -65,6 +65,46 @@ The Wazuh example host is a placeholder; replace both origin fields with the sam
 
 Official contracts: [Graph alerts_v2](https://learn.microsoft.com/en-us/graph/api/security-list-alerts_v2?view=graph-rest-1.0) (SecurityAlert.Read.All), [CrowdStrike Alerts](https://developer.crowdstrike.com/api-reference/collections/alerts/) (PostEntitiesAlertsV2, Alerts:READ), [Tenable chunk download](https://developer.tenable.com/reference/exports-vulns-download-chunk), [Wazuh Indexer alert queries](https://documentation.wazuh.com/current/user-manual/indexer-api/use-case.html). Shapes/fields and regional endpoints still require representative tenant qualification. Vendor tokens/keys are pre-provisioned; the adapter never creates them.
 
+## Asset and identity context (0.3.0)
+
+| Product | Accepted source | Fixed read contract | Qualification boundary |
+|---|---|---|---|
+| runzero | JSON array of assets, required string id; optional addresses[]/os/last_seen | GET `/api/v1.0/export/org/assets.json` | Hosted console or operator-pinned self-hosted HTTPS origin; export-read credential supplied; entire response must fit2MiB/1000rows; no scan/query/sync API |
+| okta-system-log | JSON array, required uuid; optional client.ipAddress/actor.id/published/displayMessage/severity | GET `/api/v1/logs` with explicit since/until, ASCENDING, limit1–1000 | OAuth bearer with okta.logs.read; zoned window at most31days; one page, manual after cursor only; standard okta.com/oktapreview.com/okta-emea.com tenant domains |
+| censys-platform | `result.resource` host object with IP | GET `/v3/global/asset/host/{ip}?organization_id={uuid}` | PAT supplied; explicit organization to avoid implicit free-wallet selection; public IPv4/IPv6 only; no search/rescan/history API; no assumed host timestamp |
+
+Synthetic names and addresses in examples are configuration placeholders. No customer credential is provided or read during fixture validation.
+
+```json
+{"product":"runzero","origin":"https://console.runzero.com","tokenEnv":"RUNZERO_EXPORT_TOKEN","credentialScope":"export-read"}
+```
+
+For self-hosted runZero, add `approvedOrigin` equal to the exact selected `https://hostname`, optionally `caFile` for an operator-trusted CA. This pins a destination, not proof of ownership or credential permissions. `credentialScope` is an operator declaration; the client cannot attest remote RBAC. Public vendor docs currently show inconsistent ET/XT prefixes for export tokens, so the adapter does not infer access rights from a token prefix. Use a provisioned read-only export credential confirmed in the tenant.
+
+```json
+{"product":"okta-system-log","origin":"https://example.okta.com","tokenEnv":"OKTA_LOGS_READ_BEARER","since":"2026-10-05T00:00:00Z","until":"2026-10-06T00:00:00Z","limit":100}
+```
+
+Optional `after` is a manually selected opaque cursor containing letters/digits/underscore/hyphen, at most2048characters. Custom Okta domains, SSWS credentials, OAuth issuance/refresh, arbitrary filters and automatic Link traversal are unavailable. The Link header is inspected only for next-link presence; its URL is neither retained in the receipt nor requested. A missing next-link is not proof of complete retention or tenant coverage.
+
+```json
+{"product":"censys-platform","origin":"https://api.platform.censys.io","tokenEnv":"CENSYS_PAT","ip":"8.8.8.8","organizationId":"12345678-1234-1234-1234-123456789012"}
+```
+
+The adapter requires an explicit entitlement-bearing organization ID and checks returned host IP against the selected IP. Authorized API reads can consume vendor credits. This integration is fixture-tested; it does not connect or authenticate to the vendor's hosted MCP. Its observations are exposed through Mithril's local stdio MCP instead.
+
+### Coverage receipt v2 and correlation
+
+Receipts retain the source digest plus `normalizerVersion` and `coverage`. The status is always `incomplete-or-unknown`; extent differentiates alert page, selected IDs, export chunk, index search, asset export, bounded log page and selected host. Network receipts include start/end, method/path/origin, response bytes/status, selected non-secret scope and continuation presence. Falcon selections record ID count and a selection digest to bound receipt size. Authorization headers and secret values are excluded. Receipts are unsigned local claims; changing both source and receipt remains possible. Legacy receipts retain unknown coverage. A failed HTTP request, timeout, oversized body or invalid schema does not generate a successful receipt or a clearance verdict.
+
+`cybersecurity_correlate` / CLI `--operation correlate` accepts `runs` (1–16), `address` (IP), optional `limit` (1–200) and `offset` (0–16000). It returns byte-verified context observations with exact normalized IP overlap, source hash/row, namespaced vendor IDs and `identityConclusion: not-established`. It does not merge assets or map IPs out of earlier alert adapters. See [context correlation](context-correlation.md).
+
+MCP `resources/list` and `resources/read` expose only `cybersecurity://contracts` and `cybersecurity://coverage`; arbitrary file/resource URIs are refused. Network-disabled servers list7local tools; explicit `--allow-network` adds bounded collect as tool8.
+
+Official sources: [runZero API](https://help.runzero.com/docs/leveraging-the-api/), [runZero data formats](https://help.runzero.com/docs/data-formats/), [Okta bounded System Log queries](https://developer.okta.com/docs/reference/system-log-query/), [Okta System Log API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/SystemLog/), [Censys host lookup](https://docs.censys.com/reference/v3-globaldata-asset-host), [Censys host dataset](https://docs.censys.com/docs/platform-host-dataset). All are contract references, not evidence of live qualification.
+
+Axonius remains deferred: [official API v2 access instructions](https://docs.axonius.com/docs/axonius-rest-api) require access to developer.axonius.com and a service account. The public overview alone does not supply a verified query/schema/auth contract. No Axonius endpoint or export format is invented here.
+
 ## Investigation arguments
 
 - search: `{"runs":["/private/run-a"],"query":"literal asset or CVE","limit":100,"offset":0}`
