@@ -213,8 +213,8 @@
       "type": "skill",
       "category": "security",
       "name": "mithril-cybersecurity-products",
-      "version": "0.1.0",
-      "description": "Collect or normalize authorized Cortex XDR, Wiz and Trend Vision One alert exports with retained source bytes and explicit coverage gaps.",
+      "version": "0.2.0",
+      "description": "Collect and investigate authorized cybersecurity exports from seven products using verified local sources, search, timeline, comparison and evidence export.",
       "tags": [
         "security",
         "xdr",
@@ -227,7 +227,7 @@
       "license": "Apache-2.0",
       "path": "skills/security/mithril-cybersecurity-products",
       "icon": null,
-      "checksum": "sha256:9a3270c352d672c2c7a99291e979f1268d4b081376ba2251a49a3d854990d0d5",
+      "checksum": "sha256:8ef775aef0572d1c616cd1af3745a1114686fde8ad4547febd399861773d9b46",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true
