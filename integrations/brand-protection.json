@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "mithril-brand-protection",
+  "version": "0.1.0",
+  "skill": "skills/security/mithril-brand-protection",
+  "localMcp": {
+    "command": "python3",
+    "args": [
+      "<installed-skill>/scripts/brand.py",
+      "--mcp"
+    ],
+    "authentication": "MITHRIL_BRAND_TOKEN environment variable",
+    "writeOptIn": "--allow-writes"
+  },
+  "hostedMcp": {
+    "url": "https://api.mithril.fund/v1/brand/mcp",
+    "protocol": "2025-06-18",
+    "qualification": "pending-live-release",
+    "registryInstallable": false
+  },
+  "workspacePlugin": {
+    "package": "@mithril/workspace",
+    "exports": [
+      "./brand",
+      "./brand-react"
+    ],
+    "webConsumer": "apps/web/src/routes/app/desktop.tsx",
+    "nativeDesktopQualification": "pending",
+    "separateInstallerPublished": false
+  },
+  "scope": [
+    "brand:read",
+    "brand:write"
+  ],
+  "coverage": {
+    "suppliedObservations": true,
+    "exactImageBytes": true,
+    "nameAndDomainSignals": true,
+    "automaticDiscovery": false,
+    "perceptualImageMatching": false,
+    "outboundReports": false
+  }
+}

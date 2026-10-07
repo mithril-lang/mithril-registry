@@ -59,3 +59,7 @@ python3 scripts/package_plugin.py mithril-app --check
 ## Knowledge contributions
 
 [Knowledge Contributions MCP](mcp/mithril-knowledge-contributions/README.md) integrates owner-private submission, history, withdrawal and appeal using `knowledge:read` / `knowledge:write`, alongside the existing authenticated REST API. Console and Admin expose explanation only. Existing review, publication receipts and idempotent credit gates remain on the server.
+
+## Company brand protection
+
+[Brand Protection](skills/security/mithril-brand-protection/SKILL.md) registers private company assets, compares authorized supplied observations and tracks candidate reviews. A standard-library Python stdio MCP bridge is bundled with the Skill and defaults to read-only. The integration contract is [integrations/brand-protection.json](integrations/brand-protection.json). Hosted API/MCP release, shared Web workspace publication and native Desktop qualification remain separately measured; the pending hosted endpoint is not indexed as a live installable MCP. Automatic discovery, perceptual image similarity and outbound takedowns are unavailable.
