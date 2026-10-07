@@ -13,6 +13,7 @@ from urllib.parse import urlsplit
 import yaml
 import security_catalog
 import integration_catalog
+import solution_catalog
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "skills"
@@ -259,9 +260,25 @@ def main() -> None:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     index, categories = build()
+    solutions = solution_catalog.build(ROOT, [e['id'] for e in index['entries']])
+    index['solutionCatalog'] = 'solutions.json'
+    docs = ROOT / 'solutions/agency'
+    if not args.check:
+        docs.mkdir(parents=True, exist_ok=True)
+    for solution in solutions['solutions']:
+        target = docs / (solution['id'] + '.md')
+        expected = solution_catalog.document(solution, solutions['botProfiles'])
+        if args.check:
+            if not target.exists() or target.read_text() != expected:
+                raise SystemExit(f"{target.name} is stale; run scripts/build_index.py")
+        else:
+            target.write_text(expected)
+    for entry in index['entries']:
+        entry['solutionIds'] = [s['id'] for s in solutions['solutions'] if entry['id'] in s['registryEntries']]
     for name, value in (("index.json", index), ("categories.json", categories),
                         ("security.json", security_catalog.build(ROOT)),
-                        ("integrations.json", integration_catalog.build(ROOT))):
+                        ("integrations.json", integration_catalog.build(ROOT)),
+                        ("solutions.json", solutions)):
         target = ROOT / name
         expected = json.dumps(value, ensure_ascii=False, indent=2) + "\n"
         if args.check:
