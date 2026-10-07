@@ -6,7 +6,7 @@ Cyber, Forensic Laboratory and Prosecution expose only the supported JSON local 
 
 ## Local contact profiles
 
-Run `python3 scripts/install_agency_profiles.py --home /absolute/hermes/home` to preview; add `--apply` to create 14 local profiles. No new dependencies are required. Profiles include SOUL.md, Desktop profile-meta.json, Hermes profile.yaml and routing metadata; they opt out of the host gateway multiplexer. No credentials, channels, cron or active-profile changes are copied. Existing changed files and symlinks are refused; identical reruns are harmless. Configure an approved provider separately before conversation. These are Mithril consultation bots, not officials or forensic executors.
+Run `python3 scripts/install_agency_profiles.py --home /absolute/hermes/home` to preview; add `--apply` to create 14 local profiles. No new dependencies are required. Profiles include SOUL.md, USER.md, Desktop profile-meta.json, Hermes profile.yaml and routing metadata; they opt out of the host gateway multiplexer. No credentials, channels, cron or active-profile changes are copied. Existing changed files and symlinks are refused; identical reruns are harmless. Configure an approved provider separately before conversation. These are Mithril consultation bots, not officials or forensic executors.
 
 The shared Web/Desktop Bot profiles screen consumes a reviewed snapshot in mithril-fund and offers editable drafts with explicit save. Local native profiles and cloud profiles remain separate records. A live cloud account requires workspace authorization; profile creation does not confer it.
 

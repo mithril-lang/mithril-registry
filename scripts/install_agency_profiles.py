@@ -26,6 +26,7 @@ def install(root, home, apply=False):
         target = directory / p['id']
         files = {
             'SOUL.md': p['instructions'] + '\n',
+            'USER.md': p['userContext'] + '\n',
             'profile-meta.json': json.dumps({'name': p['name']}, ensure_ascii=False, indent=2) + '\n',
             'contact.json': json.dumps({'id': p['id'], 'solutionId': p['solutionId'], 'persona': p['persona'], 'catalogVersion': data['version']}, ensure_ascii=False, indent=2) + '\n',
             'config.yaml': '# Contact assistant. Configure an approved provider separately.\ngateway:\n  standalone: true\n',
