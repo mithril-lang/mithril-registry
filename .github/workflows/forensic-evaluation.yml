@@ -1,0 +1,30 @@
+name: Forensic local evaluation
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  acceptance:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-14]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r skills/security/mithril-forensic-evidence/requirements.txt
+      - run: python -m unittest discover -s scripts -p 'test_forensic_evidence.py'
+      - run: python skills/security/mithril-forensic-evidence/scripts/acceptance.py
+      - run: python -m pip download --only-binary=:all: -r skills/security/mithril-forensic-evidence/requirements.txt --dest wheelhouse
+      - run: python scripts/package_forensic.py --wheelhouse wheelhouse --output dist/mithril-forensic-evaluation.zip
+      - run: python -m zipfile -e dist/mithril-forensic-evaluation.zip evaluation
+      - run: python -m venv offline
+      - run: offline/bin/python -m pip install --no-index --find-links evaluation/wheels --require-hashes -r evaluation/offline-requirements.txt
+      - run: offline/bin/python evaluation/skills/security/mithril-forensic-evidence/scripts/acceptance.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mithril-forensic-evaluation-${{ matrix.os }}-py312
+          path: dist/mithril-forensic-evaluation.zip
+          retention-days: 14

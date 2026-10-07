@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 14,
+  "count": 15,
   "entries": [
     {
       "id": "mithril-graph",
@@ -332,6 +332,30 @@
       "path": "skills/security/mithril-cybersecurity-products",
       "icon": null,
       "checksum": "sha256:d6f88c658a19564f2a2ddaf116935f4766cfa6bdf8dade4ee9829c5e3057b64b",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true
+    },
+    {
+      "id": "mithril-forensic-evidence",
+      "type": "skill",
+      "category": "security",
+      "name": "mithril-forensic-evidence",
+      "version": "0.1.0",
+      "description": "Package retained cybersecurity runs with signed manifests, verify original bytes independently, record local case custody and prepare source-linked report drafts for supervised forensic evaluation.",
+      "tags": [
+        "forensics",
+        "evidence",
+        "custody",
+        "signatures",
+        "verification",
+        "cases"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/security/mithril-forensic-evidence",
+      "icon": null,
+      "checksum": "sha256:7b5b372600c0773e058586529bc8d5fc736ada5d0d7e1a16c795a76da91a14e4",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true
