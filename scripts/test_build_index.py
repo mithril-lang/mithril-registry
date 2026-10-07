@@ -73,10 +73,10 @@ class RegistryTest(unittest.TestCase):
         mcp = entries[("mcp", "mithril-data-catalog")]
         self.assertEqual(mcp["connection"], {
             "transport": "streamable-http",
-            "url": "https://api.mithril.fund/v1/internal/data-catalog/mcp",
+            "url": "https://mithril-api.cloud-kotoba.workers.dev/v1/internal/data-catalog/mcp",
             "authentication": "per-tool",
         })
-        self.assertEqual(set(mcp["permissions"]), {"network:api.mithril.fund", "catalog:ingest"})
+        self.assertEqual(set(mcp["permissions"]), {"network:mithril-api.cloud-kotoba.workers.dev", "catalog:ingest"})
 
     def test_git_plugin_requires_full_commit(self):
         self.write_manifest(

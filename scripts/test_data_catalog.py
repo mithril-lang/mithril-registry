@@ -67,14 +67,14 @@ class DataCatalogTest(unittest.TestCase):
         plugin = json.loads((ROOT / "plugins/mithril-data-catalog/manifest.json").read_text())
         skill = (ROOT / "skills/data/mithril-data-catalog/SKILL.md").read_text()
         package = (ROOT / "plugins/mithril-data-catalog/package/__init__.py").read_text()
-        self.assertEqual(mcp["url"], "https://api.mithril.fund/v1/internal/data-catalog/mcp")
+        self.assertEqual(mcp["url"], "https://mithril-api.cloud-kotoba.workers.dev/v1/internal/data-catalog/mcp")
         self.assertEqual(mcp["tools"][0]["name"], "mithril_catalog_ingest_batch")
         self.assertEqual(plugin["tools"], ["mithril_catalog_publish"])
         self.assertIn("MITHRIL_CATALOG_API_TOKEN", package)
         combined = (json.dumps(mcp) + json.dumps(plugin) + skill).lower()
         self.assertNotIn("cloudflare_api_token", combined)
         self.assertNotIn("catalog.cloudflarestorage.com", combined)
-        self.assertNotIn("mithril-api.cloud-kotoba.workers.dev", combined)
+        self.assertNotIn("r2.cloudflarestorage.com", combined)
 
 
 if __name__ == "__main__":

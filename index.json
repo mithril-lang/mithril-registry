@@ -20,17 +20,17 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-data-catalog",
       "icon": null,
-      "checksum": "sha256:b46060db1da719328b97a2781fddebb7adb0239b1bf0e20861e2d2d43423c26e",
+      "checksum": "sha256:c7d6ffe963944e7e1d35933dbd1be88e4b8e7f771595c205511b74cc0ab6cbc4",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
-        "network:api.mithril.fund",
+        "network:mithril-api.cloud-kotoba.workers.dev",
         "catalog:ingest"
       ],
       "installable": true,
       "connection": {
         "transport": "streamable-http",
-        "url": "https://api.mithril.fund/v1/internal/data-catalog/mcp",
+        "url": "https://mithril-api.cloud-kotoba.workers.dev/v1/internal/data-catalog/mcp",
         "authentication": "per-tool"
       },
       "solutionIds": []
@@ -152,7 +152,7 @@
       "license": "Apache-2.0",
       "path": "plugins/mithril-data-catalog",
       "icon": null,
-      "checksum": "sha256:5bf003bd5bad8509717223555f899e64ef06c1e1110d0eebf133e7e7ea0be54b",
+      "checksum": "sha256:2f66b61a43ace5b306e665b56650f2e490f2c4277e3e69236b5ce10372c3b9d9",
       "compatibility": {
         "clients": [
           {
@@ -170,6 +170,7 @@
       "permissions": [
         "local-files:user-selected-root",
         "network:api.mithril.fund",
+        "network:mithril-api.cloud-kotoba.workers.dev",
         "secret:MITHRIL_CATALOG_API_TOKEN",
         "catalog:ingest"
       ],
@@ -177,8 +178,8 @@
       "artifact": {
         "format": "zip",
         "url": "https://github.com/mithril-lang/mithril-registry/releases/download/mithril-data-catalog-v1.0.0/mithril-data-catalog-1.0.0.zip",
-        "sha256": "c42f2c667bd8526ff5b17a29ba74f0a834fd6315c1249c2767b8ad52c6a76001",
-        "bytes": 5172
+        "sha256": "337d6a31dfbb0a3bdb8a36c32acf9bcbc1b17e3be7e67d751319337ca00699e0",
+        "bytes": 5642
       },
       "tools": [
         "mithril_catalog_publish"
@@ -307,7 +308,7 @@
       "license": "Apache-2.0",
       "path": "skills/data/mithril-data-catalog",
       "icon": null,
-      "checksum": "sha256:86e4bc07d908cfc9683f969dd0a251ebea633e81412404e6f716f8f1ccdc6091",
+      "checksum": "sha256:013018ad51cf49d27872e2ff3eb38102a51abdac91e5d2925fdf444060d84d64",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,

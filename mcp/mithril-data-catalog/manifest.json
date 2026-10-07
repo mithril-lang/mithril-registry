@@ -8,17 +8,17 @@
   "description": "Stage authorized, content-addressed Mithril dataset batches through api.mithril.fund for separately trusted R2 Data Catalog and Iceberg materialization; no Cloudflare credentials or direct bucket access are exposed.",
   "author": "Mithril",
   "license": "Apache-2.0",
-  "source": "https://api.mithril.fund/v1/internal/data-catalog/.well-known/mcp.json",
+  "source": "https://mithril-api.cloud-kotoba.workers.dev/v1/internal/data-catalog/.well-known/mcp.json",
   "tags": ["data", "catalog", "r2", "iceberg", "hermes"],
   "transport": "streamable-http",
-  "url": "https://api.mithril.fund/v1/internal/data-catalog/mcp",
+  "url": "https://mithril-api.cloud-kotoba.workers.dev/v1/internal/data-catalog/mcp",
   "protocolVersion": "2025-06-18",
   "authentication": {
     "mode": "per-tool",
     "credentialSource": "https://github.com/mithril-lang/mithril-fund/blob/main/docs/design/data-catalog-agent-ingest.md",
     "credentialHeader": "Authorization"
   },
-  "permissions": ["network:api.mithril.fund", "catalog:ingest"],
+  "permissions": ["network:mithril-api.cloud-kotoba.workers.dev", "catalog:ingest"],
   "tools": [
     {
       "name": "mithril_catalog_ingest_batch",

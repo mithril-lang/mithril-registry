@@ -1,6 +1,6 @@
 # Mithril Data Catalog MCP
 
-Connect an MCP client to `https://api.mithril.fund/v1/internal/data-catalog/mcp` with the isolated catalog-ingest bearer. The server supports stateless Streamable HTTP and exposes one tool: `mithril_catalog_ingest_batch`.
+During the Fund account cutover, connect an MCP client to `https://mithril-api.cloud-kotoba.workers.dev/v1/internal/data-catalog/mcp` with the isolated catalog-ingest bearer. This is the Fund-owned Mithril API Worker, not direct R2 access. After the `api.mithril.fund` zone cutover is independently verified, the Registry will move the connection to `https://api.mithril.fund/v1/internal/data-catalog/mcp`. The server supports stateless Streamable HTTP and exposes one tool: `mithril_catalog_ingest_batch`.
 
 The tool validates bounded files, verifies SHA-256 and byte length, writes immutable content-addressed objects through the Fund API's R2 binding, and returns a staging receipt. It never returns or accepts Cloudflare credentials and cannot create/delete buckets, alter Basin settings, delete objects, or invoke the trusted Iceberg materializer.
 

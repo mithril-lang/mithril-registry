@@ -16,3 +16,8 @@ provides_hooks: []
 provides_middleware: []
 requires_env:
   - MITHRIL_CATALOG_API_TOKEN
+config_schema:
+  api_url:
+    type: str
+    required: false
+    default: https://mithril-api.cloud-kotoba.workers.dev/v1/internal/data-catalog/ingest

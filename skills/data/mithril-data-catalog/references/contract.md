@@ -4,7 +4,7 @@
 
 The agent may read explicitly selected local source files and send their verified bytes to the Mithril API. Only the API owns the R2 binding. Only the trusted CI/backend materializer owns Basin Catalog credentials. The Registry owns discovery, instructions, declared permissions, compatibility, and artifact hashes.
 
-The canonical endpoint is `https://api.mithril.fund`. Do not persist a temporary `workers.dev` hostname in a skill, MCP connection, plugin, profile, or generated job. Do not send the catalog bearer to any redirected origin.
+The canonical endpoint is `https://api.mithril.fund`. Until its zone cutover is independently verified, the Registry may pin the exact Fund-owned `https://mithril-api.cloud-kotoba.workers.dev` endpoint. These are the only two admitted origins. Do not accept redirects or send the catalog bearer to any other origin. Bump the Registry package and remove the transitional hostname after cutover.
 
 ## Receipt states
 

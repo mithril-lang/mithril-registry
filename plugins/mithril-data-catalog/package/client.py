@@ -12,6 +12,8 @@ import urllib.request
 
 
 API_URL = "https://api.mithril.fund/v1/internal/data-catalog/ingest"
+TRANSITION_API_URL = "https://mithril-api.cloud-kotoba.workers.dev/v1/internal/data-catalog/ingest"
+ALLOWED_API_URLS = frozenset((API_URL, TRANSITION_API_URL))
 DATASETS = frozenset(("actor", "adnetwork", "attack", "cwe", "darkweb", "epss",
                       "exchange-sec", "humankind", "kev", "oss-sec", "pwned"))
 CONTENT_TYPES = {
@@ -100,12 +102,14 @@ def _payload(args: dict) -> dict:
     return {"dataset": dataset, "generatedAt": _generated_at(args.get("generated_at")), "files": entries}
 
 
-def publish(args: dict, token: str, *, opener=None) -> str:
+def publish(args: dict, token: str, *, api_url: str = API_URL, opener=None) -> str:
     if not token:
         raise CatalogClientError("MITHRIL_CATALOG_API_TOKEN is not configured for this profile")
+    if api_url not in ALLOWED_API_URLS:
+        raise CatalogClientError("catalog API URL is not in the exact Mithril allowlist")
     payload = _payload(args)
     request = urllib.request.Request(
-        API_URL,
+        api_url,
         data=json.dumps(payload, separators=(",", ":")).encode("utf-8"),
         headers={
             "Authorization": "Bearer " + token,

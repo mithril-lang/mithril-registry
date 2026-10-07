@@ -13,14 +13,15 @@
   "permissions": [
     "local-files:user-selected-root",
     "network:api.mithril.fund",
+    "network:mithril-api.cloud-kotoba.workers.dev",
     "secret:MITHRIL_CATALOG_API_TOKEN",
     "catalog:ingest"
   ],
   "artifact": {
     "format": "zip",
     "url": "https://github.com/mithril-lang/mithril-registry/releases/download/mithril-data-catalog-v1.0.0/mithril-data-catalog-1.0.0.zip",
-    "sha256": "c42f2c667bd8526ff5b17a29ba74f0a834fd6315c1249c2767b8ad52c6a76001",
-    "bytes": 5172
+    "sha256": "337d6a31dfbb0a3bdb8a36c32acf9bcbc1b17e3be7e67d751319337ca00699e0",
+    "bytes": 5642
   },
   "compatibility": {
     "clients": [

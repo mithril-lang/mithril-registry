@@ -49,11 +49,11 @@ def _available() -> bool:
     return bool(_token())
 
 
-def _handle(args: dict, **_kwargs) -> str:
+def _handle(args: dict, api_url: str, **_kwargs) -> str:
     from .client import CatalogClientError, publish
 
     try:
-        return publish(args, _token())
+        return publish(args, _token(), api_url=api_url)
     except CatalogClientError as error:
         import json
 
@@ -61,11 +61,15 @@ def _handle(args: dict, **_kwargs) -> str:
 
 
 def register(ctx) -> None:
+    api_url = ctx.get_config(
+        "api_url",
+        "https://mithril-api.cloud-kotoba.workers.dev/v1/internal/data-catalog/ingest",
+    )
     ctx.register_tool(
         name="mithril_catalog_publish",
         toolset="mithril_data_catalog",
         schema=SCHEMA,
-        handler=_handle,
+        handler=lambda args, **kwargs: _handle(args, api_url, **kwargs),
         check_fn=_available,
         description=SCHEMA["description"],
         emoji="🧊",
