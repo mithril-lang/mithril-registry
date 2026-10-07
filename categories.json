@@ -3,7 +3,7 @@
   "types": [
     {
       "type": "skill",
-      "count": 5,
+      "count": 6,
       "categories": [
         {
           "name": "productivity",
@@ -15,7 +15,7 @@
         },
         {
           "name": "security",
-          "count": 2
+          "count": 3
         }
       ]
     },

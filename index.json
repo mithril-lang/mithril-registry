@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 13,
+  "count": 14,
   "entries": [
     {
       "id": "mithril-graph",
@@ -273,6 +273,31 @@
       "path": "skills/research/mithril-pep-record-review",
       "icon": null,
       "checksum": "sha256:467eeda560bf7e0f839846f921a09b1f0d08e8868c0f250ffe3fba56a75e42cc",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true
+    },
+    {
+      "id": "mithril-brand-protection",
+      "type": "skill",
+      "category": "security",
+      "name": "mithril-brand-protection",
+      "version": "0.1.0",
+      "description": "Register company brand assets, match authorized supplied observations and track candidate reviews through Mithril REST or the bundled stdio MCP bridge.",
+      "tags": [
+        "brand",
+        "trademark",
+        "logo",
+        "character",
+        "evidence",
+        "monitoring",
+        "mcp"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/security/mithril-brand-protection",
+      "icon": null,
+      "checksum": "sha256:9fcace10a788238b1de5b6d9f2af87aebee19d5083ac32b253c7791b776e9e87",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true
