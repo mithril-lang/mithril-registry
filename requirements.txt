@@ -1,1 +1,2 @@
 PyYAML>=6.0,<7.0
+cryptography==50.0.2
