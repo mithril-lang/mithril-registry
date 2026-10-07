@@ -67,3 +67,7 @@ python3 scripts/package_plugin.py mithril-app --check
 ## Company brand protection
 
 [Brand Protection](skills/security/mithril-brand-protection/SKILL.md) registers private company assets, compares authorized supplied observations and tracks candidate reviews. A standard-library Python stdio MCP bridge is bundled with the Skill and defaults to read-only. The integration contract is [integrations/brand-protection.json](integrations/brand-protection.json). Hosted API/MCP release, shared Web workspace publication and native Desktop qualification remain separately measured; the pending hosted endpoint is not indexed as a live installable MCP. Automatic discovery, perceptual image similarity and outbound takedowns are unavailable.
+
+## Investigation roles and solutions
+
+[`solutions.json`](solutions.json) groups 11 investigation roles and 14 contact profiles without registering planned modules as executable products. Generated [role briefs](solutions/agency) keep persona, current input scope, gaps, Registry mapping and unpublished blog briefs together. [`agency.json`](solutions/agency.json) is authoritative; build_index verifies artifacts. The [native profile installer and shared Desktop contract](docs/security-integrations/agency-target-portfolios.md) create consultation profiles without copying credentials or starting gateway jobs.

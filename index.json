@@ -31,7 +31,8 @@
         "transport": "streamable-http",
         "url": "https://graph.mithril.fund/mcp",
         "authentication": "per-tool"
-      }
+      },
+      "solutionIds": []
     },
     {
       "id": "mithril-knowledge-contributions",
@@ -63,7 +64,8 @@
         "transport": "streamable-http",
         "url": "https://api.mithril.fund/v1/knowledge/mcp",
         "authentication": "per-tool"
-      }
+      },
+      "solutionIds": []
     },
     {
       "id": "mithril-forensics",
@@ -96,7 +98,8 @@
         "transport": "streamable-http",
         "url": "https://api.mithril.fund/v1/forensics/mcp",
         "authentication": "per-tool"
-      }
+      },
+      "solutionIds": []
     },
     {
       "id": "mithril-app",
@@ -142,7 +145,8 @@
         "url": "https://github.com/mithril-lang/mithril-registry/releases/download/mithril-app-v0.3.0/mithril-app-0.3.0.zip",
         "sha256": "f965a0f5fb565e803a64b4ef5001b616681b17a8f12758cacc0816bfb9c07c73",
         "bytes": 10618
-      }
+      },
+      "solutionIds": []
     },
     {
       "id": "hermes-zap-proxy",
@@ -196,7 +200,8 @@
         "zap_scan",
         "zap_scan_active",
         "zap_scan_rules"
-      ]
+      ],
+      "solutionIds": []
     },
     {
       "id": "mithril-enterprise-integrations",
@@ -233,7 +238,8 @@
           "skill",
           "workflow"
         ]
-      }
+      },
+      "solutionIds": []
     },
     {
       "id": "mithril-evidence-review",
@@ -254,7 +260,8 @@
       "checksum": "sha256:f7de80434835d821a0b83f4ebe4e9dad69729611d6b6e4b4db033e3c221596ec",
       "compatibility": null,
       "acceptsFunding": false,
-      "installable": true
+      "installable": true,
+      "solutionIds": []
     },
     {
       "id": "mithril-pep-record-review",
@@ -275,7 +282,8 @@
       "checksum": "sha256:467eeda560bf7e0f839846f921a09b1f0d08e8868c0f250ffe3fba56a75e42cc",
       "compatibility": null,
       "acceptsFunding": false,
-      "installable": true
+      "installable": true,
+      "solutionIds": []
     },
     {
       "id": "mithril-brand-protection",
@@ -300,7 +308,8 @@
       "checksum": "sha256:9fcace10a788238b1de5b6d9f2af87aebee19d5083ac32b253c7791b776e9e87",
       "compatibility": null,
       "acceptsFunding": false,
-      "installable": true
+      "installable": true,
+      "solutionIds": []
     },
     {
       "id": "mithril-cybersecurity-products",
@@ -334,7 +343,10 @@
       "checksum": "sha256:d6f88c658a19564f2a2ddaf116935f4766cfa6bdf8dade4ee9829c5e3057b64b",
       "compatibility": null,
       "acceptsFunding": false,
-      "installable": true
+      "installable": true,
+      "solutionIds": [
+        "agency-cyber"
+      ]
     },
     {
       "id": "mithril-forensic-evidence",
@@ -358,7 +370,12 @@
       "checksum": "sha256:7b5b372600c0773e058586529bc8d5fc736ada5d0d7e1a16c795a76da91a14e4",
       "compatibility": null,
       "acceptsFunding": false,
-      "installable": true
+      "installable": true,
+      "solutionIds": [
+        "agency-cyber",
+        "agency-forensic-lab",
+        "agency-prosecution"
+      ]
     },
     {
       "id": "mithril-security-suite",
@@ -399,7 +416,8 @@
           "templates",
           "iac"
         ]
-      }
+      },
+      "solutionIds": []
     },
     {
       "id": "model-catalog",
@@ -430,7 +448,8 @@
           "url": "https://mithril.fund/.well-known/mcp.json",
           "name": "mithril_models"
         }
-      }
+      },
+      "solutionIds": []
     },
     {
       "id": "knowledge-context",
@@ -462,7 +481,8 @@
           "url": "https://mithril.fund/.well-known/mcp.json",
           "name": "mithril_knowledge_context"
         }
-      }
+      },
+      "solutionIds": []
     },
     {
       "id": "knowledge-search",
@@ -493,7 +513,9 @@
           "url": "https://mithril.fund/.well-known/mcp.json",
           "name": "mithril_knowledge_search"
         }
-      }
+      },
+      "solutionIds": []
     }
-  ]
+  ],
+  "solutionCatalog": "solutions.json"
 }
