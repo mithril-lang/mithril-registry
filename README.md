@@ -22,7 +22,7 @@
 - `tools/<name>/`: 公開 HTTP ツール一覧（`https://mithril.fund/.well-known/mcp.json`）の操作と HTTP 操作を結び、入力・出力 schema、認証、権限、副作用を記述します。Tool は単体インストールの対象ではありません。
 - `index.json`, `categories.json`: 検証済みの内容から生成する配布 index。直接編集しません。
 
-現在の登録物は読み取り手順 Skill 2件・セキュリティ Skill 2件・統合計画 Skill 1件、接続可能な MCP 3件（Graph、Forensics、Knowledge Contributions）、公開読み取り Tool 3件（HTTP のみ。`mithril.fund/mcp` に MCP サーバはありません）、Plugin 2件です。[Mithril Graph MCP](mcp/mithril-graph/manifest.json) は公開 docs と tenant service account を使う graph 操作を分離しています。Tool manifest は公開 HTTP ツール一覧の操作を説明するもので、独立したインストール物ではありません。[Mithril App Plugin](plugins/mithril-app/manifest.json) は Hermes Agent/Desktop 0.21.4 で validator と Plugin Doctor を通した unified package です。[ZAP Proxy DAST](plugins/hermes-zap-proxy/README.md) は固定 Git commit から導入し、許可済み target だけを passive scan します。active scan は target ごとの明示許可が必要です。
+現在の登録物は生成済みの `index.json` と `categories.json` を正とします。Mithril Data Catalog は [Skill](skills/data/mithril-data-catalog/SKILL.md)、[MCP](mcp/mithril-data-catalog/README.md)、Hermes Plugin を同じ1.0.0契約で収録し、エージェントには Cloudflare 資格情報を渡さず `api.mithril.fund` にだけ送信します。[Mithril Graph MCP](mcp/mithril-graph/manifest.json) は公開 docs と tenant service account を使う graph 操作を分離しています。Tool manifest は公開 HTTP ツール一覧の操作を説明するもので、独立したインストール物ではありません。[Mithril App Plugin](plugins/mithril-app/manifest.json) は Hermes Agent/Desktop 0.21.4 で validator と Plugin Doctor を通した unified package です。[ZAP Proxy DAST](plugins/hermes-zap-proxy/README.md) は固定 Git commit から導入し、許可済み target だけを passive scan します。active scan は target ごとの明示許可が必要です。
 
 ## 開発
 
@@ -30,6 +30,7 @@
 python3 -m pip install -r requirements.txt
 python3 scripts/build_index.py --check
 python3 scripts/package_plugin.py mithril-app --check
+python3 scripts/package_plugin.py mithril-data-catalog --check
 ```
 
 追加する Skill は frontmatter に `name`, `description`, `version`, `author`, `license` を記入し、`skills/<category>/<name>/SKILL.md` に配置します。MCP と Tool は各 `manifest.json` に URL、認証、権限、操作の結び付きを記述します。配布物の変更時は version を更新してください。`python3 scripts/build_index.py` で index を更新します。CI は内容と index の一致を確認します。

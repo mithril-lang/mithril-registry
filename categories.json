@@ -3,8 +3,12 @@
   "types": [
     {
       "type": "skill",
-      "count": 7,
+      "count": 8,
       "categories": [
+        {
+          "name": "data",
+          "count": 1
+        },
         {
           "name": "productivity",
           "count": 1
@@ -21,11 +25,11 @@
     },
     {
       "type": "mcp",
-      "count": 3,
+      "count": 4,
       "categories": [
         {
           "name": "data",
-          "count": 2
+          "count": 3
         },
         {
           "name": "security",
@@ -49,8 +53,12 @@
     },
     {
       "type": "plugin",
-      "count": 2,
+      "count": 3,
       "categories": [
+        {
+          "name": "data",
+          "count": 1
+        },
         {
           "name": "development",
           "count": 1

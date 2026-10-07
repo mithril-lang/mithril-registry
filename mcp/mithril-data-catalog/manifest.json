@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1",
+  "type": "mcp",
+  "id": "mithril-data-catalog",
+  "category": "data",
+  "name": "Mithril Data Catalog MCP",
+  "version": "1.0.0",
+  "description": "Stage authorized, content-addressed Mithril dataset batches through api.mithril.fund for separately trusted R2 Data Catalog and Iceberg materialization; no Cloudflare credentials or direct bucket access are exposed.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://api.mithril.fund/v1/internal/data-catalog/.well-known/mcp.json",
+  "tags": ["data", "catalog", "r2", "iceberg", "hermes"],
+  "transport": "streamable-http",
+  "url": "https://api.mithril.fund/v1/internal/data-catalog/mcp",
+  "protocolVersion": "2025-06-18",
+  "authentication": {
+    "mode": "per-tool",
+    "credentialSource": "https://github.com/mithril-lang/mithril-fund/blob/main/docs/design/data-catalog-agent-ingest.md",
+    "credentialHeader": "Authorization"
+  },
+  "permissions": ["network:api.mithril.fund", "catalog:ingest"],
+  "tools": [
+    {
+      "name": "mithril_catalog_ingest_batch",
+      "authentication": "tenant-service-account",
+      "effect": "write"
+    }
+  ],
+  "documentation": "https://github.com/mithril-lang/mithril-registry/tree/main/mcp/mithril-data-catalog"
+}

@@ -61,6 +61,22 @@ class RegistryTest(unittest.TestCase):
         self.assertRegex(plugins["hermes-zap-proxy"]["artifact"]["commit"], r"^[0-9a-f]{40}$")
         self.assertEqual(plugins["hermes-zap-proxy"]["requirements"]["commands"], ["clojure"])
         self.assertEqual(plugins["hermes-zap-proxy"]["compatibility"]["clients"][0]["tested"], "0.21.4")
+        self.assertRegex(plugins["mithril-data-catalog"]["artifact"]["sha256"], r"^[0-9a-f]{64}$")
+        self.assertEqual(plugins["mithril-data-catalog"]["tools"], ["mithril_catalog_publish"])
+
+    def test_data_catalog_skill_mcp_and_plugin_are_kept_together(self):
+        index, _ = build_index.build()
+        entries = {(entry["type"], entry["id"]): entry for entry in index["entries"]}
+        self.assertIn(("skill", "mithril-data-catalog"), entries)
+        self.assertIn(("mcp", "mithril-data-catalog"), entries)
+        self.assertIn(("plugin", "mithril-data-catalog"), entries)
+        mcp = entries[("mcp", "mithril-data-catalog")]
+        self.assertEqual(mcp["connection"], {
+            "transport": "streamable-http",
+            "url": "https://api.mithril.fund/v1/internal/data-catalog/mcp",
+            "authentication": "per-tool",
+        })
+        self.assertEqual(set(mcp["permissions"]), {"network:api.mithril.fund", "catalog:ingest"})
 
     def test_git_plugin_requires_full_commit(self):
         self.write_manifest(

@@ -1,7 +1,40 @@
 {
   "schemaVersion": "1",
-  "count": 15,
+  "count": 18,
   "entries": [
+    {
+      "id": "mithril-data-catalog",
+      "type": "mcp",
+      "category": "data",
+      "name": "Mithril Data Catalog MCP",
+      "version": "1.0.0",
+      "description": "Stage authorized, content-addressed Mithril dataset batches through api.mithril.fund for separately trusted R2 Data Catalog and Iceberg materialization; no Cloudflare credentials or direct bucket access are exposed.",
+      "tags": [
+        "data",
+        "catalog",
+        "r2",
+        "iceberg",
+        "hermes"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-data-catalog",
+      "icon": null,
+      "checksum": "sha256:b46060db1da719328b97a2781fddebb7adb0239b1bf0e20861e2d2d43423c26e",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "network:api.mithril.fund",
+        "catalog:ingest"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "streamable-http",
+        "url": "https://api.mithril.fund/v1/internal/data-catalog/mcp",
+        "authentication": "per-tool"
+      },
+      "solutionIds": []
+    },
     {
       "id": "mithril-graph",
       "type": "mcp",
@@ -99,6 +132,57 @@
         "url": "https://api.mithril.fund/v1/forensics/mcp",
         "authentication": "per-tool"
       },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-data-catalog",
+      "type": "plugin",
+      "category": "data",
+      "name": "Mithril Data Catalog",
+      "version": "1.0.0",
+      "description": "Give Hermes a profile-scoped, bounded local-file tool for API-mediated Mithril R2 Data Catalog staging without Cloudflare credentials.",
+      "tags": [
+        "hermes",
+        "data",
+        "catalog",
+        "r2",
+        "iceberg"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "plugins/mithril-data-catalog",
+      "icon": null,
+      "checksum": "sha256:5bf003bd5bad8509717223555f899e64ef06c1e1110d0eebf133e7e7ea0be54b",
+      "compatibility": {
+        "clients": [
+          {
+            "name": "Hermes Agent and Desktop",
+            "version": ">=0.21.4,<0.22",
+            "tested": "0.21.4"
+          }
+        ],
+        "platforms": [
+          "macos",
+          "linux"
+        ]
+      },
+      "acceptsFunding": false,
+      "permissions": [
+        "local-files:user-selected-root",
+        "network:api.mithril.fund",
+        "secret:MITHRIL_CATALOG_API_TOKEN",
+        "catalog:ingest"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "zip",
+        "url": "https://github.com/mithril-lang/mithril-registry/releases/download/mithril-data-catalog-v1.0.0/mithril-data-catalog-1.0.0.zip",
+        "sha256": "c42f2c667bd8526ff5b17a29ba74f0a834fd6315c1249c2767b8ad52c6a76001",
+        "bytes": 5172
+      },
+      "tools": [
+        "mithril_catalog_publish"
+      ],
       "solutionIds": []
     },
     {
@@ -201,6 +285,32 @@
         "zap_scan_active",
         "zap_scan_rules"
       ],
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-data-catalog",
+      "type": "skill",
+      "category": "data",
+      "name": "mithril-data-catalog",
+      "version": "1.0.0",
+      "description": "Publish authorized Mithril datasets through the API-mediated R2 and Iceberg staging path without giving agents Cloudflare credentials.",
+      "tags": [
+        "data",
+        "catalog",
+        "r2",
+        "iceberg",
+        "api",
+        "mcp",
+        "hermes"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/data/mithril-data-catalog",
+      "icon": null,
+      "checksum": "sha256:86e4bc07d908cfc9683f969dd0a251ebea633e81412404e6f716f8f1ccdc6091",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
       "solutionIds": []
     },
     {
