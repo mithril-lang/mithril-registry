@@ -1,0 +1,23 @@
+name: mithril-data-catalog
+version: 1.0.0
+description: "Profile-scoped Hermes tool for API-mediated Mithril Data Catalog staging."
+author: Mithril
+kind: standalone
+license: Apache-2.0
+homepage: https://github.com/mithril-lang/mithril-registry/tree/main/plugins/mithril-data-catalog
+requires_hermes: ">=0.21.4,<0.22"
+platforms:
+  - macos
+  - linux
+tags: [mithril, data, catalog, r2, iceberg]
+provides_tools:
+  - mithril_catalog_publish
+provides_hooks: []
+provides_middleware: []
+requires_env:
+  - MITHRIL_CATALOG_API_TOKEN
+config_schema:
+  api_url:
+    type: str
+    required: false
+    default: https://mithril-api.cloud-kotoba.workers.dev/v1/internal/data-catalog/ingest

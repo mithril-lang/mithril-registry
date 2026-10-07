@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1",
+  "type": "plugin",
+  "id": "mithril-data-catalog",
+  "category": "data",
+  "name": "Mithril Data Catalog",
+  "version": "1.0.0",
+  "description": "Give Hermes a profile-scoped, bounded local-file tool for API-mediated Mithril R2 Data Catalog staging without Cloudflare credentials.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://github.com/mithril-lang/mithril-registry/tree/main/plugins/mithril-data-catalog",
+  "tags": ["hermes", "data", "catalog", "r2", "iceberg"],
+  "permissions": [
+    "local-files:user-selected-root",
+    "network:api.mithril.fund",
+    "network:mithril-api.cloud-kotoba.workers.dev",
+    "secret:MITHRIL_CATALOG_API_TOKEN",
+    "catalog:ingest"
+  ],
+  "artifact": {
+    "format": "zip",
+    "url": "https://github.com/mithril-lang/mithril-registry/releases/download/mithril-data-catalog-v1.0.0/mithril-data-catalog-1.0.0.zip",
+    "sha256": "337d6a31dfbb0a3bdb8a36c32acf9bcbc1b17e3be7e67d751319337ca00699e0",
+    "bytes": 5642
+  },
+  "compatibility": {
+    "clients": [
+      {"name": "Hermes Agent and Desktop", "version": ">=0.21.4,<0.22", "tested": "0.21.4"}
+    ],
+    "platforms": ["macos", "linux"]
+  },
+  "tools": ["mithril_catalog_publish"]
+}

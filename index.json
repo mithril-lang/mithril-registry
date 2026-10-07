@@ -1,7 +1,40 @@
 {
   "schemaVersion": "1",
-  "count": 15,
+  "count": 18,
   "entries": [
+    {
+      "id": "mithril-data-catalog",
+      "type": "mcp",
+      "category": "data",
+      "name": "Mithril Data Catalog MCP",
+      "version": "1.0.0",
+      "description": "Stage authorized, content-addressed Mithril dataset batches through api.mithril.fund for separately trusted R2 Data Catalog and Iceberg materialization; no Cloudflare credentials or direct bucket access are exposed.",
+      "tags": [
+        "data",
+        "catalog",
+        "r2",
+        "iceberg",
+        "hermes"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-data-catalog",
+      "icon": null,
+      "checksum": "sha256:c7d6ffe963944e7e1d35933dbd1be88e4b8e7f771595c205511b74cc0ab6cbc4",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "network:mithril-api.cloud-kotoba.workers.dev",
+        "catalog:ingest"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "streamable-http",
+        "url": "https://mithril-api.cloud-kotoba.workers.dev/v1/internal/data-catalog/mcp",
+        "authentication": "per-tool"
+      },
+      "solutionIds": []
+    },
     {
       "id": "mithril-graph",
       "type": "mcp",
@@ -99,6 +132,58 @@
         "url": "https://api.mithril.fund/v1/forensics/mcp",
         "authentication": "per-tool"
       },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-data-catalog",
+      "type": "plugin",
+      "category": "data",
+      "name": "Mithril Data Catalog",
+      "version": "1.0.0",
+      "description": "Give Hermes a profile-scoped, bounded local-file tool for API-mediated Mithril R2 Data Catalog staging without Cloudflare credentials.",
+      "tags": [
+        "hermes",
+        "data",
+        "catalog",
+        "r2",
+        "iceberg"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "plugins/mithril-data-catalog",
+      "icon": null,
+      "checksum": "sha256:2f66b61a43ace5b306e665b56650f2e490f2c4277e3e69236b5ce10372c3b9d9",
+      "compatibility": {
+        "clients": [
+          {
+            "name": "Hermes Agent and Desktop",
+            "version": ">=0.21.4,<0.22",
+            "tested": "0.21.4"
+          }
+        ],
+        "platforms": [
+          "macos",
+          "linux"
+        ]
+      },
+      "acceptsFunding": false,
+      "permissions": [
+        "local-files:user-selected-root",
+        "network:api.mithril.fund",
+        "network:mithril-api.cloud-kotoba.workers.dev",
+        "secret:MITHRIL_CATALOG_API_TOKEN",
+        "catalog:ingest"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "zip",
+        "url": "https://github.com/mithril-lang/mithril-registry/releases/download/mithril-data-catalog-v1.0.0/mithril-data-catalog-1.0.0.zip",
+        "sha256": "337d6a31dfbb0a3bdb8a36c32acf9bcbc1b17e3be7e67d751319337ca00699e0",
+        "bytes": 5642
+      },
+      "tools": [
+        "mithril_catalog_publish"
+      ],
       "solutionIds": []
     },
     {
@@ -201,6 +286,32 @@
         "zap_scan_active",
         "zap_scan_rules"
       ],
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-data-catalog",
+      "type": "skill",
+      "category": "data",
+      "name": "mithril-data-catalog",
+      "version": "1.0.0",
+      "description": "Publish authorized Mithril datasets through the API-mediated R2 and Iceberg staging path without giving agents Cloudflare credentials.",
+      "tags": [
+        "data",
+        "catalog",
+        "r2",
+        "iceberg",
+        "api",
+        "mcp",
+        "hermes"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/data/mithril-data-catalog",
+      "icon": null,
+      "checksum": "sha256:013018ad51cf49d27872e2ff3eb38102a51abdac91e5d2925fdf444060d84d64",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
       "solutionIds": []
     },
     {
