@@ -3,7 +3,7 @@
   "types": [
     {
       "type": "skill",
-      "count": 14,
+      "count": 15,
       "categories": [
         {
           "name": "data",
@@ -15,7 +15,7 @@
         },
         {
           "name": "productivity",
-          "count": 2
+          "count": 3
         },
         {
           "name": "research",

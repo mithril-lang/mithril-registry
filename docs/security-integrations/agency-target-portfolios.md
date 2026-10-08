@@ -1,5 +1,7 @@
 # Agency solutions and contact profiles
 
+International/multi-agency cooperation uses the separate [planned common contract](international-investigation.md) in `solutions/international-investigation.json`. National Cyber, Forensic Laboratory and Prosecution remain related roles; the contract does not upgrade their availability or alter executable grants. Fund pins this contract independently of the agency catalog snapshot, so adopting it does not silently adopt other profiles/catalog changes.
+
 `solutions/agency.json` is the source of truth. The deterministic `solutions.json` and eleven role briefs in `solutions/agency/` separate personas, needs, inputs, current scope, gaps, Registry entries, contact IDs, blog audience and editorial briefs. `scripts/build_index.py --check` verifies all artifacts. The existing executable entry taxonomy and IDs remain stable; `index.json` adds `solutionCatalog` and per-entry `solutionIds`. A solution is a discovery grouping, not a tool/MCP/Skill grant.
 
 Cyber, Forensic Laboratory and Prosecution expose only the supported JSON local evaluation components. Eight domain modules are planned. Video/financial/maritime/tax/customs needs are hypotheses awaiting practitioner interviews and input-format qualification. No current CCTV identity analysis, bank/communications parser, universal evidence archive, government adoption or admissibility is claimed. The external Forensics MCP remains a separate product contract.

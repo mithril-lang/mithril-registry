@@ -1,0 +1,18 @@
+{
+  "service": {
+    "name": "架空サービス（テスト専用）",
+    "plan": "sample",
+    "jurisdiction": "unknown",
+    "usage": "テスト。実サービスの評価ではない。"
+  },
+  "documents": [
+    {
+      "kind": "terms",
+      "url": "https://example.org/terms",
+      "retrievedAt": "2026-10-08T00:00:00Z",
+      "language": "ja",
+      "text": "架空サービスのテスト規約です。\n契約は自動更新されます。返金不可。\n利用規約を変更する場合は30日前に通知します。\n第三者へのデータ販売は行いません。",
+      "sha256": "2d334440f723f87c47fc9966563cfc07047089bad8ae0748d364e327cc1ceffe"
+    }
+  ]
+}
