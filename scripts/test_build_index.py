@@ -71,6 +71,13 @@ class RegistryTest(unittest.TestCase):
         mcp = json.loads((self.root / 'mcp/mithril-public-review/manifest.json').read_text())
         self.assertEqual(mcp['env'], {})
         self.assertEqual(mcp['tools'][0]['authentication'], 'none')
+        business = next(t for t in mcp['tools'] if t['name'] == 'mithril_business_process_review')
+        self.assertEqual((business['authentication'], business['effect']), ('none', 'read'))
+        self.assertTrue(composition['readiness']['bpmnBusinessProcessOntology'])
+        self.assertFalse(composition['readiness']['operationalBusinessControlsAttested'])
+        self.assertIn('mithril_business_process_review', agent['tools'])
+        workflow = json.loads((self.root / 'workflows/mithril-public-review/manifest.json').read_text())
+        self.assertEqual(workflow['entry'], 'bin/mithril-public-review.mjs')
 
     def test_public_review_refuses_credentials_and_escaping_profile_files(self):
         self.write_manifest('agents/mithril-public-review/manifest.json', lambda d: d.update(env={'GITHUB_TOKEN': 'value'}))

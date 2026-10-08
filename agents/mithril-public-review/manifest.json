@@ -3,8 +3,8 @@
   "id": "mithril-public-review",
   "category": "security",
   "name": "Mithril Public Code Review",
-  "version": "0.5.0",
-  "description": "Public code/dependency review, SCAP OVAL/XCCDF result ontology, and isolated same-major npm security patches with OSV/Mithril reassessment; incomplete scope and untested compatibility remain explicit.",
+  "version": "0.6.0",
+  "description": "Public source/dependency and SCAP review plus bounded BPMN business-process ontology assessment: approval paths, declared principal separation, authorization and audit. Incomplete operational evidence remains explicit.",
   "author": "Mithril",
   "license": "Apache-2.0",
   "source": "https://github.com/mithril-lang/mithril-system-one",
@@ -30,7 +30,7 @@
   "artifact": {
     "format": "git",
     "url": "https://github.com/mithril-lang/mithril-system-one",
-    "commit": "73d04bfc4160409afb274fdf895d2316c72d19fc",
+    "commit": "cd7905e62b22396212ae0da77d45daedbb017471",
     "entry": "bin/mithril-public-review.mjs"
   },
   "command": "node",
@@ -55,7 +55,8 @@
   "tools": [
     "mithril_public_repo_review",
     "mithril_scap_review",
-    "mithril_dependency_upgrade"
+    "mithril_dependency_upgrade",
+    "mithril_business_process_review"
   ],
   "execution": {
     "runtime": "mithril-system-one",
