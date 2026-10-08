@@ -809,7 +809,7 @@
       "type": "skill",
       "category": "productivity",
       "name": "mithril-diskspace-management",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "Measure and visualize disk space, investigate large folders, and build evidence-based cleanup plans for Mithril Desktop or local storage without automatically deleting files.",
       "tags": [
         "diskspace",
@@ -822,7 +822,7 @@
       "license": "Apache-2.0",
       "path": "skills/productivity/mithril-diskspace-management",
       "icon": null,
-      "checksum": "sha256:6b7bb47adc3df6fe6845a9bfbd0a05e673c901927e31fefa9cb9884609d5a035",
+      "checksum": "sha256:375993d522cd42c8d6067280714d6621a0586b5b4d846e10ce8f93b01dc28b0f",
       "compatibility": {
         "platforms": [
           "macos",
