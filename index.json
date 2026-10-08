@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 31,
+  "count": 32,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -694,6 +694,30 @@
       "icon": null,
       "checksum": "sha256:978dc1d5bfaa5adadd45d367bea25cd97f0192cb7cb001effd912662009de76d",
       "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-diskspace-management",
+      "type": "skill",
+      "category": "productivity",
+      "name": "mithril-diskspace-management",
+      "version": "1.0.0",
+      "description": "Measure and visualize disk space, investigate large folders, and build evidence-based cleanup plans for Mithril Desktop or local storage without automatically deleting files.",
+      "tags": [
+        "diskspace",
+        "storage",
+        "device-care",
+        "cleanup",
+        "maintenance"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/productivity/mithril-diskspace-management",
+      "icon": null,
+      "checksum": "sha256:5fbf15f36eb47427f2c7066f57d4a8a467580377b3288463313c81262a37f928",
+      "compatibility": "Python 3.9+; local read-only analysis on macOS, Linux and Windows",
       "acceptsFunding": false,
       "installable": true,
       "solutionIds": []
