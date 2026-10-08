@@ -822,7 +822,7 @@
       "license": "Apache-2.0",
       "path": "skills/productivity/mithril-diskspace-management",
       "icon": null,
-      "checksum": "sha256:375993d522cd42c8d6067280714d6621a0586b5b4d846e10ce8f93b01dc28b0f",
+      "checksum": "sha256:fb2cade8213dcc0ec809d53bd01c6f8ff62ae8e6a1d54e650d04d32152eeede1",
       "compatibility": {
         "platforms": [
           "macos",
