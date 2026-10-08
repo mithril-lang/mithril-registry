@@ -11,6 +11,6 @@ Output: source metadata/digests, rule candidates with line and source position, 
 
 Workflow order: private inventory → verify source/applicability → hash/import → full contextual risk review → compare versions → owner review → separately reviewed public projection. The packaged command handles import, candidate detection, interpretation validation and comparison. Acquisition/OCR, scheduling, private storage integration, Knowledge contribution submission and operational provider verification require host capabilities.
 
-Reference implementation and tests: [System One](https://github.com/mithril-lang/mithril-system-one/blob/54c28d3628ae0850ab41420eb79d9387d6b4a982/docs/terms-review.md).
+Reference implementation and tests: [System One](https://github.com/mithril-lang/mithril-system-one/blob/a0bbc5d229ec3445c7bca129dc45c7ed3444333a/docs/terms-review.md).
 
 Risk meanings: high = a documented restriction with material impact for the declared use; medium = a conditional restriction requiring a practical mitigation; low = limited documented impact within the stated scope; unknown = insufficient context/evidence. These are contextual reviewer interpretations, not legal ratings or a company-wide score.

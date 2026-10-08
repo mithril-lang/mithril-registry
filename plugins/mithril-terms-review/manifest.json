@@ -20,8 +20,8 @@
   ],
   "artifact": {
     "format": "git",
-    "url": "https://github.com/mithril-lang/mithril-system-one/tree/54c28d3628ae0850ab41420eb79d9387d6b4a982/adapters/hermes/mithril-terms-review",
-    "commit": "54c28d3628ae0850ab41420eb79d9387d6b4a982"
+    "url": "https://github.com/mithril-lang/mithril-system-one/tree/a0bbc5d229ec3445c7bca129dc45c7ed3444333a/adapters/hermes/mithril-terms-review",
+    "commit": "a0bbc5d229ec3445c7bca129dc45c7ed3444333a"
   },
   "requirements": {
     "commands": [
