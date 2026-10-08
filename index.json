@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 29,
+  "count": 30,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -843,7 +843,38 @@
       "solutionIds": [
         "agency-cyber",
         "agency-forensic-lab",
-        "agency-prosecution"
+        "agency-prosecution",
+        "agency-kill-chain"
+      ]
+    },
+    {
+      "id": "mithril-kill-chain",
+      "type": "skill",
+      "category": "security",
+      "name": "mithril-kill-chain",
+      "version": "0.1.0",
+      "description": "Map a supplied evidence set onto the seven-phase cyber kill chain, report covered, partial and absent phases with per-phase next steps, and probe local classic .pcap files for C2 candidates (DNS queries, TLS SNI, cleartext HTTP hosts, periodic TCP beacon streams).",
+      "tags": [
+        "kill-chain",
+        "c2",
+        "beacon",
+        "pcap",
+        "dns",
+        "tls",
+        "coverage",
+        "defensive",
+        "case-analysis"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/security/mithril-kill-chain",
+      "icon": null,
+      "checksum": "sha256:8bc12017dd7b154509db88435f24e0fa8b691173942ee30aee7b6cdc2534ca56",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
+      "solutionIds": [
+        "agency-kill-chain"
       ]
     },
     {
