@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 28,
+  "count": 29,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -724,6 +724,31 @@
       "path": "skills/research/mithril-pep-record-review",
       "icon": null,
       "checksum": "sha256:467eeda560bf7e0f839846f921a09b1f0d08e8868c0f250ffe3fba56a75e42cc",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-linkedin-sales",
+      "type": "skill",
+      "category": "sales",
+      "name": "mithril-linkedin-sales",
+      "version": "0.1.0",
+      "description": "Run a private supervised LinkedIn sales and marketing pipeline with supplied leads, editable drafts, exact approvals, supervised screen handoffs, reported receipts and reply review. No background or bulk sending.",
+      "tags": [
+        "linkedin",
+        "sales",
+        "marketing",
+        "crm",
+        "approval",
+        "outreach"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/sales/mithril-linkedin-sales",
+      "icon": null,
+      "checksum": "sha256:838f3d33d20cab868f8a700c3139858bd37e853306218a6725fb2a64d9611034",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,

@@ -90,3 +90,7 @@ support for the existing Registry's top-level fields.
 ## Public source review bot
 
 [Mithril Public Code Review](skills/security/mithril-public-review/SKILL.md) composes a skill, plugin, agent, workflow and MCP around an immutable public GitHub commit review. The independent `mithril-public-code-review` bot profile uses the existing Agent/Desktop profile flow and English defaults. It verifies source digests and executes Mithril ontology policies over a bounded JavaScript subset; candidates require review and source coverage is always incomplete. [Installation and qualification](docs/public-code-review.md).
+
+## LinkedIn sales and marketing
+
+[LinkedIn Sales](skills/sales/mithril-linkedin-sales/SKILL.md) registers an executable local, supervised CRM Skill for supplied leads, drafts, exact approvals, supervised screen handoffs, reported outcomes and opportunity review. The CLI never accesses LinkedIn; specifically authorized sends use the owning host’s screen tools, with account/recipient/content read-back and no retry of uncertain outcomes. [Process and qualification](docs/linkedin-sales-process.md) and [component contract](integrations/linkedin-sales.json) distinguish the shipped local workflow from pending partner API, MCP and native workspace integrations.
