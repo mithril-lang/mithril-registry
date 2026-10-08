@@ -7,7 +7,7 @@
       "type": "agent",
       "category": "development",
       "name": "Mithril System One",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
       "tags": [
         "mithril",
@@ -20,7 +20,7 @@
       "license": "Apache-2.0",
       "path": "agents/mithril-system-one",
       "icon": null,
-      "checksum": "sha256:a9c10257537d317ec42b103d549ab5a776a7407d8f5580f7b8f1eda78549b993",
+      "checksum": "sha256:22bf1e92d841226431d087263353e20c6b10bc3819ba5b1f27d1e171dbc7a2f1",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -32,7 +32,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "caa9a2f2c8aa4448664ad333a7a4a0e26bbea85d",
+        "commit": "f940459126490a81b86d6d3474e48205b7bdf9c2",
         "entry": "bin/mithril-task.mjs"
       },
       "execution": {
@@ -157,7 +157,7 @@
       "type": "mcp",
       "category": "development",
       "name": "Mithril System One",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
       "tags": [
         "mithril",
@@ -170,7 +170,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-system-one",
       "icon": null,
-      "checksum": "sha256:6feb1bc49b484b63451ba52d9c301981325090f946b53163d45a249b3c2987ea",
+      "checksum": "sha256:84fd80872caa82963078d6ea9a9bc7d44eb2e0e4cfc47143a17b9b7bb52bcfa7",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -190,7 +190,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "caa9a2f2c8aa4448664ad333a7a4a0e26bbea85d",
+        "commit": "f940459126490a81b86d6d3474e48205b7bdf9c2",
         "entry": "bin/mithril-mcp.mjs"
       },
       "solutionIds": []
@@ -333,7 +333,7 @@
       "type": "plugin",
       "category": "development",
       "name": "Mithril System One tasks",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
       "tags": [
         "mithril",
@@ -346,7 +346,7 @@
       "license": "Apache-2.0",
       "path": "plugins/mithril-tasks",
       "icon": null,
-      "checksum": "sha256:b21c1ac231e190b18be4cc18d213b155d5d983e21d2044588fa03e64d09d19b3",
+      "checksum": "sha256:09fad009208ef47ce0f2e930061f83f886d57f4f94e12c1d0f022580e73c15e7",
       "compatibility": {
         "clients": [
           {
@@ -370,7 +370,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one/tree/main/adapters/hermes/mithril-tasks",
-        "commit": "caa9a2f2c8aa4448664ad333a7a4a0e26bbea85d"
+        "commit": "f940459126490a81b86d6d3474e48205b7bdf9c2"
       },
       "requirements": {
         "commands": [
@@ -471,7 +471,7 @@
       "type": "skill",
       "category": "development",
       "name": "mithril-system-one",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "description": "Implement and verify supported Mithril coding tasks, ontology repairs and semantic refactors using the System One harness when the user wants a checked Mithril artifact.",
       "tags": [
         "mithril",
@@ -484,7 +484,7 @@
       "license": "Apache-2.0",
       "path": "skills/development/mithril-system-one",
       "icon": null,
-      "checksum": "sha256:066ffdbdb063710ecd741a46914944695a001eeea967a5fe22b247cbdcad474b",
+      "checksum": "sha256:978dc1d5bfaa5adadd45d367bea25cd97f0192cb7cb001effd912662009de76d",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,
@@ -808,7 +808,7 @@
       "type": "workflow",
       "category": "development",
       "name": "Mithril System One",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
       "tags": [
         "mithril",
@@ -821,7 +821,7 @@
       "license": "Apache-2.0",
       "path": "workflows/mithril-system-one",
       "icon": null,
-      "checksum": "sha256:a888dd89eb59b1aa67627e7e1456c01a874cfd1f25980aa18e784493a9f51dc3",
+      "checksum": "sha256:01d32b395970da0ea4f8f90e0bce056c4df5cad807aeaec5d0335466562c00bc",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -833,7 +833,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "caa9a2f2c8aa4448664ad333a7a4a0e26bbea85d",
+        "commit": "f940459126490a81b86d6d3474e48205b7bdf9c2",
         "entry": "bin/mithril-workflow.mjs"
       },
       "execution": {

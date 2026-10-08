@@ -1,7 +1,7 @@
 # System One coding Registry integration
 
 Five Registry surfaces share the public Mithril-specific coding harness at
-`caa9a2f2c8aa4448664ad333a7a4a0e26bbea85d`:
+`f940459126490a81b86d6d3474e48205b7bdf9c2`:
 
 | Type | Registry path | Execution |
 | --- | --- | --- |

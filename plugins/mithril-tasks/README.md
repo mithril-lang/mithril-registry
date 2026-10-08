@@ -5,7 +5,7 @@ profile's normal plugin manager. The package exposes `mithril_task` and
 `mithril_workflow` in the `mithril_tasks` toolset.
 
 ```sh
-hermes -p PROFILE plugins install https://github.com/mithril-lang/mithril-system-one/tree/main/adapters/hermes/mithril-tasks --ref caa9a2f2c8aa4448664ad333a7a4a0e26bbea85d --no-enable
+hermes -p PROFILE plugins install https://github.com/mithril-lang/mithril-system-one/tree/main/adapters/hermes/mithril-tasks --ref f940459126490a81b86d6d3474e48205b7bdf9c2 --no-enable
 hermes -p PROFILE config set plugins.entries.mithril-tasks.settings.system_one_root /ABSOLUTE/REVIEWED/CHECKOUT
 hermes -p PROFILE plugins enable mithril-tasks --no-allow-tool-override
 ```

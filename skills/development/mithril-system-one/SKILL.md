@@ -3,7 +3,7 @@ name: mithril-system-one
 description: Implement and verify supported Mithril coding tasks, ontology repairs and semantic refactors using the System One harness when the user wants a checked Mithril artifact.
 license: Apache-2.0
 metadata:
-  version: 0.3.0
+  version: 0.3.1
   author: Mithril
   hermes:
     tags: [mithril, coding, ontology, system-one, refactor]
@@ -16,7 +16,7 @@ for 1–3 distinct tasks. The same operations are available from the local MCP
 `mithril_task_run` / `mithril_workflow_run`; use `mithril_task_list` to discover
 supported tasks. A reviewed checkout and `npm run setup:dynamic` are required
 for dynamic tasks. Installation and connection instructions are in the
-[Registry runtime guide](https://github.com/mithril-lang/mithril-system-one/blob/caa9a2f2c8aa4448664ad333a7a4a0e26bbea85d/docs/registry-runtime.md).
+[Registry runtime guide](https://github.com/mithril-lang/mithril-system-one/blob/f940459126490a81b86d6d3474e48205b7bdf9c2/docs/registry-runtime.md).
 
 Choose `ontology` for the deterministic catalog planner, or `system-one` when
 the user wants one model proposal via api.mithril.fund. The latter uses the owning
