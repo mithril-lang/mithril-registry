@@ -10,8 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 class SolutionsTest(unittest.TestCase):
     def test_catalog_routing_and_availability(self):
         data = build(ROOT, [e['id'] for e in json.loads((ROOT/'index.json').read_text())['entries']])
-        self.assertEqual(len(data['solutions']), 11)
-        self.assertEqual(len(data['botProfiles']), 14)
+        self.assertEqual(len(data['solutions']), 12)
+        self.assertEqual(len(data['botProfiles']), 15)
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp); (root/'solutions').mkdir()
             broken = copy.deepcopy(data)
@@ -28,7 +28,7 @@ class SolutionsTest(unittest.TestCase):
             install(ROOT, home, True)
             install(ROOT, home, True)
             self.assertEqual((home/'active_profile').read_text(), 'default\n')
-            self.assertEqual(len(list((home/'profiles').iterdir())),14)
+            self.assertEqual(len(list((home/'profiles').iterdir())),15)
             target=home/'profiles/mithril-contact-cyber/SOUL.md'
             target.write_text('user customization')
             with self.assertRaisesRegex(ValueError, 'preserving'):

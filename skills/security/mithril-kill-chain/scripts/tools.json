@@ -1,0 +1,77 @@
+[
+  {
+    "name": "killchain_phases",
+    "write": false,
+    "description": "List the seven cyber kill-chain phases with Japanese and English names, allowed evidence types and related registry entries.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "killchain_evaluate",
+    "write": false,
+    "description": "Assess supplied evidence against the seven kill-chain phases and report covered, partial and absent phases. Coverage is an evidence-availability statement, not attack attribution.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "phases": {
+          "type": "array",
+          "maxItems": 7,
+          "items": {
+            "type": "object",
+            "required": ["phase"],
+            "properties": {
+              "phase": {
+                "type": "string",
+                "enum": ["reconnaissance", "weaponization", "delivery", "exploitation", "installation", "command-and-control", "actions-on-objectives"]
+              },
+              "evidence": {
+                "type": "array",
+                "maxItems": 100,
+                "items": {
+                  "type": "object",
+                  "required": ["type"],
+                  "properties": {
+                    "type": {"type": "string", "minLength": 1},
+                    "source": {"type": "string", "maxLength": 512},
+                    "note": {"type": "string", "maxLength": 1024}
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "killchain_pcap_probe",
+    "write": false,
+    "description": "Probe a local classic .pcap (v2) file and return bounded C2 candidates: DNS queries, TLS SNI, cleartext HTTP hosts, and periodic (beacon-like) TCP streams. Read-only, no network, at most 16 MiB and 20000 packets.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "required": ["path"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+]
