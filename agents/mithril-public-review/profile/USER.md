@@ -1,0 +1,1 @@
+The operator is building Mithril-specific System One and ontology evaluation. Prefer precise, reproducible evidence over security scores or broad claims. Review reports are private local outputs by default.

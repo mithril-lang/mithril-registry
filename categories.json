@@ -3,7 +3,7 @@
   "types": [
     {
       "type": "skill",
-      "count": 9,
+      "count": 10,
       "categories": [
         {
           "name": "data",
@@ -23,13 +23,13 @@
         },
         {
           "name": "security",
-          "count": 4
+          "count": 5
         }
       ]
     },
     {
       "type": "mcp",
-      "count": 5,
+      "count": 6,
       "categories": [
         {
           "name": "data",
@@ -41,7 +41,7 @@
         },
         {
           "name": "security",
-          "count": 1
+          "count": 2
         }
       ]
     },
@@ -61,7 +61,7 @@
     },
     {
       "type": "plugin",
-      "count": 4,
+      "count": 5,
       "categories": [
         {
           "name": "data",
@@ -73,26 +73,34 @@
         },
         {
           "name": "security",
-          "count": 1
+          "count": 2
         }
       ]
     },
     {
       "type": "agent",
-      "count": 1,
+      "count": 2,
       "categories": [
         {
           "name": "development",
+          "count": 1
+        },
+        {
+          "name": "security",
           "count": 1
         }
       ]
     },
     {
       "type": "workflow",
-      "count": 1,
+      "count": 2,
       "categories": [
         {
           "name": "development",
+          "count": 1
+        },
+        {
+          "name": "security",
           "count": 1
         }
       ]

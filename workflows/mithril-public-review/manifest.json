@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1",
+  "id": "mithril-public-review",
+  "category": "security",
+  "name": "Mithril Public Code Review",
+  "version": "0.1.0",
+  "description": "Public GitHub commit review using bounded JavaScript AST extraction and actual Mithril ontology receipts; incomplete coverage and candidates require review.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://github.com/mithril-lang/mithril-system-one",
+  "tags": [
+    "mithril",
+    "ontology",
+    "security",
+    "public-source",
+    "github"
+  ],
+  "permissions": [
+    "network:api.github.com",
+    "network:raw.githubusercontent.com",
+    "subprocess:node-fixed-entrypoint"
+  ],
+  "type": "workflow",
+  "artifact": {
+    "format": "git",
+    "url": "https://github.com/mithril-lang/mithril-system-one",
+    "commit": "6f684875b0cb5300780d52ba8745caa3a604aaf6",
+    "entry": "bin/mithril-public-review.mjs"
+  },
+  "command": "node",
+  "args": [
+    "${system_one_root}/bin/mithril-public-review.mjs",
+    "--stdin"
+  ],
+  "entry": "bin/mithril-public-review.mjs",
+  "requirements": {
+    "commands": [
+      "node",
+      "git",
+      "npm"
+    ]
+  },
+  "configuration": {
+    "system_one_root": "Reviewed artifact.commit checkout; npm ci --ignore-scripts then npm run setup:dynamic. No inference credential is used by the review tool."
+  },
+  "env": {},
+  "executable": true,
+  "tools": [
+    "mithril_public_repo_review"
+  ],
+  "execution": {
+    "runtime": "mithril-system-one",
+    "input": "json-stdin",
+    "maxTasks": 1,
+    "stopOnFailure": true,
+    "retryUnknown": false
+  }
+}
