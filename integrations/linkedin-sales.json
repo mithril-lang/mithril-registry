@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "id": "mithril-linkedin-sales",
+  "version": "0.1.0",
+  "skill": "skills/sales/mithril-linkedin-sales",
+  "runtime": {
+    "command": "python3",
+    "entry": "scripts/sales.py",
+    "storage": "private-owner-bound-sqlite",
+    "network": false,
+    "qualification": "local-synthetic-tests"
+  },
+  "process": [
+    "qualified-lead",
+    "draft",
+    "exact-owner-approval",
+    "supervised-screen-handoff",
+    "reported-screen-receipt",
+    "supplied-reply",
+    "opportunity",
+    "review-only-followup"
+  ],
+  "screenChannels": [
+    "dm",
+    "inmail",
+    "connection-note"
+  ],
+  "components": [
+    {
+      "kind": "skill",
+      "id": "mithril-linkedin-sales",
+      "execution": "local-cli",
+      "registryInstallable": true
+    },
+    {
+      "kind": "agent",
+      "id": "linkedin-sales-reviewer",
+      "execution": "design-only",
+      "registryInstallable": false
+    },
+    {
+      "kind": "workflow",
+      "id": "linkedin-outreach",
+      "execution": "supervised-local-cli",
+      "standaloneRegistryInstallable": false
+    },
+    {
+      "kind": "mcp",
+      "id": "linkedin-partner-messaging",
+      "execution": "design-only",
+      "registryInstallable": false
+    },
+    {
+      "kind": "plugin",
+      "id": "linkedin-sales-workspace",
+      "execution": "design-only",
+      "registryInstallable": false
+    }
+  ],
+  "provider": {
+    "messagesApi": "https://api.linkedin.com/v2/messages",
+    "qualification": "not-connected-not-partner-qualified",
+    "externalSendReady": false,
+    "requiredGates": [
+      "approved-partner-agreement",
+      "verified-owning-member-oauth",
+      "per-message-editable-preview",
+      "specific-member-send-action",
+      "exact-payload-target-principal-binding",
+      "provider-message-receipt-and-timeout-reconciliation"
+    ]
+  },
+  "coverage": {
+    "suppliedLeads": true,
+    "privateDrafts": true,
+    "manualHandoff": false,
+    "reportedReceipts": true,
+    "suppliedReplies": true,
+    "suppression": true,
+    "opportunityTracking": true,
+    "automaticDiscovery": false,
+    "browserAutomation": false,
+    "apiMessaging": false,
+    "automaticReplyIngestion": false,
+    "scheduledSending": false,
+    "nativeWorkspace": false,
+    "supervisedScreenHandoff": true
+  },
+  "registration": {
+    "indexEntry": "skill:mithril-linkedin-sales",
+    "hostedMcpPublished": false,
+    "agentPublished": false,
+    "nativePluginPublished": false
+  },
+  "screenAdapter": {
+    "executor": "owning-host-browser-computer-use-tools",
+    "qualification": "not-live-tested",
+    "perMessageUserAuthorization": true,
+    "accountRecipientContentReadBack": true,
+    "retryUnknown": false,
+    "backgroundOrBulkSending": false
+  }
+}
