@@ -1,0 +1,19 @@
+name: Kill-chain local evaluation
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  acceptance:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-14]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s scripts -p 'test_kill_chain.py'
+      - run: python skills/security/mithril-kill-chain/scripts/acceptance.py
+      - run: python scripts/build_index.py --check

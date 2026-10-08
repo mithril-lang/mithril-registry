@@ -52,6 +52,10 @@ Inputs, limits, and failure handling for the three `killchain_*` operations.
 
 - `--tool` runs print the machine-readable reason on stderr (`invalid_input`, `file_not_found`, `request_too_large`, ...), exit 1, and never a stack trace. The same payload retried gives the same result; inspect the retained input before retrying.
 
+## Acceptance exercise
+
+`acceptance.py` (standard library only) runs the public CLI and the stdio MCP bridge over synthetic evidence and a synthetic `.pcap` in a temporary area and prints a machine-readable `synthetic-local-evaluation` receipt. `--prepare <dir>` writes the synthetic fixtures into an empty directory and prints their paths instead of running the exercise. It exercises coverage, determinism, no-hidden-state, the bounded pcap probe, machine-readable failure reasons, and the MCP oversized-line continuity. Local qualification only; it does not prove vulnerability status or deployment readiness.
+
 ## Non-goals
 
 - No attack execution, host remediation, or evidence collection.

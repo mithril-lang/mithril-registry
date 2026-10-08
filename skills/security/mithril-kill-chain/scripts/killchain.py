@@ -14,7 +14,7 @@ import struct
 import sys
 from pathlib import Path
 
-VERSION = '0.2.0'
+VERSION = '0.3.0'
 MAX_ARG_BYTES = 32768
 MAX_LINE_BYTES = 1 << 20
 MAX_PCAP_BYTES = 16 * 1024 * 1024
