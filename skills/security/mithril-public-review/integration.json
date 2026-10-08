@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "components": [
     {
       "type": "skill",
@@ -25,27 +25,34 @@
   ],
   "runtimeArtifact": {
     "repository": "https://github.com/mithril-lang/mithril-system-one",
-    "commit": "f3d07ef403c2c018a1eba5b8d4eabd9a903235e8"
+    "commit": "eab517fdd2fd22848b23280cbbecbe875cd4c6bf"
   },
   "botProfile": "mithril-public-code-review",
   "readiness": {
     "deterministicPublicReview": true,
     "liveModelConversation": true,
     "scheduledScans": false,
-    "githubWrites": false
+    "githubWrites": false,
+    "dependencyMatchingOnConfiguredOperatorRuntime": true,
+    "liveKnowledgeEnrichment": false
   },
   "policySource": "examples/security-ontology/policy.mith",
   "limits": [
     "JavaScript/TypeScript ESM/CommonJS child_process and immutable CLI alias subset",
     "incomplete source coverage",
-    "candidates require review"
+    "candidates require review",
+    "npm package-lock v2/v3 only",
+    "private local matching engine must be separately prepared",
+    "Knowledge live index returned HTTP 503",
+    "no SCAP execution or automatic upgrades"
   ],
   "qualification": {
     "profile": "mithril-public-code-review",
     "provider": "https://api.mithril.fund/v1",
-    "nativeAgentLoop": "completed",
+    "nativeAgentLoop": "historical-0.2.0-completed",
     "credentialDistributed": false,
     "desktopProfileDiscovery": true,
-    "desktopConversation": false
+    "desktopConversation": false,
+    "nativeAgentToolDispatch": true
   }
 }

@@ -1,5 +1,5 @@
 display_name: Mithril Public Code Review
-description: Public GitHub commit review using bounded source extraction and Mithril ontology policies
+description: Public GitHub commit review using source extraction, locked npm OSV matching, Knowledge enrichment and Mithril ontology policies
 description_auto: false
 ui_meta:
   hermes-bots:
