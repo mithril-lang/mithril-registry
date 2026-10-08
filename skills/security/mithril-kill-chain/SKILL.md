@@ -1,7 +1,7 @@
 ---
 name: mithril-kill-chain
 description: Map a supplied evidence set onto the seven-phase cyber kill chain, report covered, partial and absent phases with per-phase next steps, and probe local classic .pcap files for C2 candidates (DNS queries, TLS SNI, cleartext HTTP hosts, periodic TCP beacon streams).
-version: 0.2.0
+version: 0.3.0
 author: Mithril
 license: Apache-2.0
 platforms: [linux, macos]
@@ -35,6 +35,10 @@ python3 scripts/killchain.py --mcp        # stdio MCP bridge (tools/list, tools/
 ## MCP bridge
 
 `killchain.py --mcp` serves a read-only stdio MCP server (`mithril-kill-chain-local`, protocol 2025-06-18) with the three `killchain_*` tools. No credentials, no network. Do not expose the stdio process as a shared remote service; the local OS account is the security boundary.
+
+## Agency evaluation
+
+Run [acceptance.py](scripts/acceptance.py) against synthetic data before evaluating incident data, vendor credentials or external sharing. It exercises the public CLI and the stdio MCP bridge in a temporary area and prints a machine-readable `synthetic-local-evaluation` receipt. Standard library only; no network calls or retained keys. Local qualification only, not a vulnerability or deployment attestation. See the [validation receipt](../../../docs/security-integrations/killchain-validation.md) for the observable checks and reproduction steps.
 
 ## Workflow
 
