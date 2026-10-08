@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "components": [
+    {
+      "type": "skill",
+      "id": "mithril-terms-review"
+    },
+    {
+      "type": "agent",
+      "id": "mithril-terms-review"
+    },
+    {
+      "type": "workflow",
+      "id": "mithril-terms-review"
+    },
+    {
+      "type": "plugin",
+      "id": "mithril-terms-review"
+    }
+  ],
+  "runtimeArtifact": {
+    "repository": "https://github.com/mithril-lang/mithril-system-one",
+    "commit": "a0bbc5d229ec3445c7bca129dc45c7ed3444333a"
+  },
+  "readiness": {
+    "deterministicReview": true,
+    "nativeHandlerFixture": true,
+    "isolatedPluginAdmission": true,
+    "liveModelConversation": false,
+    "installedDesktop": false,
+    "subscriptionDiscovery": false,
+    "scheduledMonitoring": false,
+    "automaticKnowledgePublication": false
+  },
+  "stages": [
+    "private-inventory",
+    "source-applicability",
+    "hash-import",
+    "contextual-risk-review",
+    "version-compare",
+    "owner-review",
+    "separate-public-summary"
+  ]
+}

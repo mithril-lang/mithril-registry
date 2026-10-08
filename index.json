@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 32,
+  "count": 36,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -52,6 +52,61 @@
       "tools": [
         "mithril_task"
       ],
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-terms-review",
+      "type": "agent",
+      "category": "productivity",
+      "name": "Mithril Terms Review",
+      "version": "0.1.0",
+      "description": "Private source-bound JA/EN service terms and privacy review, contextual risk evidence and version comparison. No aggregate honesty score, automatic fetch or publication.",
+      "tags": [
+        "terms",
+        "privacy",
+        "contracts",
+        "risk",
+        "evidence"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "agents/mithril-terms-review",
+      "icon": null,
+      "checksum": "sha256:c1a81a883fc953bb90c9d874781a4e52f1e3366535b304e635b0f3a971ef1312",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "a0bbc5d229ec3445c7bca129dc45c7ed3444333a",
+        "entry": "bin/mithril-terms-review.mjs"
+      },
+      "execution": {
+        "runtime": "mithril-system-one",
+        "input": "json-stdin",
+        "maxTasks": 1,
+        "stopOnFailure": true,
+        "retryUnknown": false
+      },
+      "requirements": {
+        "commands": [
+          "node"
+        ]
+      },
+      "tools": [
+        "mithril_terms_review"
+      ],
+      "botProfile": {
+        "id": "mithril-terms-review",
+        "config": "profile/config.yaml",
+        "instructions": "profile/SOUL.md",
+        "metadata": "profile/profile.yaml",
+        "requiresOwnCredentialForConversation": true
+      },
       "solutionIds": []
     },
     {
@@ -504,6 +559,57 @@
       "solutionIds": []
     },
     {
+      "id": "mithril-terms-review",
+      "type": "plugin",
+      "category": "productivity",
+      "name": "Mithril Terms Review",
+      "version": "0.1.0",
+      "description": "Private source-bound JA/EN service terms and privacy review, contextual risk evidence and version comparison. No aggregate honesty score, automatic fetch or publication.",
+      "tags": [
+        "terms",
+        "privacy",
+        "contracts",
+        "risk",
+        "evidence"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "plugins/mithril-terms-review",
+      "icon": null,
+      "checksum": "sha256:dbf8d36bdd2573071cc03c3bea37c6cdb03de7b14f68bd3047041127cf965e36",
+      "compatibility": {
+        "clients": [
+          {
+            "name": "Hermes Agent",
+            "version": ">=0.21.4,<0.22",
+            "tested": "v0.21.4+canary.20260928T071354Z-582-g3f0ce7e663-dirty; isolated admission and native handler fixture only"
+          }
+        ],
+        "platforms": [
+          "macos"
+        ]
+      },
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one/tree/a0bbc5d229ec3445c7bca129dc45c7ed3444333a/adapters/hermes/mithril-terms-review",
+        "commit": "a0bbc5d229ec3445c7bca129dc45c7ed3444333a"
+      },
+      "requirements": {
+        "commands": [
+          "node"
+        ]
+      },
+      "tools": [
+        "mithril_terms_review"
+      ],
+      "solutionIds": []
+    },
+    {
       "id": "hermes-zap-proxy",
       "type": "plugin",
       "category": "security",
@@ -765,6 +871,30 @@
           "workflow"
         ]
       },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-terms-review",
+      "type": "skill",
+      "category": "productivity",
+      "name": "mithril-terms-review",
+      "version": "0.1.0",
+      "description": "Review supplied service terms and privacy policies with source-bound risk interpretations and version comparison; preserve private inventory and prepare separately reviewed public summaries.",
+      "tags": [
+        "terms",
+        "privacy",
+        "contracts",
+        "risk",
+        "evidence"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/productivity/mithril-terms-review",
+      "icon": null,
+      "checksum": "sha256:30157a0fa34551251a55312486dd1a3a85deed894d907b175df21a41b88e22c5",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
       "solutionIds": []
     },
     {
@@ -1171,6 +1301,54 @@
       },
       "tools": [
         "mithril_task"
+      ],
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-terms-review",
+      "type": "workflow",
+      "category": "productivity",
+      "name": "Mithril Terms Review",
+      "version": "0.1.0",
+      "description": "Private source-bound JA/EN service terms and privacy review, contextual risk evidence and version comparison. No aggregate honesty score, automatic fetch or publication.",
+      "tags": [
+        "terms",
+        "privacy",
+        "contracts",
+        "risk",
+        "evidence"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "workflows/mithril-terms-review",
+      "icon": null,
+      "checksum": "sha256:55deef07fe24b694756b7d18c13d223181c4740d169d541a122188fdcb77fca8",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "a0bbc5d229ec3445c7bca129dc45c7ed3444333a",
+        "entry": "bin/mithril-terms-review.mjs"
+      },
+      "execution": {
+        "runtime": "mithril-system-one",
+        "input": "json-stdin",
+        "maxTasks": 3,
+        "stopOnFailure": true,
+        "retryUnknown": false
+      },
+      "requirements": {
+        "commands": [
+          "node"
+        ]
+      },
+      "tools": [
+        "mithril_terms_review"
       ],
       "solutionIds": []
     },

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1",
+  "id": "mithril-terms-review",
+  "category": "productivity",
+  "name": "Mithril Terms Review",
+  "version": "0.1.0",
+  "description": "Private source-bound JA/EN service terms and privacy review, contextual risk evidence and version comparison. No aggregate honesty score, automatic fetch or publication.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://github.com/mithril-lang/mithril-system-one",
+  "tags": [
+    "terms",
+    "privacy",
+    "contracts",
+    "risk",
+    "evidence"
+  ],
+  "permissions": [
+    "subprocess:node-fixed-entrypoint"
+  ],
+  "artifact": {
+    "format": "git",
+    "url": "https://github.com/mithril-lang/mithril-system-one",
+    "commit": "a0bbc5d229ec3445c7bca129dc45c7ed3444333a",
+    "entry": "bin/mithril-terms-review.mjs"
+  },
+  "command": "node",
+  "args": [
+    "${system_one_root}/bin/mithril-terms-review.mjs",
+    "--workflow"
+  ],
+  "entry": "bin/mithril-terms-review.mjs",
+  "requirements": {
+    "commands": [
+      "node"
+    ]
+  },
+  "configuration": {
+    "system_one_root": "Checkout artifact.commit. Node >=22; standard library only, no npm install or inference key for deterministic execution."
+  },
+  "env": {},
+  "executable": true,
+  "tools": [
+    "mithril_terms_review"
+  ],
+  "execution": {
+    "runtime": "mithril-system-one",
+    "input": "json-stdin",
+    "maxTasks": 3,
+    "stopOnFailure": true,
+    "retryUnknown": false
+  },
+  "type": "workflow"
+}

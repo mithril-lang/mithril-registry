@@ -111,3 +111,5 @@ support for the existing Registry's top-level fields.
 ## LinkedIn sales and marketing
 
 [LinkedIn Sales](skills/sales/mithril-linkedin-sales/SKILL.md) registers an executable local, supervised CRM Skill for supplied leads, drafts, exact approvals, supervised screen handoffs, reported outcomes and opportunity review. The CLI never accesses LinkedIn; specifically authorized sends use the owning host’s screen tools, with account/recipient/content read-back and no retry of uncertain outcomes. [Process and qualification](docs/linkedin-sales-process.md) and [component contract](integrations/linkedin-sales.json) distinguish the shipped local workflow from pending partner API, MCP and native workspace integrations.
+
+[Terms Review](skills/productivity/mithril-terms-review/SKILL.md) は利用・契約サービスの規約とプライバシー資料を、出典ハッシュ・根拠位置・適用条件とともに非公開で評価します。Agent は1サービス、Workflow は最大3サービスの JSON を処理し、Hermes Plugin は専用プロフィールのツールを提供します。文脈を読んだリスク解釈、ルール候補、改定比較を区別し、誠実度の総合点は付けません。規約取得、定期監視、Knowledge 自動投稿、実モデル会話・実機 Desktop は未検証／未提供です。
