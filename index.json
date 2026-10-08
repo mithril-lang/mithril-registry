@@ -716,8 +716,15 @@
       "license": "Apache-2.0",
       "path": "skills/productivity/mithril-diskspace-management",
       "icon": null,
-      "checksum": "sha256:5fbf15f36eb47427f2c7066f57d4a8a467580377b3288463313c81262a37f928",
-      "compatibility": "Python 3.9+; local read-only analysis on macOS, Linux and Windows",
+      "checksum": "sha256:6b7bb47adc3df6fe6845a9bfbd0a05e673c901927e31fefa9cb9884609d5a035",
+      "compatibility": {
+        "platforms": [
+          "macos",
+          "linux",
+          "windows"
+        ],
+        "runtime": "Python 3.9+; local metadata-only analysis"
+      },
       "acceptsFunding": false,
       "installable": true,
       "solutionIds": []

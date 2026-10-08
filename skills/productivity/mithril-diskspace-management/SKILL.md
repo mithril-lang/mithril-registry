@@ -8,7 +8,9 @@ metadata:
   hermes:
     category: productivity
     tags: [diskspace, storage, device-care, cleanup, maintenance]
-    compatibility: Python 3.9+; local read-only analysis on macOS, Linux and Windows
+    compatibility:
+      platforms: [macos, linux, windows]
+      runtime: Python 3.9+; local metadata-only analysis
 ---
 
 # Disk space management
