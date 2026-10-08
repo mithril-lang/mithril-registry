@@ -59,7 +59,7 @@
       "type": "agent",
       "category": "security",
       "name": "Mithril Public Code Review",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "description": "Public code/dependency review, SCAP OVAL/XCCDF result ontology, and isolated same-major npm security patches with OSV/Mithril reassessment; incomplete scope and untested compatibility remain explicit.",
       "tags": [
         "mithril",
@@ -72,7 +72,7 @@
       "license": "Apache-2.0",
       "path": "agents/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:1c12ee8ca3ce2cf109255211cb5ebcc06b66ff90d6ff41c20daaf86324ce2464",
+      "checksum": "sha256:884e8eaac47894b2976c12b5c6a645612740ff67296bf1418497952861aea0b0",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -90,7 +90,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "ad76515244b4a03d21acaa21a9e2ee2dcc653957",
+        "commit": "73d04bfc4160409afb274fdf895d2316c72d19fc",
         "entry": "bin/mithril-public-review.mjs"
       },
       "execution": {
@@ -302,7 +302,7 @@
       "type": "mcp",
       "category": "security",
       "name": "Mithril Public Code Review",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "description": "Public code/dependency review, SCAP OVAL/XCCDF result ontology, and isolated same-major npm security patches with OSV/Mithril reassessment; incomplete scope and untested compatibility remain explicit.",
       "tags": [
         "mithril",
@@ -315,7 +315,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:357c18b9b29f4c49d9a2c24102073a6319efe79182b7cb8aab36b0f00340e677",
+      "checksum": "sha256:e6ca5941b7d112868eec801ce6cf95cf64e65bca1bf8246f301feec55f6c25d5",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -341,7 +341,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "ad76515244b4a03d21acaa21a9e2ee2dcc653957",
+        "commit": "73d04bfc4160409afb274fdf895d2316c72d19fc",
         "entry": "bin/mithril-public-mcp.mjs"
       },
       "solutionIds": []
@@ -562,7 +562,7 @@
       "type": "plugin",
       "category": "security",
       "name": "Mithril Public Code Review",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "description": "Public code/dependency review, SCAP OVAL/XCCDF result ontology, and isolated same-major npm security patches with OSV/Mithril reassessment; incomplete scope and untested compatibility remain explicit.",
       "tags": [
         "mithril",
@@ -575,7 +575,7 @@
       "license": "Apache-2.0",
       "path": "plugins/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:0c5450146d2417880f17e7900f97460f55d432cb10ebcc0a63f6011c86778144",
+      "checksum": "sha256:38af79a03e7b5598ffa205d132f81b705b4741dd8a746d271773ab8024fad392",
       "compatibility": {
         "clients": [
           {
@@ -603,8 +603,8 @@
       "installable": true,
       "artifact": {
         "format": "git",
-        "url": "https://github.com/mithril-lang/mithril-system-one/tree/ad76515244b4a03d21acaa21a9e2ee2dcc653957/adapters/hermes/mithril-public-review",
-        "commit": "ad76515244b4a03d21acaa21a9e2ee2dcc653957"
+        "url": "https://github.com/mithril-lang/mithril-system-one/tree/73d04bfc4160409afb274fdf895d2316c72d19fc/adapters/hermes/mithril-public-review",
+        "commit": "73d04bfc4160409afb274fdf895d2316c72d19fc"
       },
       "requirements": {
         "commands": [
@@ -931,7 +931,7 @@
       "type": "skill",
       "category": "security",
       "name": "mithril-public-review",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "description": "Review an immutable public GitHub commit with bounded source extraction and Mithril ontology policies when the user requests public source security evaluation.",
       "tags": [
         "mithril",
@@ -944,7 +944,7 @@
       "license": "Apache-2.0",
       "path": "skills/security/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:24bdaa5c549f1607df0ba68fe19b81753812082eb80f8f92ad896ef831d1a8be",
+      "checksum": "sha256:4404023472a429b5149f8fa42293effe19b36e627802b9d368f9f201a556fbaf",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,
@@ -1146,7 +1146,7 @@
       "type": "workflow",
       "category": "security",
       "name": "Mithril Public Code Review",
-      "version": "0.4.1",
+      "version": "0.5.0",
       "description": "Public code/dependency review, SCAP OVAL/XCCDF result ontology, and isolated same-major npm security patches with OSV/Mithril reassessment; incomplete scope and untested compatibility remain explicit.",
       "tags": [
         "mithril",
@@ -1159,7 +1159,7 @@
       "license": "Apache-2.0",
       "path": "workflows/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:744ae7c765c5744f9126361fd9407bd07e2f31012fcaf5e5e69f52cc47ba6cda",
+      "checksum": "sha256:9c3452add1179f109da53164d27bec7433ecfa4045e8daac24b8818efed5faec",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -1177,7 +1177,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "ad76515244b4a03d21acaa21a9e2ee2dcc653957",
+        "commit": "73d04bfc4160409afb274fdf895d2316c72d19fc",
         "entry": "bin/mithril-public-review.mjs"
       },
       "execution": {
