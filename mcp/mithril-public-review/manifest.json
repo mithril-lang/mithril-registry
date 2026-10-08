@@ -3,7 +3,7 @@
   "id": "mithril-public-review",
   "category": "security",
   "name": "Mithril Public Code Review",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Public GitHub source and locked npm dependency review with full OSV matching, Knowledge enrichment and actual Mithril ontology receipts; candidates and unknown coverage require review.",
   "author": "Mithril",
   "license": "Apache-2.0",
@@ -26,7 +26,7 @@
   "artifact": {
     "format": "git",
     "url": "https://github.com/mithril-lang/mithril-system-one",
-    "commit": "eab517fdd2fd22848b23280cbbecbe875cd4c6bf",
+    "commit": "5a86517627b874e4911d16cb3fb565c318fb07b0",
     "entry": "bin/mithril-public-mcp.mjs"
   },
   "command": "node",

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "0.3.0",
+  "version": "0.3.1",
   "components": [
     {
       "type": "skill",
@@ -25,7 +25,7 @@
   ],
   "runtimeArtifact": {
     "repository": "https://github.com/mithril-lang/mithril-system-one",
-    "commit": "eab517fdd2fd22848b23280cbbecbe875cd4c6bf"
+    "commit": "5a86517627b874e4911d16cb3fb565c318fb07b0"
   },
   "botProfile": "mithril-public-code-review",
   "readiness": {
@@ -34,7 +34,7 @@
     "scheduledScans": false,
     "githubWrites": false,
     "dependencyMatchingOnConfiguredOperatorRuntime": true,
-    "liveKnowledgeEnrichment": false
+    "liveKnowledgeEnrichment": true
   },
   "policySource": "examples/security-ontology/policy.mith",
   "limits": [
@@ -43,7 +43,7 @@
     "candidates require review",
     "npm package-lock v2/v3 only",
     "private local matching engine must be separately prepared",
-    "Knowledge live index returned HTTP 503",
+    "Combined Knowledge catalog index remains stale; per-dataset APIs are verified",
     "no SCAP execution or automatic upgrades"
   ],
   "qualification": {
@@ -53,6 +53,8 @@
     "credentialDistributed": false,
     "desktopProfileDiscovery": true,
     "desktopConversation": false,
-    "nativeAgentToolDispatch": true
+    "nativeAgentToolDispatch": true,
+    "liveKnowledge": "NVD/KEV/EPSS canonical manifest-pinned snapshots; queried CVEs verified",
+    "positiveKevMembership": "fixture-tested, not observed in live fixture"
   }
 }
