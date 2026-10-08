@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "0.3.1",
+  "version": "0.4.0",
   "components": [
     {
       "type": "skill",
@@ -25,7 +25,7 @@
   ],
   "runtimeArtifact": {
     "repository": "https://github.com/mithril-lang/mithril-system-one",
-    "commit": "5a86517627b874e4911d16cb3fb565c318fb07b0"
+    "commit": "b04d20cedb98d5f937225da1df713af8185a6d1e"
   },
   "botProfile": "mithril-public-code-review",
   "readiness": {
@@ -34,7 +34,11 @@
     "scheduledScans": false,
     "githubWrites": false,
     "dependencyMatchingOnConfiguredOperatorRuntime": true,
-    "liveKnowledgeEnrichment": true
+    "liveKnowledgeEnrichment": true,
+    "scapResultOntology": true,
+    "hostScapScanner": false,
+    "automaticNpmPatch": true,
+    "automaticMerge": false
   },
   "policySource": "examples/security-ontology/policy.mith",
   "limits": [
@@ -44,7 +48,7 @@
     "npm package-lock v2/v3 only",
     "private local matching engine must be separately prepared",
     "Combined Knowledge catalog index remains stale; per-dataset APIs are verified",
-    "no SCAP execution or automatic upgrades"
+    "SCAP result ingestion only; no native host probes/OVAL definition interpreter/fixes; direct same-major npm security upgrades only; application compatibility untested"
   ],
   "qualification": {
     "profile": "mithril-public-code-review",
@@ -55,6 +59,9 @@
     "desktopConversation": false,
     "nativeAgentToolDispatch": true,
     "liveKnowledge": "NVD/KEV/EPSS canonical manifest-pinned snapshots; queried CVEs verified",
-    "positiveKevMembership": "fixture-tested, not observed in live fixture"
+    "positiveKevMembership": "fixture-tested, not observed in live fixture",
+    "scapNativeToolDispatch": true,
+    "upgradeNativeToolDispatch": true,
+    "upgradeFixture": "lodash 4.17.20 to 4.18.0; 5 candidates to 0; 0 post-update gaps"
   }
 }

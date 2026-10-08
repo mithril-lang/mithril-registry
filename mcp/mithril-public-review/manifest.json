@@ -3,8 +3,8 @@
   "id": "mithril-public-review",
   "category": "security",
   "name": "Mithril Public Code Review",
-  "version": "0.3.1",
-  "description": "Public GitHub source and locked npm dependency review with full OSV matching, Knowledge enrichment and actual Mithril ontology receipts; candidates and unknown coverage require review.",
+  "version": "0.4.0",
+  "description": "Public code/dependency review, SCAP OVAL/XCCDF result ontology, and isolated same-major npm security patches with OSV/Mithril reassessment; incomplete scope and untested compatibility remain explicit.",
   "author": "Mithril",
   "license": "Apache-2.0",
   "source": "https://github.com/mithril-lang/mithril-system-one",
@@ -20,13 +20,17 @@
     "network:raw.githubusercontent.com",
     "subprocess:node-fixed-entrypoint",
     "network:api.osv.dev",
-    "network:knowledge.mithril.fund"
+    "network:knowledge.mithril.fund",
+    "network:registry.npmjs.org",
+    "subprocess:python-fixed-entrypoint",
+    "subprocess:npm-fixed-entrypoint",
+    "filesystem:temporary-workspace"
   ],
   "type": "mcp",
   "artifact": {
     "format": "git",
     "url": "https://github.com/mithril-lang/mithril-system-one",
-    "commit": "5a86517627b874e4911d16cb3fb565c318fb07b0",
+    "commit": "b04d20cedb98d5f937225da1df713af8185a6d1e",
     "entry": "bin/mithril-public-mcp.mjs"
   },
   "command": "node",
@@ -38,7 +42,8 @@
     "commands": [
       "node",
       "git",
-      "npm"
+      "npm",
+      "python3"
     ]
   },
   "configuration": {
@@ -57,6 +62,16 @@
       "name": "mithril_public_repo_review",
       "authentication": "none",
       "effect": "read"
+    },
+    {
+      "name": "mithril_scap_review",
+      "authentication": "none",
+      "effect": "read"
+    },
+    {
+      "name": "mithril_dependency_upgrade",
+      "authentication": "none",
+      "effect": "write"
     }
   ]
 }

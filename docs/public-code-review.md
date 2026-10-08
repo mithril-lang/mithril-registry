@@ -33,3 +33,5 @@ The operator explicitly supplied this profile's key. A native Agent loop through
 The installed Mithril Desktop profile picker visibly lists Mithril Public Code Review when searching public-code. Desktop conversation itself is not separately qualified. Local runtime checks: 49 unit + 3 Todo, 19 Python, 6 public-review. Source remains inert and no generic vulnerability clearance is claimed.
 
 Installed Desktop verification reached the selected Mithril Public Code Review profile and its new synchronized-chat screen. The screen requires Sign in to Mithril for this independent profile; native profile API-key authentication does not establish a synchronized Desktop account session. Desktop conversation verification remains blocked on the operator completing that sign-in.
+
+Release 0.4.0 adds native-profile/MCP SCAP result ingestion and verified direct npm patch generation, with a separate explicit local apply CLI. No native host scanner, SCAP fixes, application compatibility proof or automatic merge.

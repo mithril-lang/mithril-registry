@@ -59,8 +59,8 @@
       "type": "agent",
       "category": "security",
       "name": "Mithril Public Code Review",
-      "version": "0.3.1",
-      "description": "Public GitHub source and locked npm dependency review with full OSV matching, Knowledge enrichment and actual Mithril ontology receipts; candidates and unknown coverage require review.",
+      "version": "0.4.0",
+      "description": "Public code/dependency review, SCAP OVAL/XCCDF result ontology, and isolated same-major npm security patches with OSV/Mithril reassessment; incomplete scope and untested compatibility remain explicit.",
       "tags": [
         "mithril",
         "ontology",
@@ -72,7 +72,7 @@
       "license": "Apache-2.0",
       "path": "agents/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:3cc9e59a04c0248b87c3f01e649db696fb32e868cdceab5cd0137f1d45a0e538",
+      "checksum": "sha256:2a8c77dfe995f28f9cfd2e19ecdf3f2dca40d022242a37342814a011bf5e8934",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -80,13 +80,17 @@
         "network:raw.githubusercontent.com",
         "subprocess:node-fixed-entrypoint",
         "network:api.osv.dev",
-        "network:knowledge.mithril.fund"
+        "network:knowledge.mithril.fund",
+        "network:registry.npmjs.org",
+        "subprocess:python-fixed-entrypoint",
+        "subprocess:npm-fixed-entrypoint",
+        "filesystem:temporary-workspace"
       ],
       "installable": true,
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "5a86517627b874e4911d16cb3fb565c318fb07b0",
+        "commit": "b04d20cedb98d5f937225da1df713af8185a6d1e",
         "entry": "bin/mithril-public-review.mjs"
       },
       "execution": {
@@ -100,11 +104,14 @@
         "commands": [
           "node",
           "git",
-          "npm"
+          "npm",
+          "python3"
         ]
       },
       "tools": [
-        "mithril_public_repo_review"
+        "mithril_public_repo_review",
+        "mithril_scap_review",
+        "mithril_dependency_upgrade"
       ],
       "botProfile": {
         "id": "mithril-public-code-review",
@@ -295,8 +302,8 @@
       "type": "mcp",
       "category": "security",
       "name": "Mithril Public Code Review",
-      "version": "0.3.1",
-      "description": "Public GitHub source and locked npm dependency review with full OSV matching, Knowledge enrichment and actual Mithril ontology receipts; candidates and unknown coverage require review.",
+      "version": "0.4.0",
+      "description": "Public code/dependency review, SCAP OVAL/XCCDF result ontology, and isolated same-major npm security patches with OSV/Mithril reassessment; incomplete scope and untested compatibility remain explicit.",
       "tags": [
         "mithril",
         "ontology",
@@ -308,7 +315,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:bd288f8cc75038f0862e1ee71f9bc557e4f77330d79bd9b55421513b231b99ae",
+      "checksum": "sha256:44d87b13b929f9546b353d25169f98e7bc5713e57a5878e40740e72063150503",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -316,7 +323,11 @@
         "network:raw.githubusercontent.com",
         "subprocess:node-fixed-entrypoint",
         "network:api.osv.dev",
-        "network:knowledge.mithril.fund"
+        "network:knowledge.mithril.fund",
+        "network:registry.npmjs.org",
+        "subprocess:python-fixed-entrypoint",
+        "subprocess:npm-fixed-entrypoint",
+        "filesystem:temporary-workspace"
       ],
       "installable": true,
       "connection": {
@@ -330,7 +341,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "5a86517627b874e4911d16cb3fb565c318fb07b0",
+        "commit": "b04d20cedb98d5f937225da1df713af8185a6d1e",
         "entry": "bin/mithril-public-mcp.mjs"
       },
       "solutionIds": []
@@ -551,8 +562,8 @@
       "type": "plugin",
       "category": "security",
       "name": "Mithril Public Code Review",
-      "version": "0.3.1",
-      "description": "Public GitHub source and locked npm dependency review with full OSV matching, Knowledge enrichment and actual Mithril ontology receipts; candidates and unknown coverage require review.",
+      "version": "0.4.0",
+      "description": "Public code/dependency review, SCAP OVAL/XCCDF result ontology, and isolated same-major npm security patches with OSV/Mithril reassessment; incomplete scope and untested compatibility remain explicit.",
       "tags": [
         "mithril",
         "ontology",
@@ -564,7 +575,7 @@
       "license": "Apache-2.0",
       "path": "plugins/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:dddccf1d41f532d5fb8eb66fd1562647e0d1740f23741df51250931897e8ad93",
+      "checksum": "sha256:7829aeb9d55d73407c3784ff52a442e65f8bb3a80e77022eea408929d0f84284",
       "compatibility": {
         "clients": [
           {
@@ -583,23 +594,30 @@
         "network:raw.githubusercontent.com",
         "subprocess:node-fixed-entrypoint",
         "network:api.osv.dev",
-        "network:knowledge.mithril.fund"
+        "network:knowledge.mithril.fund",
+        "network:registry.npmjs.org",
+        "subprocess:python-fixed-entrypoint",
+        "subprocess:npm-fixed-entrypoint",
+        "filesystem:temporary-workspace"
       ],
       "installable": true,
       "artifact": {
         "format": "git",
-        "url": "https://github.com/mithril-lang/mithril-system-one/tree/5a86517627b874e4911d16cb3fb565c318fb07b0/adapters/hermes/mithril-public-review",
-        "commit": "5a86517627b874e4911d16cb3fb565c318fb07b0"
+        "url": "https://github.com/mithril-lang/mithril-system-one/tree/b04d20cedb98d5f937225da1df713af8185a6d1e/adapters/hermes/mithril-public-review",
+        "commit": "b04d20cedb98d5f937225da1df713af8185a6d1e"
       },
       "requirements": {
         "commands": [
           "node",
           "git",
-          "npm"
+          "npm",
+          "python3"
         ]
       },
       "tools": [
-        "mithril_public_repo_review"
+        "mithril_public_repo_review",
+        "mithril_scap_review",
+        "mithril_dependency_upgrade"
       ],
       "solutionIds": []
     },
@@ -888,7 +906,7 @@
       "type": "skill",
       "category": "security",
       "name": "mithril-public-review",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "description": "Review an immutable public GitHub commit with bounded source extraction and Mithril ontology policies when the user requests public source security evaluation.",
       "tags": [
         "mithril",
@@ -901,7 +919,7 @@
       "license": "Apache-2.0",
       "path": "skills/security/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:62b327d1261817c85d6e8597bc5b6daf3406406d35a272e7f2dbd2eba8842a6e",
+      "checksum": "sha256:644081ab4701d5b7ad43dc20cc940d731d252f32785788812afad8c8f7a3ab77",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,
@@ -1103,8 +1121,8 @@
       "type": "workflow",
       "category": "security",
       "name": "Mithril Public Code Review",
-      "version": "0.3.1",
-      "description": "Public GitHub source and locked npm dependency review with full OSV matching, Knowledge enrichment and actual Mithril ontology receipts; candidates and unknown coverage require review.",
+      "version": "0.4.0",
+      "description": "Public code/dependency review, SCAP OVAL/XCCDF result ontology, and isolated same-major npm security patches with OSV/Mithril reassessment; incomplete scope and untested compatibility remain explicit.",
       "tags": [
         "mithril",
         "ontology",
@@ -1116,7 +1134,7 @@
       "license": "Apache-2.0",
       "path": "workflows/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:ea2f248510ccaf1a61e2b1db041c19f5dfeea8504cb1e0a99946343cf07f2622",
+      "checksum": "sha256:28ab6b8592d56b6bc91650ed4956c9bd612670f474e0434b63a639d765b88e60",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -1124,13 +1142,17 @@
         "network:raw.githubusercontent.com",
         "subprocess:node-fixed-entrypoint",
         "network:api.osv.dev",
-        "network:knowledge.mithril.fund"
+        "network:knowledge.mithril.fund",
+        "network:registry.npmjs.org",
+        "subprocess:python-fixed-entrypoint",
+        "subprocess:npm-fixed-entrypoint",
+        "filesystem:temporary-workspace"
       ],
       "installable": true,
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "5a86517627b874e4911d16cb3fb565c318fb07b0",
+        "commit": "b04d20cedb98d5f937225da1df713af8185a6d1e",
         "entry": "bin/mithril-public-review.mjs"
       },
       "execution": {
@@ -1144,7 +1166,8 @@
         "commands": [
           "node",
           "git",
-          "npm"
+          "npm",
+          "python3"
         ]
       },
       "tools": [
