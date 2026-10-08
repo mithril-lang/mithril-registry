@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1",
+  "id": "mithril-tasks",
+  "category": "development",
+  "name": "Mithril System One tasks",
+  "version": "0.3.0",
+  "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://github.com/mithril-lang/mithril-system-one",
+  "tags": [
+    "mithril",
+    "coding",
+    "ontology",
+    "system-one",
+    "refactor"
+  ],
+  "permissions": [
+    "subprocess:node-fixed-entrypoint",
+    "network:api.mithril.fund",
+    "network:app.mithril.fund"
+  ],
+  "type": "plugin",
+  "artifact": {
+    "format": "git",
+    "url": "https://github.com/mithril-lang/mithril-system-one/tree/main/adapters/hermes/mithril-tasks",
+    "commit": "caa9a2f2c8aa4448664ad333a7a4a0e26bbea85d"
+  },
+  "compatibility": {
+    "clients": [
+      {
+        "name": "Hermes Agent",
+        "version": ">=0.21.4,<0.22",
+        "tested": "0.21.5+4485.g3da66ca.dirty"
+      }
+    ],
+    "platforms": [
+      "macos",
+      "linux"
+    ]
+  },
+  "requirements": {
+    "commands": [
+      "node",
+      "git",
+      "npm"
+    ]
+  },
+  "tools": [
+    "mithril_task",
+    "mithril_workflow"
+  ]
+}

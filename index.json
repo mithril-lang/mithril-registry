@@ -1,7 +1,59 @@
 {
   "schemaVersion": "1",
-  "count": 18,
+  "count": 23,
   "entries": [
+    {
+      "id": "mithril-system-one",
+      "type": "agent",
+      "category": "development",
+      "name": "Mithril System One",
+      "version": "0.3.0",
+      "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
+      "tags": [
+        "mithril",
+        "coding",
+        "ontology",
+        "system-one",
+        "refactor"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "agents/mithril-system-one",
+      "icon": null,
+      "checksum": "sha256:a9c10257537d317ec42b103d549ab5a776a7407d8f5580f7b8f1eda78549b993",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint",
+        "network:api.mithril.fund",
+        "network:app.mithril.fund"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "caa9a2f2c8aa4448664ad333a7a4a0e26bbea85d",
+        "entry": "bin/mithril-task.mjs"
+      },
+      "execution": {
+        "runtime": "mithril-system-one",
+        "input": "json-stdin",
+        "maxTasks": 1,
+        "stopOnFailure": true,
+        "retryUnknown": false
+      },
+      "requirements": {
+        "commands": [
+          "node",
+          "git",
+          "npm"
+        ]
+      },
+      "tools": [
+        "mithril_task"
+      ],
+      "solutionIds": []
+    },
     {
       "id": "mithril-data-catalog",
       "type": "mcp",
@@ -30,8 +82,8 @@
       "installable": true,
       "connection": {
         "transport": "streamable-http",
-        "url": "https://mithril-api.cloud-kotoba.workers.dev/v1/internal/data-catalog/mcp",
-        "authentication": "per-tool"
+        "authentication": "per-tool",
+        "url": "https://mithril-api.cloud-kotoba.workers.dev/v1/internal/data-catalog/mcp"
       },
       "solutionIds": []
     },
@@ -62,8 +114,8 @@
       "installable": true,
       "connection": {
         "transport": "streamable-http",
-        "url": "https://graph.mithril.fund/mcp",
-        "authentication": "per-tool"
+        "authentication": "per-tool",
+        "url": "https://graph.mithril.fund/mcp"
       },
       "solutionIds": []
     },
@@ -95,8 +147,51 @@
       "installable": true,
       "connection": {
         "transport": "streamable-http",
-        "url": "https://api.mithril.fund/v1/knowledge/mcp",
-        "authentication": "per-tool"
+        "authentication": "per-tool",
+        "url": "https://api.mithril.fund/v1/knowledge/mcp"
+      },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-system-one",
+      "type": "mcp",
+      "category": "development",
+      "name": "Mithril System One",
+      "version": "0.3.0",
+      "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
+      "tags": [
+        "mithril",
+        "coding",
+        "ontology",
+        "system-one",
+        "refactor"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-system-one",
+      "icon": null,
+      "checksum": "sha256:6feb1bc49b484b63451ba52d9c301981325090f946b53163d45a249b3c2987ea",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint",
+        "network:api.mithril.fund",
+        "network:app.mithril.fund"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "stdio",
+        "authentication": "per-tool",
+        "command": "node",
+        "args": [
+          "${system_one_root}/bin/mithril-mcp.mjs"
+        ]
+      },
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "caa9a2f2c8aa4448664ad333a7a4a0e26bbea85d",
+        "entry": "bin/mithril-mcp.mjs"
       },
       "solutionIds": []
     },
@@ -129,8 +224,8 @@
       "installable": true,
       "connection": {
         "transport": "streamable-http",
-        "url": "https://api.mithril.fund/v1/forensics/mcp",
-        "authentication": "per-tool"
+        "authentication": "per-tool",
+        "url": "https://api.mithril.fund/v1/forensics/mcp"
       },
       "solutionIds": []
     },
@@ -234,6 +329,63 @@
       "solutionIds": []
     },
     {
+      "id": "mithril-tasks",
+      "type": "plugin",
+      "category": "development",
+      "name": "Mithril System One tasks",
+      "version": "0.3.0",
+      "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
+      "tags": [
+        "mithril",
+        "coding",
+        "ontology",
+        "system-one",
+        "refactor"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "plugins/mithril-tasks",
+      "icon": null,
+      "checksum": "sha256:b21c1ac231e190b18be4cc18d213b155d5d983e21d2044588fa03e64d09d19b3",
+      "compatibility": {
+        "clients": [
+          {
+            "name": "Hermes Agent",
+            "version": ">=0.21.4,<0.22",
+            "tested": "0.21.5+4485.g3da66ca.dirty"
+          }
+        ],
+        "platforms": [
+          "macos",
+          "linux"
+        ]
+      },
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint",
+        "network:api.mithril.fund",
+        "network:app.mithril.fund"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one/tree/main/adapters/hermes/mithril-tasks",
+        "commit": "caa9a2f2c8aa4448664ad333a7a4a0e26bbea85d"
+      },
+      "requirements": {
+        "commands": [
+          "node",
+          "git",
+          "npm"
+        ]
+      },
+      "tools": [
+        "mithril_task",
+        "mithril_workflow"
+      ],
+      "solutionIds": []
+    },
+    {
       "id": "hermes-zap-proxy",
       "type": "plugin",
       "category": "security",
@@ -309,6 +461,30 @@
       "path": "skills/data/mithril-data-catalog",
       "icon": null,
       "checksum": "sha256:013018ad51cf49d27872e2ff3eb38102a51abdac91e5d2925fdf444060d84d64",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-system-one",
+      "type": "skill",
+      "category": "development",
+      "name": "mithril-system-one",
+      "version": "0.3.0",
+      "description": "Implement and verify supported Mithril coding tasks, ontology repairs and semantic refactors using the System One harness when the user wants a checked Mithril artifact.",
+      "tags": [
+        "mithril",
+        "coding",
+        "ontology",
+        "system-one",
+        "refactor"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/development/mithril-system-one",
+      "icon": null,
+      "checksum": "sha256:066ffdbdb063710ecd741a46914944695a001eeea967a5fe22b247cbdcad474b",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,
@@ -625,6 +801,58 @@
           "name": "mithril_knowledge_search"
         }
       },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-system-one",
+      "type": "workflow",
+      "category": "development",
+      "name": "Mithril System One",
+      "version": "0.3.0",
+      "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
+      "tags": [
+        "mithril",
+        "coding",
+        "ontology",
+        "system-one",
+        "refactor"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "workflows/mithril-system-one",
+      "icon": null,
+      "checksum": "sha256:a888dd89eb59b1aa67627e7e1456c01a874cfd1f25980aa18e784493a9f51dc3",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint",
+        "network:api.mithril.fund",
+        "network:app.mithril.fund"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "caa9a2f2c8aa4448664ad333a7a4a0e26bbea85d",
+        "entry": "bin/mithril-workflow.mjs"
+      },
+      "execution": {
+        "runtime": "mithril-system-one",
+        "input": "json-stdin",
+        "maxTasks": 3,
+        "stopOnFailure": true,
+        "retryUnknown": false
+      },
+      "requirements": {
+        "commands": [
+          "node",
+          "git",
+          "npm"
+        ]
+      },
+      "tools": [
+        "mithril_task"
+      ],
       "solutionIds": []
     }
   ],

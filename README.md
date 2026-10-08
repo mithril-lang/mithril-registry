@@ -72,3 +72,17 @@ python3 scripts/package_plugin.py mithril-data-catalog --check
 ## Investigation roles and solutions
 
 [`solutions.json`](solutions.json) groups 11 investigation roles and 14 contact profiles without registering planned modules as executable products. Generated [role briefs](solutions/agency) keep persona, current input scope, gaps, Registry mapping and unpublished blog briefs together. [`agency.json`](solutions/agency.json) is authoritative; build_index verifies artifacts. The [native profile installer and shared Desktop contract](docs/security-integrations/agency-target-portfolios.md) create consultation profiles without copying credentials or starting gateway jobs.
+
+## System One coding
+
+[System One integration](docs/system-one-coding.md) registers a portable Skill,
+local stdio MCP, executable bounded Agent/Workflow, and the native Hermes Plugin.
+All executable surfaces pin one public `mithril-system-one` commit and share its
+actual executor. `agents/` and `workflows/` entries require an immutable artifact,
+fixed entrypoint and finite stop-on-failure contract. MCP registration now accepts
+both existing Streamable HTTP endpoints and validated local stdio artifacts.
+A Registry entry is discovery metadata; installation and local execution remain
+with the owning host. The local MCP is not advertised as a hosted Web endpoint.
+
+New Agent Skills may store version and author in `metadata`; the builder retains
+support for the existing Registry's top-level fields.

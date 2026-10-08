@@ -14,7 +14,7 @@ class RegistryTest(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
-        for dirname in ("skills", "mcp", "tools", "plugins", "scripts"):
+        for dirname in ("skills", "mcp", "tools", "plugins", "agents", "workflows", "scripts"):
             shutil.copytree(build_index.ROOT / dirname, self.root / dirname)
         self.root_patch = patch.object(build_index, "ROOT", self.root)
         self.skills_patch = patch.object(build_index, "SKILLS", self.root / "skills")
@@ -39,12 +39,36 @@ class RegistryTest(unittest.TestCase):
             for directory in build_index.MANIFEST_DIRS.values()
         )
         self.assertEqual(index["count"], expected)
-        self.assertEqual({entry["type"] for entry in index["entries"]}, {"skill", "mcp", "tool", "plugin"})
+        self.assertEqual({entry["type"] for entry in index["entries"]}, {"skill", "mcp", "tool", "plugin", "agent", "workflow"})
         self.assertEqual(sum(entry["type"] == "skill" for entry in index["entries"]),
                          len(list((self.root / "skills").glob("*/*/SKILL.md"))))
         self.assertTrue(all(entry["installable"] for entry in index["entries"] if entry["type"] in {"mcp", "plugin"}))
         self.assertTrue(all(not entry["installable"] for entry in index["entries"] if entry["type"] == "tool"))
         self.assertEqual(sum(kind["count"] for kind in categories["types"]), expected)
+
+    def test_system_one_has_all_five_surfaces_with_one_runtime_commit(self):
+        index, _ = build_index.build()
+        rows = [r for r in index['entries'] if r['id'] in ('mithril-system-one', 'mithril-tasks')]
+        self.assertEqual({r['type'] for r in rows}, {'skill','mcp','agent','workflow','plugin'})
+        self.assertEqual(len({r['artifact']['commit'] for r in rows if 'artifact' in r}), 1)
+        mcp = next(r for r in rows if r['type'] == 'mcp')
+        self.assertEqual(mcp['connection']['transport'], 'stdio')
+        self.assertNotIn('url', mcp['connection'])
+
+    def test_executable_entries_refuse_mutable_refs_and_unbounded_workflows(self):
+        self.write_manifest('agents/mithril-system-one/manifest.json', lambda d: d['artifact'].update(commit='main'))
+        with self.assertRaisesRegex(ValueError, 'full lowercase Git commit'):
+            build_index.build()
+
+    def test_workflow_rejects_retrying_unknown_outcomes(self):
+        self.write_manifest('workflows/mithril-system-one/manifest.json', lambda d: d['execution'].update(retryUnknown=True))
+        with self.assertRaisesRegex(ValueError, 'bounded stop-on-failure'):
+            build_index.build()
+
+    def test_stdio_cannot_choose_an_arbitrary_command_or_claim_a_hosted_endpoint(self):
+        self.write_manifest('mcp/mithril-system-one/manifest.json', lambda d: d.update(command='sh'))
+        with self.assertRaisesRegex(ValueError, 'Node arguments'):
+            build_index.build()
 
     def test_runtime_dependency_cache_does_not_change_distribution_checksum(self):
         folder = self.root / 'skills/security/mithril-security-suite'

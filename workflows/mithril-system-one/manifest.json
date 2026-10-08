@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1",
+  "id": "mithril-system-one",
+  "category": "development",
+  "name": "Mithril System One",
+  "version": "0.3.0",
+  "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://github.com/mithril-lang/mithril-system-one",
+  "tags": [
+    "mithril",
+    "coding",
+    "ontology",
+    "system-one",
+    "refactor"
+  ],
+  "permissions": [
+    "subprocess:node-fixed-entrypoint",
+    "network:api.mithril.fund",
+    "network:app.mithril.fund"
+  ],
+  "type": "workflow",
+  "artifact": {
+    "format": "git",
+    "url": "https://github.com/mithril-lang/mithril-system-one",
+    "commit": "caa9a2f2c8aa4448664ad333a7a4a0e26bbea85d",
+    "entry": "bin/mithril-workflow.mjs"
+  },
+  "command": "node",
+  "args": [
+    "${system_one_root}/bin/mithril-workflow.mjs",
+    "--stdin"
+  ],
+  "entry": "bin/mithril-workflow.mjs",
+  "requirements": {
+    "commands": [
+      "node",
+      "git",
+      "npm"
+    ]
+  },
+  "configuration": {
+    "system_one_root": "Reviewed checkout at artifact.commit; run npm run setup:dynamic for dynamic tasks."
+  },
+  "env": {
+    "MITHRIL_API_KEY": "optional-owning-profile-reference"
+  },
+  "tools": [
+    "mithril_task"
+  ],
+  "executable": true,
+  "execution": {
+    "runtime": "mithril-system-one",
+    "input": "json-stdin",
+    "maxTasks": 3,
+    "stopOnFailure": true,
+    "retryUnknown": false
+  }
+}
