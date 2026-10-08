@@ -3,11 +3,11 @@
   "types": [
     {
       "type": "skill",
-      "count": 12,
+      "count": 13,
       "categories": [
         {
           "name": "data",
-          "count": 1
+          "count": 2
         },
         {
           "name": "development",

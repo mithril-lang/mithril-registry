@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 30,
+  "count": 31,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -642,6 +642,31 @@
       "path": "skills/data/mithril-data-catalog",
       "icon": null,
       "checksum": "sha256:013018ad51cf49d27872e2ff3eb38102a51abdac91e5d2925fdf444060d84d64",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-private-knowledge",
+      "type": "skill",
+      "category": "data",
+      "name": "mithril-private-knowledge",
+      "version": "1.0.0",
+      "description": "Search, read and update owner-private or organization-private R2 text documents through the authenticated Mithril API.",
+      "tags": [
+        "knowledge",
+        "private",
+        "r2",
+        "account",
+        "organization",
+        "api"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/data/mithril-private-knowledge",
+      "icon": null,
+      "checksum": "sha256:e82aad2265936068ac9bcdcd9811d92685a53e58912876ca79508d9c0b00561e",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,

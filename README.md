@@ -63,6 +63,15 @@ python3 scripts/package_plugin.py mithril-data-catalog --check
 
 ## Knowledge contributions
 
+[Private Knowledge](skills/data/mithril-private-knowledge/SKILL.md) adds an
+installable Skill and bounded Python REST client for owner-private and
+organization-private R2 documents through `api.mithril.fund`. Active org members
+read; owner/admin write. The host supplies a profile-scoped knowledge token;
+agents receive no Cloudflare credentials. Search is paginated substring matching,
+updates use revision and operation IDs, and deletion retains bytes. The backend
+has authenticated production verification; this Skill does not register a hosted
+MCP, native UI plugin or arbitrary private Iceberg SQL capability.
+
 [Knowledge Contributions MCP](mcp/mithril-knowledge-contributions/README.md) integrates owner-private submission, history, withdrawal and appeal using `knowledge:read` / `knowledge:write`, alongside the existing authenticated REST API. Console and Admin expose explanation only. Existing review, publication receipts and idempotent credit gates remain on the server.
 
 ## Company brand protection
