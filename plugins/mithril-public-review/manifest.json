@@ -3,7 +3,7 @@
   "id": "mithril-public-review",
   "category": "security",
   "name": "Mithril Public Code Review",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Public code/dependency review, SCAP OVAL/XCCDF result ontology, and isolated same-major npm security patches with OSV/Mithril reassessment; incomplete scope and untested compatibility remain explicit.",
   "author": "Mithril",
   "license": "Apache-2.0",
@@ -29,8 +29,8 @@
   "type": "plugin",
   "artifact": {
     "format": "git",
-    "url": "https://github.com/mithril-lang/mithril-system-one/tree/b04d20cedb98d5f937225da1df713af8185a6d1e/adapters/hermes/mithril-public-review",
-    "commit": "b04d20cedb98d5f937225da1df713af8185a6d1e"
+    "url": "https://github.com/mithril-lang/mithril-system-one/tree/ad76515244b4a03d21acaa21a9e2ee2dcc653957/adapters/hermes/mithril-public-review",
+    "commit": "ad76515244b4a03d21acaa21a9e2ee2dcc653957"
   },
   "compatibility": {
     "clients": [
