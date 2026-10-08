@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "0.5.0",
+  "version": "0.6.0",
   "components": [
     {
       "type": "skill",
@@ -25,7 +25,7 @@
   ],
   "runtimeArtifact": {
     "repository": "https://github.com/mithril-lang/mithril-system-one",
-    "commit": "73d04bfc4160409afb274fdf895d2316c72d19fc"
+    "commit": "cd7905e62b22396212ae0da77d45daedbb017471"
   },
   "botProfile": "mithril-public-code-review",
   "readiness": {
@@ -42,7 +42,9 @@
     "exclusiveLocalApply": true,
     "explicitTransactionRecovery": true,
     "automaticRecovery": false,
-    "powerLossQualified": false
+    "powerLossQualified": false,
+    "bpmnBusinessProcessOntology": true,
+    "operationalBusinessControlsAttested": false
   },
   "policySource": "examples/security-ontology/policy.mith",
   "limits": [
@@ -52,7 +54,8 @@
     "npm package-lock v2/v3 only",
     "private local matching engine must be separately prepared",
     "Combined Knowledge catalog index remains stale; per-dataset APIs are verified",
-    "SCAP result ingestion only; no native host probes/OVAL definition interpreter/fixes; direct same-major npm security upgrades only; application compatibility untested"
+    "SCAP result ingestion only; no native host probes/OVAL definition interpreter/fixes; direct same-major npm security upgrades only; application compatibility untested",
+    "BPMN acyclic single-process structural profile only; all exclusive branches considered feasible; no conditions/token execution or IAM/audit-log attestation"
   ],
   "qualification": {
     "profile": "mithril-public-code-review",
@@ -69,6 +72,8 @@
     "upgradeFixture": "lodash 4.17.20 to 4.18.0; 5 candidates to 0; 0 post-update gaps",
     "localUpgradeApplication": "controlled clean Git project: applied package files, 5 behavior checks before/after, dirty reapply refused; no automatic commit",
     "localTransaction": "exclusive apply, constructed interruption states, operator edits/HEAD refusal, actual CLI recovery and injected second-replacement ENOSPC rollback passed",
-    "evidenceConsistency": "manifest/lock direct specs, duplicate JSON keys/depth, reported OVAL/XCCDF target scope checked"
-  }
+    "evidenceConsistency": "manifest/lock direct specs, duplicate JSON keys/depth, reported OVAL/XCCDF target scope checked",
+    "businessProcess": "Three reference processes (payment, access, customer data), four modeled violations each before repair and zero after, real compiler/CLI/MCP/native scoped tool; zero inference calls"
+  },
+  "businessProcessPolicySource": "examples/business-process/policy.mith"
 }
