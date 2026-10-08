@@ -1,7 +1,7 @@
 ---
 name: mithril-kill-chain
 description: Map a supplied evidence set onto the seven-phase cyber kill chain, report covered, partial and absent phases with per-phase next steps, and probe local classic .pcap files for C2 candidates (DNS queries, TLS SNI, cleartext HTTP hosts, periodic TCP beacon streams).
-version: 0.1.0
+version: 0.2.0
 author: Mithril
 license: Apache-2.0
 platforms: [linux, macos]

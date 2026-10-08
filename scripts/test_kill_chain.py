@@ -155,6 +155,35 @@ class PcapTest(unittest.TestCase):
         with self.assertRaises(killchain.KillChainFailure):
             killchain.execute('killchain_pcap_probe', {'path': str(missing)})
 
+    def test_file_too_large_before_magic(self):
+        big = self.tmp / 'killchain_big.pcap'
+        big.write_bytes(b'\xa1\xb2\xc3\xd4' + b'\x00' * (killchain.MAX_PCAP_BYTES))
+        try:
+            with self.assertRaises(killchain.KillChainFailure) as ctx:
+                killchain.pcap_probe(str(big))
+            self.assertEqual(str(ctx.exception), 'file_too_large')
+        finally:
+            big.unlink(missing_ok=True)
+
+    def test_beacon_truncation_is_deterministic(self):
+        """The 50-candidate cap is a sort-then-slice, so identical bytes always
+        yield the identical list regardless of stream discovery order."""
+        rows = [
+            {'src': '10.0.0.2', 'dst': f'198.51.100.{n:02d}', 'srcPort': 5000,
+             'dstPort': 8443, 'samples': 5, 'medianInterval': 30.0, 'cv': 0.0}
+            for n in range(60)
+        ]
+        key = lambda b: (b['src'], b['dst'], b['dstPort'])
+        first = sorted(rows, key=key)[:killchain.MAX_INDICATORS]
+        shuffled = list(rows)
+        shuffled.reverse()
+        second = sorted(shuffled, key=key)[:killchain.MAX_INDICATORS]
+        self.assertEqual(first, second)
+        self.assertEqual(len(first), killchain.MAX_INDICATORS)
+        # The kept rows are the lexicographically smallest candidates.
+        self.assertEqual(first[0]['dst'], '198.51.100.00')
+        self.assertEqual(first[-1]['dst'], '198.51.100.49')
+
 
 class BridgeTest(unittest.TestCase):
     def test_initialize_and_tools_list(self):
@@ -209,14 +238,44 @@ class BridgeTest(unittest.TestCase):
         self.assertIn('"phases"', result.stdout.decode())
         result = subprocess.run([sys.executable, str(script), '--tool', 'killchain_evaluate', '--input', '-'],
                                 input=json.dumps({'phases': []}).encode(), capture_output=True, timeout=60)
-        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.returncode, 0, result.stdout)
         self.assertIn('no-covered-phase', result.stdout.decode())
         self.assertIn('weaponization', result.stdout.decode())
         result = subprocess.run([sys.executable, str(script), '--tool', 'killchain_evaluate', '--input', '-'],
                                 input=json.dumps({'caseId': 5, 'phases': []}).encode(), capture_output=True, timeout=60)
         self.assertEqual(result.returncode, 1, result.stdout)
+        # The CLI reports the machine-readable reason, never a stack trace.
+        self.assertIn('invalid_input', result.stderr.decode())
+        self.assertNotIn('Traceback', result.stderr.decode())
         with self.assertRaises(killchain.KillChainFailure):
             killchain.execute('killchain_evaluate', {'caseId': 5, 'phases': []})
+
+    def test_cli_missing_file_reports_reason(self):
+        script = SCRIPTS / 'killchain.py'
+        missing = Path(__file__).resolve().parent / 'killchain_cli_missing.pcap'
+        result = subprocess.run([sys.executable, str(script), '--tool', 'killchain_pcap_probe',
+                                 '--input', json.dumps({'path': str(missing)})],
+                                capture_output=True, timeout=60)
+        self.assertEqual(result.returncode, 1, result.stdout)
+        self.assertIn('file_not_found', result.stderr.decode())
+        self.assertNotIn('Traceback', result.stderr.decode())
+
+    def test_oversized_mcp_line_continues(self):
+        """A line >32 KiB yields Request-too-large, and the bridge keeps
+        serving the following request instead of exiting (exit code 0)."""
+        script = SCRIPTS / 'killchain.py'
+        padded = b'{"jsonrpc":"2.0","id":99,"method":"ping","params":{}}' + b'x' * killchain.MAX_ARG_BYTES
+        lines = [padded,
+                 json.dumps({'jsonrpc': '2.0', 'id': 101, 'method': 'tools/call',
+                             'params': {'name': 'killchain_phases', 'arguments': {}}}).encode()]
+        result = subprocess.run([sys.executable, str(script), '--mcp'],
+                                input=b'\n'.join(lines) + b'\n', capture_output=True, timeout=60)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        out = [json.loads(line) for line in result.stdout.decode().splitlines()]
+        self.assertEqual([item['id'] for item in out], [None, 101])
+        self.assertEqual(out[0]['error']['code'], -32600)
+        self.assertEqual(out[0]['error']['message'], 'Request too large')
+        self.assertIn('reconnaissance', json.dumps(out[1]['result'], ensure_ascii=False))
 
 
 if __name__ == '__main__':

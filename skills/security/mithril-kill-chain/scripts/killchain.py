@@ -9,12 +9,14 @@ beacon-like TCP periodicity. No network calls; supplied evidence is data.
 import argparse
 import json
 import math
+import os
 import struct
 import sys
 from pathlib import Path
 
-VERSION = '0.1.0'
+VERSION = '0.2.0'
 MAX_ARG_BYTES = 32768
+MAX_LINE_BYTES = 1 << 20
 MAX_PCAP_BYTES = 16 * 1024 * 1024
 MAX_INDICATORS = 50
 BEACON_MIN_INTERVAL = 1.0
@@ -341,13 +343,11 @@ def pcap_probe(path):
             beacons.append({'src': src, 'dst': dst, 'srcPort': sport, 'dstPort': dport,
                             'samples': len(intervals) + 1, 'medianInterval': round(median, 3),
                             'cv': round(cv, 3)})
-        if len(beacons) >= MAX_INDICATORS:
-            break
     beacons.sort(key=lambda b: (b['src'], b['dst'], b['dstPort']))
     return {
         'linkType': linktype, 'packets': len(packets),
         'dnsQueries': dns, 'tlsSni': sni, 'httpHosts': hosts,
-        'beaconCandidates': beacons,
+        'beaconCandidates': beacons[:MAX_INDICATORS],
         'note': 'Beacon candidates are periodicity observations over supplied bytes, not confirmed C2 channels.',
     }
 
@@ -394,9 +394,11 @@ def rpc(value):
     elif method == 'ping':
         result = {}
     elif method == 'tools/list':
-        result = {'tools': [{k: v for k, v in t.items() if k != 'write'} | {
-            'annotations': {'readOnlyHint': True, 'destructiveHint': False,
-                            'idempotentHint': True, 'openWorldHint': False}}
+        result = {'tools': [{k: v for k, v in t.items() if k in ('name', 'description', 'inputSchema')} | {
+            'annotations': {'readOnlyHint': not t.get('write', False),
+                            'destructiveHint': bool(t.get('destructive', False)),
+                            'idempotentHint': bool(t.get('idempotent', True)),
+                            'openWorldHint': False}}
             for t in TOOLS]}
     elif method == 'tools/call':
         try:
@@ -415,10 +417,24 @@ def main():
     parser.add_argument('--input')
     args = parser.parse_args()
     if args.mcp:
-        for line in iter(lambda: sys.stdin.buffer.readline(MAX_ARG_BYTES + 1), b''):
+        stdin = sys.stdin.buffer
+        while True:
+            line = stdin.readline(MAX_ARG_BYTES + 1)
+            if not line:
+                break
             if len(line) > MAX_ARG_BYTES:
+                # Oversized line: drain to the newline so the next request, if
+                # one follows, is read from a clean line boundary. Bound the
+                # drain so a single oversized line cannot grow unbounded; if
+                # the bound hits before a newline, framing is desynchronized
+                # and the client should reconnect.
+                while not line.endswith(b'\n') and len(line) < MAX_LINE_BYTES:
+                    more = stdin.readline(MAX_ARG_BYTES + 1)
+                    if not more:
+                        break
+                    line += more
                 print(json.dumps({'jsonrpc': '2.0', 'id': None, 'error': {'code': -32600, 'message': 'Request too large'}}), flush=True)
-                return 1
+                continue
             try:
                 result = rpc(json.loads(line))
             except (ValueError, UnicodeError):
@@ -439,9 +455,14 @@ def main():
             raise KillChainFailure('request_too_large')
         print(json.dumps(execute(args.tool, json.loads(raw)), ensure_ascii=False))
         return 0
-    except (KillChainFailure, ValueError, OSError):
-        print('kill-chain operation failed; inspect the retained input before retrying', file=sys.stderr)
-        return 1
+    except (ValueError, UnicodeError):
+        reason = 'invalid_input'
+    except OSError as error:
+        reason = f'file_not_found (errno={os.strerror(error.errno)})'
+    except KillChainFailure as error:
+        reason = str(error)
+    print(f'kill-chain operation failed: {reason}; inspect the retained input before retrying', file=sys.stderr)
+    return 1
 
 
 if __name__ == '__main__':
