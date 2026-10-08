@@ -876,7 +876,7 @@
       "type": "skill",
       "category": "security",
       "name": "mithril-kill-chain",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "description": "Map a supplied evidence set onto the seven-phase cyber kill chain, report covered, partial and absent phases with per-phase next steps, and probe local classic .pcap files for C2 candidates (DNS queries, TLS SNI, cleartext HTTP hosts, periodic TCP beacon streams).",
       "tags": [
         "kill-chain",
@@ -893,7 +893,7 @@
       "license": "Apache-2.0",
       "path": "skills/security/mithril-kill-chain",
       "icon": null,
-      "checksum": "sha256:8bc12017dd7b154509db88435f24e0fa8b691173942ee30aee7b6cdc2534ca56",
+      "checksum": "sha256:70a740bed9709666d8258b98f0c46c744348f73a4bad5434adf451ca03b5a0c2",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,
