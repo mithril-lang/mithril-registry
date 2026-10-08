@@ -3,8 +3,8 @@
   "id": "mithril-public-review",
   "category": "security",
   "name": "Mithril Public Code Review",
-  "version": "0.1.0",
-  "description": "Public GitHub commit review using bounded JavaScript AST extraction and actual Mithril ontology receipts; incomplete coverage and candidates require review.",
+  "version": "0.2.0",
+  "description": "Public GitHub commit review using bounded JavaScript/TypeScript AST extraction and actual Mithril ontology receipts; incomplete coverage and candidates require review.",
   "author": "Mithril",
   "license": "Apache-2.0",
   "source": "https://github.com/mithril-lang/mithril-system-one",
@@ -24,7 +24,7 @@
   "artifact": {
     "format": "git",
     "url": "https://github.com/mithril-lang/mithril-system-one",
-    "commit": "299937c2e6cb11d36fbdde1278db64723867096c",
+    "commit": "f3d07ef403c2c018a1eba5b8d4eabd9a903235e8",
     "entry": "bin/mithril-public-mcp.mjs"
   },
   "command": "node",

@@ -1,6 +1,6 @@
 # Mithril Public Code Review Registry integration
 
-Five entries share ID `mithril-public-review`, version 0.1.0 and one immutable runtime artifact, `299937c2e6cb11d36fbdde1278db64723867096c` in [mithril-system-one](https://github.com/mithril-lang/mithril-system-one/tree/299937c2e6cb11d36fbdde1278db64723867096c).
+Five entries share ID `mithril-public-review`, version 0.2.0 and one immutable runtime artifact, `f3d07ef403c2c018a1eba5b8d4eabd9a903235e8` in [mithril-system-one](https://github.com/mithril-lang/mithril-system-one/tree/f3d07ef403c2c018a1eba5b8d4eabd9a903235e8).
 
 - Skill: scope and evidence instructions.
 - Plugin: opt-in native Agent `mithril_public_repo_review`, toolset `mithril_public_review`.
@@ -8,13 +8,13 @@ Five entries share ID `mithril-public-review`, version 0.1.0 and one immutable r
 - Workflow: one bounded review, stop on failure/unknown, no automatic retries.
 - MCP: the same read tool through local stdio 2025-06-18.
 
-[Typed composition](../skills/security/mithril-public-review/integration.json) separates deterministic tool readiness from unqualified provider conversations, scheduled scans and GitHub writes. The Registry index exports the agent's `botProfile` descriptor. The existing Desktop/Agent profile picker remains the user flow; no separate public security dashboard or provider credential store is added.
+[Typed composition](../skills/security/mithril-public-review/integration.json) separates deterministic tool readiness from qualified operator-profile conversation from unqualified scheduled scans and GitHub writes. The Registry index exports the agent's `botProfile` descriptor. The existing Desktop/Agent profile picker remains the user flow; no separate public security dashboard or provider credential store is added.
 
 ## Install and use
 
 Review the artifact, use Node 22+, then `npm ci --ignore-scripts`, `npm run setup:dynamic` and `python3 scripts/install-public-review-profile.py --home /absolute/hermes/home --apply` from its checkout. Select `mithril-public-code-review` in a new Agent/Desktop session. The installer creates independent files with private permissions and no keys, copied history, cron, channel or running gateway. The profile's future conversation provider is api.mithril.fund and requires its own credential; deterministic review does not.
 
-Call `mithril_public_repo_review` with exactly `repository` (`owner/name`) and `commit` (40 lowercase hexadecimal characters). JSON stdin uses `bin/mithril-public-review.mjs --stdin`; MCP uses `bin/mithril-public-mcp.mjs`. [Full runtime contract](https://github.com/mithril-lang/mithril-system-one/blob/299937c2e6cb11d36fbdde1278db64723867096c/docs/public-code-review-bot.md).
+Call `mithril_public_repo_review` with exactly `repository` (`owner/name`) and `commit` (40 lowercase hexadecimal characters). JSON stdin uses `bin/mithril-public-review.mjs --stdin`; MCP uses `bin/mithril-public-mcp.mjs`. [Full runtime contract](https://github.com/mithril-lang/mithril-system-one/blob/f3d07ef403c2c018a1eba5b8d4eabd9a903235e8/docs/public-code-review-bot.md).
 
 ## Qualification on 2026-10-08
 
@@ -23,3 +23,13 @@ Native Agent `0.21.5+4485.g3da66ca.dirty` and the actual MCP SDK each successful
 Native profile discovery A → isolated-other → A yielded tool visible → absent → visible. Local runtime qualification passed 48 unit + 3 Todo, 18 Python, 5 public-review, 6 security and 7 dynamic tests. Registry suite passed 124 tests (12 optional engine/environment tests skipped). Index freshness passed. GitHub Actions is not a qualification dependency. macOS is verified; Linux execution and installed Desktop click-through are not separately qualified.
 
 No target code executes and no repository content goes to an LLM. This is a conservative ESM child_process subset, not general SAST, taint analysis, authentication verification, CVE analysis, environment inventory or exploit proof. Every result preserves incomplete scope; zero candidates never establishes safety. No provider key was copied and no live conversation, autonomous monitoring, remediation, GitHub posting or external disclosure was enabled.
+
+## 0.2.0 follow-up
+
+TypeScript/TSX/JSX, namespace ESM, static CommonJS and immutable CLI aliases are supported. Reports separate eligible/parsed/unsupported/excluded counts and fetch/parse/compiler/graph timing. `--upgrade` replaces only unchanged reviewed prior package files; operator edits and profile credentials are preserved.
+
+The operator explicitly supplied this profile's key. A native Agent loop through api.mithril.fund completed normally with one exact-commit review, 3 API calls and an English report. Observed time was 35.17 seconds overall, about 7.24 seconds for acquisition/assessment. Input/output token counts were 22,359/528; cost status remains unknown. This is a single qualification run, not a comparison benchmark. The first bounded attempt hit a response/iteration budget and is retained in the runtime qualification note.
+
+The installed Mithril Desktop profile picker visibly lists Mithril Public Code Review when searching public-code. Desktop conversation itself is not separately qualified. Local runtime checks: 49 unit + 3 Todo, 19 Python, 6 public-review. Source remains inert and no generic vulnerability clearance is claimed.
+
+Installed Desktop verification reached the selected Mithril Public Code Review profile and its new synchronized-chat screen. The screen requires Sign in to Mithril for this independent profile; native profile API-key authentication does not establish a synchronized Desktop account session. Desktop conversation verification remains blocked on the operator completing that sign-in.
