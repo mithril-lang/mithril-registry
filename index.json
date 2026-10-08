@@ -652,7 +652,7 @@
       "type": "skill",
       "category": "data",
       "name": "mithril-private-knowledge",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "Search, read and update owner-private or organization-private R2 text documents through the authenticated Mithril API.",
       "tags": [
         "knowledge",
@@ -666,7 +666,7 @@
       "license": "Apache-2.0",
       "path": "skills/data/mithril-private-knowledge",
       "icon": null,
-      "checksum": "sha256:e82aad2265936068ac9bcdcd9811d92685a53e58912876ca79508d9c0b00561e",
+      "checksum": "sha256:a9aa2dd2721b80f3df9887a74c384ca7f7ab375ca56357d595d5361b3e9ff6ee",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,

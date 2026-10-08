@@ -90,6 +90,7 @@ def execute(operation, arguments, allow_writes=False, *, opener=None):
         raise Failure('request_too_large')
     request = urllib.request.Request(ORIGIN + path, data=encoded, method=method, headers={
         'Authorization': 'Bearer ' + token, 'Accept': 'application/json',
+        'User-Agent': 'Mithril-Private-Knowledge/1.0.1',
         'Content-Type': 'application/json', 'Cache-Control': 'no-store',
     })
     try:

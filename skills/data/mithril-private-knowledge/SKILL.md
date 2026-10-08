@@ -1,7 +1,7 @@
 ---
 name: mithril-private-knowledge
 description: Search, read and update owner-private or organization-private R2 text documents through the authenticated Mithril API.
-version: 1.0.0
+version: 1.0.1
 author: Mithril
 license: Apache-2.0
 metadata:

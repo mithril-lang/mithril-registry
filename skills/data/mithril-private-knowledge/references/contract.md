@@ -1,6 +1,8 @@
-# Private Knowledge 1.0.0 contract
+# Private Knowledge 1.0.1 contract
 
 Origin: `https://api.mithril.fund` (fixed HTTPS, redirects refused).
+The client identifies itself as `Mithril-Private-Knowledge/1.0.1`; the public edge
+rejects Python's default User-Agent before API authentication.
 
 | Operation | Method | Path |
 | --- | --- | --- |
