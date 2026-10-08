@@ -16,3 +16,29 @@ jobs:
       - run: python scripts/package_plugin.py mithril-app --check
       - run: python scripts/package_plugin.py mithril-data-catalog --check
       - run: python -m unittest discover -s scripts -p 'test_*.py'
+  system-one-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: artifact
+        name: Read immutable System One artifact
+        run: |
+          python3 - <<'PY'
+          import json, os, re
+          pin = json.load(open('mcp/mithril-system-one/manifest.json'))['artifact']['commit']
+          assert re.fullmatch('[a-f0-9]{40}', pin)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('commit=' + pin + '\n')
+          PY
+      - uses: actions/checkout@v4
+        with:
+          repository: mithril-lang/mithril-system-one
+          ref: ${{ steps.artifact.outputs.commit }}
+          path: system-one-runtime
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm run setup:dynamic
+        working-directory: system-one-runtime
+      - run: npm run test:dynamic
+        working-directory: system-one-runtime

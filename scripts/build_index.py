@@ -17,8 +17,8 @@ import solution_catalog
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "skills"
-MANIFEST_TYPES = ("mcp", "tool", "plugin")
-MANIFEST_DIRS = {"mcp": "mcp", "tool": "tools", "plugin": "plugins"}
+MANIFEST_TYPES = ("mcp", "tool", "plugin", "agent", "workflow")
+MANIFEST_DIRS = {"mcp": "mcp", "tool": "tools", "plugin": "plugins", "agent": "agents", "workflow": "workflows"}
 NAME = re.compile(r"^[a-z][a-z0-9-]{0,63}$")
 VERSION = re.compile(r"^\d+\.\d+\.\d+$")
 REQUIRED = ("name", "description", "version", "author", "license")
@@ -31,6 +31,27 @@ def require_https(value: object, field: str) -> str:
     if url.scheme != "https" or not url.hostname or url.username or url.password:
         raise ValueError(f"{field}: expected an HTTPS URL without credentials")
     return value
+
+
+def executable_artifact(data: dict, path: Path) -> None:
+    artifact = data.get("artifact")
+    if not isinstance(artifact, dict) or artifact.get("format") != "git":
+        raise ValueError(f"{path}: executable requires a Git artifact")
+    require_https(artifact.get("url"), f"{path}: artifact.url")
+    if not re.fullmatch(r"[0-9a-f]{40}", str(artifact.get("commit", ""))):
+        raise ValueError(f"{path}: executable requires a full lowercase Git commit")
+    entry = artifact.get("entry")
+    if not isinstance(entry, str) or not re.fullmatch(r"bin/[a-z0-9-]+\.mjs", entry):
+        raise ValueError(f"{path}: invalid fixed entrypoint")
+    if data.get("command") != "node" or not isinstance(data.get("args"), list) or not data["args"]:
+        raise ValueError(f"{path}: executable requires Node arguments")
+    if data["args"][0] != "${system_one_root}/" + entry or any(
+        not isinstance(arg, str) or not re.fullmatch(r"[a-z0-9-]+", arg)
+        for arg in data["args"][1:]
+    ):
+        raise ValueError(f"{path}: arguments must bind the fixed entrypoint")
+    if data.get("env", {}) != {"MITHRIL_API_KEY": "optional-owning-profile-reference"}:
+        raise ValueError(f"{path}: only a scoped optional credential reference is allowed")
 
 
 def manifest(path: Path, expected_type: str) -> dict:
@@ -50,9 +71,14 @@ def manifest(path: Path, expected_type: str) -> dict:
     if not isinstance(data.get("permissions"), list) or not data["permissions"] or not all(isinstance(p, str) for p in data["permissions"]):
         raise ValueError(f"{path}: permissions must be nonempty strings")
     if expected_type == "mcp":
-        if data.get("transport") != "streamable-http" or data.get("protocolVersion") != "2025-06-18":
+        if data.get("transport") not in ("streamable-http", "stdio") or data.get("protocolVersion") != "2025-06-18":
             raise ValueError(f"{path}: unsupported MCP transport or protocol")
-        require_https(data.get("url"), f"{path}: url")
+        if data["transport"] == "stdio":
+            executable_artifact(data, path)
+            if "url" in data:
+                raise ValueError(f"{path}: stdio has no hosted URL")
+        else:
+            require_https(data.get("url"), f"{path}: url")
         if not isinstance(data.get("authentication"), dict) or data["authentication"].get("mode") != "per-tool":
             raise ValueError(f"{path}: authentication must describe per-tool access")
         tools = data.get("tools")
@@ -62,7 +88,7 @@ def manifest(path: Path, expected_type: str) -> dict:
         for tool in tools:
             if not isinstance(tool, dict) or not isinstance(tool.get("name"), str) or not tool["name"]:
                 raise ValueError(f"{path}: invalid tool name")
-            if tool["name"] in names or tool.get("authentication") not in ("none", "personal-api-token", "tenant-service-account") or tool.get("effect") not in ("read", "write", "inference"):
+            if tool["name"] in names or tool.get("authentication") not in (("none", "process-env-optional") if data["transport"] == "stdio" else ("none", "personal-api-token", "tenant-service-account")) or tool.get("effect") not in ("read", "write", "inference"):
                 raise ValueError(f"{path}: duplicate tool or invalid access/effect")
             names.add(tool["name"])
     elif expected_type == "tool":
@@ -81,6 +107,15 @@ def manifest(path: Path, expected_type: str) -> dict:
                 raise ValueError(f"{path}: invalid {schema_field}")
         if set(http["query"]) != set(data["inputSchema"].get("required", [])):
             raise ValueError(f"{path}: HTTP query parameters and required input differ")
+    elif expected_type in ("agent", "workflow"):
+        executable_artifact(data, path)
+        execution = data.get("execution")
+        if (data.get("executable") is not True or not isinstance(execution, dict)
+                or execution.get("runtime") != "mithril-system-one" or execution.get("input") != "json-stdin"
+                or type(execution.get("maxTasks")) is not int
+                or not 1 <= execution["maxTasks"] <= (1 if expected_type == "agent" else 3)
+                or execution.get("stopOnFailure") is not True or execution.get("retryUnknown") is not False):
+            raise ValueError(f"{path}: executable requires a bounded stop-on-failure contract")
     else:
         artifact, compatibility = data.get("artifact"), data.get("compatibility")
         if not isinstance(artifact, dict) or artifact.get("format") not in ("zip", "git"):
@@ -136,6 +171,13 @@ def frontmatter(path: Path) -> dict:
     data = yaml.safe_load(parts[1])
     if not isinstance(data, dict):
         raise ValueError(f"{path}: frontmatter must be a map")
+    # Agent Skills stores extension metadata here; retain legacy top-level
+    # Registry author/version fields for existing packages.
+    metadata = data.get("metadata", {})
+    if isinstance(metadata, dict):
+        for key in ("version", "author"):
+            if key not in data and key in metadata:
+                data[key] = metadata[key]
     return data
 
 
@@ -226,12 +268,20 @@ def build() -> tuple[dict, dict]:
                 "icon": None, "checksum": package_checksum(path.parent),
                 "compatibility": None, "acceptsFunding": False,
                 "permissions": data["permissions"],
-                "installable": type_ in ("mcp", "plugin"),
+                "installable": type_ != "tool",
             }
             if type_ == "mcp":
-                entry["connection"] = {"transport": data["transport"], "url": data["url"], "authentication": data["authentication"]["mode"]}
+                entry["connection"] = {"transport": data["transport"], "authentication": data["authentication"]["mode"]}
+                if data["transport"] == "stdio":
+                    entry["connection"].update(command=data["command"], args=data["args"])
+                    entry["artifact"] = data["artifact"]
+                else:
+                    entry["connection"]["url"] = data["url"]
             elif type_ == "tool":
                 entry["connection"] = {"viaHttpCatalog": data["catalog"]}
+            elif type_ in ("agent", "workflow"):
+                entry.update(artifact=data["artifact"], execution=data["execution"],
+                             requirements=data["requirements"], tools=data["tools"])
             else:
                 entry["artifact"] = data["artifact"]
                 entry["compatibility"] = data["compatibility"]
