@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1",
+  "id": "mithril-terms-review",
+  "category": "productivity",
+  "name": "Mithril Terms Review",
+  "version": "0.1.0",
+  "description": "Private source-bound JA/EN service terms and privacy review, contextual risk evidence and version comparison. No aggregate honesty score, automatic fetch or publication.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://github.com/mithril-lang/mithril-system-one",
+  "tags": [
+    "terms",
+    "privacy",
+    "contracts",
+    "risk",
+    "evidence"
+  ],
+  "permissions": [
+    "subprocess:node-fixed-entrypoint"
+  ],
+  "artifact": {
+    "format": "git",
+    "url": "https://github.com/mithril-lang/mithril-system-one/tree/54c28d3628ae0850ab41420eb79d9387d6b4a982/adapters/hermes/mithril-terms-review",
+    "commit": "54c28d3628ae0850ab41420eb79d9387d6b4a982"
+  },
+  "requirements": {
+    "commands": [
+      "node"
+    ]
+  },
+  "tools": [
+    "mithril_terms_review"
+  ],
+  "type": "plugin",
+  "compatibility": {
+    "clients": [
+      {
+        "name": "Hermes Agent",
+        "version": ">=0.21.4,<0.22",
+        "tested": "v0.21.4+canary.20260928T071354Z-582-g3f0ce7e663-dirty; isolated admission and native handler fixture only"
+      }
+    ],
+    "platforms": [
+      "macos"
+    ]
+  }
+}

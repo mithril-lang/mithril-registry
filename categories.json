@@ -3,7 +3,7 @@
   "types": [
     {
       "type": "skill",
-      "count": 13,
+      "count": 14,
       "categories": [
         {
           "name": "data",
@@ -15,7 +15,7 @@
         },
         {
           "name": "productivity",
-          "count": 1
+          "count": 2
         },
         {
           "name": "research",
@@ -65,7 +65,7 @@
     },
     {
       "type": "plugin",
-      "count": 5,
+      "count": 6,
       "categories": [
         {
           "name": "data",
@@ -76,6 +76,10 @@
           "count": 2
         },
         {
+          "name": "productivity",
+          "count": 1
+        },
+        {
           "name": "security",
           "count": 2
         }
@@ -83,10 +87,14 @@
     },
     {
       "type": "agent",
-      "count": 2,
+      "count": 3,
       "categories": [
         {
           "name": "development",
+          "count": 1
+        },
+        {
+          "name": "productivity",
           "count": 1
         },
         {
@@ -97,10 +105,14 @@
     },
     {
       "type": "workflow",
-      "count": 2,
+      "count": 3,
       "categories": [
         {
           "name": "development",
+          "count": 1
+        },
+        {
+          "name": "productivity",
           "count": 1
         },
         {
