@@ -60,6 +60,7 @@ class PrivateKnowledgeTest(unittest.TestCase):
         self.assertEqual(result['documents'], [])
         self.assertEqual(req.get_header('Authorization'), 'Bearer synthetic-token')
         self.assertEqual(req.get_header('Cache-control'), 'no-store')
+        self.assertEqual(req.get_header('User-agent'), 'Mithril-Private-Knowledge/1.0.1')
 
     def test_put_and_delete_keep_exact_revision_and_operation_identity(self):
         transport = Transport({'revision': 4})
@@ -139,7 +140,7 @@ class PrivateKnowledgeTest(unittest.TestCase):
         entry = next(e for e in index['entries'] if e['id'] == 'mithril-private-knowledge')
         self.assertEqual(entry['type'], 'skill')
         self.assertTrue(entry['installable'])
-        self.assertEqual(entry['version'], '1.0.0')
+        self.assertEqual(entry['version'], '1.0.1')
         contract = (CLIENT.parents[1] / 'references/contract.md').read_text()
         self.assertIn('37728020539', contract)
         self.assertIn('No full', contract)
