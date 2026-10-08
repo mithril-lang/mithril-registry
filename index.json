@@ -59,7 +59,7 @@
       "type": "agent",
       "category": "security",
       "name": "Mithril Public Code Review",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "description": "Public GitHub source and locked npm dependency review with full OSV matching, Knowledge enrichment and actual Mithril ontology receipts; candidates and unknown coverage require review.",
       "tags": [
         "mithril",
@@ -72,7 +72,7 @@
       "license": "Apache-2.0",
       "path": "agents/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:0fa930f2507b529dab4743ed3ae095e2cb7f9d7f7266090cfe138d7186cea5b3",
+      "checksum": "sha256:3cc9e59a04c0248b87c3f01e649db696fb32e868cdceab5cd0137f1d45a0e538",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -86,7 +86,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "eab517fdd2fd22848b23280cbbecbe875cd4c6bf",
+        "commit": "5a86517627b874e4911d16cb3fb565c318fb07b0",
         "entry": "bin/mithril-public-review.mjs"
       },
       "execution": {
@@ -295,7 +295,7 @@
       "type": "mcp",
       "category": "security",
       "name": "Mithril Public Code Review",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "description": "Public GitHub source and locked npm dependency review with full OSV matching, Knowledge enrichment and actual Mithril ontology receipts; candidates and unknown coverage require review.",
       "tags": [
         "mithril",
@@ -308,7 +308,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:12f662b3665d4969daea5c185eff5ff75b7595a22034472e3e94611df10a28ef",
+      "checksum": "sha256:bd288f8cc75038f0862e1ee71f9bc557e4f77330d79bd9b55421513b231b99ae",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -330,7 +330,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "eab517fdd2fd22848b23280cbbecbe875cd4c6bf",
+        "commit": "5a86517627b874e4911d16cb3fb565c318fb07b0",
         "entry": "bin/mithril-public-mcp.mjs"
       },
       "solutionIds": []
@@ -551,7 +551,7 @@
       "type": "plugin",
       "category": "security",
       "name": "Mithril Public Code Review",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "description": "Public GitHub source and locked npm dependency review with full OSV matching, Knowledge enrichment and actual Mithril ontology receipts; candidates and unknown coverage require review.",
       "tags": [
         "mithril",
@@ -564,7 +564,7 @@
       "license": "Apache-2.0",
       "path": "plugins/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:ce809731ea6badf441619c87d589158479e480439f36c2a444241e0094fc0303",
+      "checksum": "sha256:dddccf1d41f532d5fb8eb66fd1562647e0d1740f23741df51250931897e8ad93",
       "compatibility": {
         "clients": [
           {
@@ -588,8 +588,8 @@
       "installable": true,
       "artifact": {
         "format": "git",
-        "url": "https://github.com/mithril-lang/mithril-system-one/tree/eab517fdd2fd22848b23280cbbecbe875cd4c6bf/adapters/hermes/mithril-public-review",
-        "commit": "eab517fdd2fd22848b23280cbbecbe875cd4c6bf"
+        "url": "https://github.com/mithril-lang/mithril-system-one/tree/5a86517627b874e4911d16cb3fb565c318fb07b0/adapters/hermes/mithril-public-review",
+        "commit": "5a86517627b874e4911d16cb3fb565c318fb07b0"
       },
       "requirements": {
         "commands": [
@@ -888,7 +888,7 @@
       "type": "skill",
       "category": "security",
       "name": "mithril-public-review",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "description": "Review an immutable public GitHub commit with bounded source extraction and Mithril ontology policies when the user requests public source security evaluation.",
       "tags": [
         "mithril",
@@ -901,7 +901,7 @@
       "license": "Apache-2.0",
       "path": "skills/security/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:ee7b81c57b7048cf541828136601b1d286383a7eac153c9451615ce2c880d865",
+      "checksum": "sha256:62b327d1261817c85d6e8597bc5b6daf3406406d35a272e7f2dbd2eba8842a6e",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,
@@ -1103,7 +1103,7 @@
       "type": "workflow",
       "category": "security",
       "name": "Mithril Public Code Review",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "description": "Public GitHub source and locked npm dependency review with full OSV matching, Knowledge enrichment and actual Mithril ontology receipts; candidates and unknown coverage require review.",
       "tags": [
         "mithril",
@@ -1116,7 +1116,7 @@
       "license": "Apache-2.0",
       "path": "workflows/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:f9c3ef9f3d85ef43c98e5e77a6532e38fcd6dc808e37df820f600ce9582c6da1",
+      "checksum": "sha256:ea2f248510ccaf1a61e2b1db041c19f5dfeea8504cb1e0a99946343cf07f2622",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -1130,7 +1130,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "eab517fdd2fd22848b23280cbbecbe875cd4c6bf",
+        "commit": "5a86517627b874e4911d16cb3fb565c318fb07b0",
         "entry": "bin/mithril-public-review.mjs"
       },
       "execution": {
