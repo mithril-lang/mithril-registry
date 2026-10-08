@@ -37,6 +37,10 @@ python3 scripts/package_plugin.py mithril-data-catalog --check
 
 公開前に、リンク先の実在、ライセンス、秘密情報の混入、要求する権限、料金と副作用、利用可能な runtime を確認してください。公開データや外部製品の紹介だけなら配布物にせず、元のサイトへリンクします。
 
+## International investigation design
+
+[国際捜査連携の統合設計](docs/security-integrations/international-investigation.md) と `solutions/international-investigation.json` は、各機関の国内案件・原資料を維持し、選択資料の共有承認、正式経路、受領・回答を分けるplannedの非実行契約です。既存の機関solutionと署名付きローカル評価kitを接続し、Fundは固定commit/hashのsnapshotで参照します。国際共有サービス、公式経路connector、機関IDP、native同期を配布済みとする登録ではありません。
+
 ## Enterprise integrations
 
 [Enterprise Integrations](skills/productivity/mithril-enterprise-integrations/SKILL.md) は Google Workspace と Copilot Studio を skills・MCP bindings・agents・workflows・plugins の共通構成として定義します。実際に配布するのはローカルの検証・計画生成 Skill です。生成した `integrations.json` の10構成要素は設計契約であり、実行可能な MCP サーバ・native plugin として登録しません。認証済み接続、外部操作、Studio 公開、App/Desktop の利用可能状態は未検証です。[統合設計](docs/enterprise-integrations.md) に GitHub 管理、権限、認証、依存関係、実行基盤への接続境界を記載しています。
