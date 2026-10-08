@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "0.4.1",
+  "version": "0.5.0",
   "components": [
     {
       "type": "skill",
@@ -25,7 +25,7 @@
   ],
   "runtimeArtifact": {
     "repository": "https://github.com/mithril-lang/mithril-system-one",
-    "commit": "ad76515244b4a03d21acaa21a9e2ee2dcc653957"
+    "commit": "73d04bfc4160409afb274fdf895d2316c72d19fc"
   },
   "botProfile": "mithril-public-code-review",
   "readiness": {
@@ -38,7 +38,11 @@
     "scapResultOntology": true,
     "hostScapScanner": false,
     "automaticNpmPatch": true,
-    "automaticMerge": false
+    "automaticMerge": false,
+    "exclusiveLocalApply": true,
+    "explicitTransactionRecovery": true,
+    "automaticRecovery": false,
+    "powerLossQualified": false
   },
   "policySource": "examples/security-ontology/policy.mith",
   "limits": [
@@ -63,6 +67,8 @@
     "scapNativeToolDispatch": "OpenSCAP 1.3.7 authentic ARF: 4 results, 2 failed controls; source/result-local definition scoping fixed",
     "upgradeNativeToolDispatch": true,
     "upgradeFixture": "lodash 4.17.20 to 4.18.0; 5 candidates to 0; 0 post-update gaps",
-    "localUpgradeApplication": "controlled clean Git project: applied package files, 5 behavior checks before/after, dirty reapply refused; no automatic commit"
+    "localUpgradeApplication": "controlled clean Git project: applied package files, 5 behavior checks before/after, dirty reapply refused; no automatic commit",
+    "localTransaction": "exclusive apply, constructed interruption states, operator edits/HEAD refusal, actual CLI recovery and injected second-replacement ENOSPC rollback passed",
+    "evidenceConsistency": "manifest/lock direct specs, duplicate JSON keys/depth, reported OVAL/XCCDF target scope checked"
   }
 }
