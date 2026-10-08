@@ -1,0 +1,20 @@
+model:
+  provider: custom
+  base_url: https://api.mithril.fund/v1
+  default: qwen/qwen3.8-27b
+  api_mode: chat_completions
+  key_env: MITHRIL_API_KEY
+tools:
+  enabled:
+    - mithril_public_review
+plugins:
+  enabled:
+    - mithril-public-review
+  disabled: []
+  entries:
+    mithril-public-review:
+      allow_tool_override: false
+      settings:
+        system_one_root: ${system_one_root}
+gateway:
+  standalone: true

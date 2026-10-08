@@ -86,3 +86,7 @@ with the owning host. The local MCP is not advertised as a hosted Web endpoint.
 
 New Agent Skills may store version and author in `metadata`; the builder retains
 support for the existing Registry's top-level fields.
+
+## Public source review bot
+
+[Mithril Public Code Review](skills/security/mithril-public-review/SKILL.md) composes a skill, plugin, agent, workflow and MCP around an immutable public GitHub commit review. The independent `mithril-public-code-review` bot profile uses the existing Agent/Desktop profile flow and English defaults. It verifies source digests and executes Mithril ontology policies over a bounded JavaScript subset; candidates require review and source coverage is always incomplete. [Installation and qualification](docs/public-code-review.md).

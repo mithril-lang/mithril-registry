@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 23,
+  "count": 28,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -52,6 +52,65 @@
       "tools": [
         "mithril_task"
       ],
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-public-review",
+      "type": "agent",
+      "category": "security",
+      "name": "Mithril Public Code Review",
+      "version": "0.1.0",
+      "description": "Public GitHub commit review using bounded JavaScript AST extraction and actual Mithril ontology receipts; incomplete coverage and candidates require review.",
+      "tags": [
+        "mithril",
+        "ontology",
+        "security",
+        "public-source",
+        "github"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "agents/mithril-public-review",
+      "icon": null,
+      "checksum": "sha256:9c8cef760ccd427cd78cb7fb595b8aee6d134a7ef20c655b384c88796fed53d1",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "network:api.github.com",
+        "network:raw.githubusercontent.com",
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "299937c2e6cb11d36fbdde1278db64723867096c",
+        "entry": "bin/mithril-public-review.mjs"
+      },
+      "execution": {
+        "runtime": "mithril-system-one",
+        "input": "json-stdin",
+        "maxTasks": 1,
+        "stopOnFailure": true,
+        "retryUnknown": false
+      },
+      "requirements": {
+        "commands": [
+          "node",
+          "git",
+          "npm"
+        ]
+      },
+      "tools": [
+        "mithril_public_repo_review"
+      ],
+      "botProfile": {
+        "id": "mithril-public-code-review",
+        "config": "profile/config.yaml",
+        "instructions": "profile/SOUL.md",
+        "metadata": "profile/profile.yaml",
+        "requiresOwnCredentialForConversation": true
+      },
       "solutionIds": []
     },
     {
@@ -226,6 +285,49 @@
         "transport": "streamable-http",
         "authentication": "per-tool",
         "url": "https://api.mithril.fund/v1/forensics/mcp"
+      },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-public-review",
+      "type": "mcp",
+      "category": "security",
+      "name": "Mithril Public Code Review",
+      "version": "0.1.0",
+      "description": "Public GitHub commit review using bounded JavaScript AST extraction and actual Mithril ontology receipts; incomplete coverage and candidates require review.",
+      "tags": [
+        "mithril",
+        "ontology",
+        "security",
+        "public-source",
+        "github"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-public-review",
+      "icon": null,
+      "checksum": "sha256:5cc6825772cf576c00fbc0138790476a311afd4d3d7df43d4d2217feb5ed57f3",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "network:api.github.com",
+        "network:raw.githubusercontent.com",
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "stdio",
+        "authentication": "per-tool",
+        "command": "node",
+        "args": [
+          "${system_one_root}/bin/mithril-public-mcp.mjs"
+        ]
+      },
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "299937c2e6cb11d36fbdde1278db64723867096c",
+        "entry": "bin/mithril-public-mcp.mjs"
       },
       "solutionIds": []
     },
@@ -437,6 +539,61 @@
         "zap_scan",
         "zap_scan_active",
         "zap_scan_rules"
+      ],
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-public-review",
+      "type": "plugin",
+      "category": "security",
+      "name": "Mithril Public Code Review",
+      "version": "0.1.0",
+      "description": "Public GitHub commit review using bounded JavaScript AST extraction and actual Mithril ontology receipts; incomplete coverage and candidates require review.",
+      "tags": [
+        "mithril",
+        "ontology",
+        "security",
+        "public-source",
+        "github"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "plugins/mithril-public-review",
+      "icon": null,
+      "checksum": "sha256:a6ba35816fa9fafc18c71099884a7faaf406c84cd4034db3d1dd5db0ad1719a5",
+      "compatibility": {
+        "clients": [
+          {
+            "name": "Hermes Agent",
+            "version": ">=0.21.4,<0.22",
+            "tested": "0.21.5+4485.g3da66ca.dirty"
+          }
+        ],
+        "platforms": [
+          "macos"
+        ]
+      },
+      "acceptsFunding": false,
+      "permissions": [
+        "network:api.github.com",
+        "network:raw.githubusercontent.com",
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one/tree/299937c2e6cb11d36fbdde1278db64723867096c/adapters/hermes/mithril-public-review",
+        "commit": "299937c2e6cb11d36fbdde1278db64723867096c"
+      },
+      "requirements": {
+        "commands": [
+          "node",
+          "git",
+          "npm"
+        ]
+      },
+      "tools": [
+        "mithril_public_repo_review"
       ],
       "solutionIds": []
     },
@@ -665,6 +822,30 @@
       ]
     },
     {
+      "id": "mithril-public-review",
+      "type": "skill",
+      "category": "security",
+      "name": "mithril-public-review",
+      "version": "0.1.0",
+      "description": "Review an immutable public GitHub commit with bounded source extraction and Mithril ontology policies when the user requests public source security evaluation.",
+      "tags": [
+        "mithril",
+        "ontology",
+        "security",
+        "public-source",
+        "github"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/security/mithril-public-review",
+      "icon": null,
+      "checksum": "sha256:8554163e177a1004b82c19b9cac7be1419bc53b990c6df888492e26f59498d65",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
+      "solutionIds": []
+    },
+    {
       "id": "mithril-security-suite",
       "type": "skill",
       "category": "security",
@@ -852,6 +1033,58 @@
       },
       "tools": [
         "mithril_task"
+      ],
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-public-review",
+      "type": "workflow",
+      "category": "security",
+      "name": "Mithril Public Code Review",
+      "version": "0.1.0",
+      "description": "Public GitHub commit review using bounded JavaScript AST extraction and actual Mithril ontology receipts; incomplete coverage and candidates require review.",
+      "tags": [
+        "mithril",
+        "ontology",
+        "security",
+        "public-source",
+        "github"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "workflows/mithril-public-review",
+      "icon": null,
+      "checksum": "sha256:962262dcbd589591600398ef72bd71e4ebf08bcf41460314346a737ebe27d578",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "network:api.github.com",
+        "network:raw.githubusercontent.com",
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "299937c2e6cb11d36fbdde1278db64723867096c",
+        "entry": "bin/mithril-public-review.mjs"
+      },
+      "execution": {
+        "runtime": "mithril-system-one",
+        "input": "json-stdin",
+        "maxTasks": 1,
+        "stopOnFailure": true,
+        "retryUnknown": false
+      },
+      "requirements": {
+        "commands": [
+          "node",
+          "git",
+          "npm"
+        ]
+      },
+      "tools": [
+        "mithril_public_repo_review"
       ],
       "solutionIds": []
     }

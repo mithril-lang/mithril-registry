@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "components": [
+    {
+      "type": "skill",
+      "id": "mithril-public-review"
+    },
+    {
+      "type": "plugin",
+      "id": "mithril-public-review"
+    },
+    {
+      "type": "agent",
+      "id": "mithril-public-review"
+    },
+    {
+      "type": "workflow",
+      "id": "mithril-public-review"
+    },
+    {
+      "type": "mcp",
+      "id": "mithril-public-review"
+    }
+  ],
+  "runtimeArtifact": {
+    "repository": "https://github.com/mithril-lang/mithril-system-one",
+    "commit": "299937c2e6cb11d36fbdde1278db64723867096c"
+  },
+  "botProfile": "mithril-public-code-review",
+  "readiness": {
+    "deterministicPublicReview": true,
+    "liveModelConversation": false,
+    "scheduledScans": false,
+    "githubWrites": false
+  },
+  "policySource": "examples/security-ontology/policy.mith",
+  "limits": [
+    "JavaScript ESM child_process subset",
+    "incomplete source coverage",
+    "candidates require review"
+  ]
+}

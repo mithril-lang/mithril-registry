@@ -55,6 +55,31 @@ class RegistryTest(unittest.TestCase):
         self.assertEqual(mcp['connection']['transport'], 'stdio')
         self.assertNotIn('url', mcp['connection'])
 
+    def test_public_review_composes_five_surfaces_and_independent_profile(self):
+        index, _ = build_index.build()
+        rows = [r for r in index['entries'] if r['id'] == 'mithril-public-review']
+        self.assertEqual({r['type'] for r in rows}, {'skill', 'mcp', 'agent', 'workflow', 'plugin'})
+        pins = {r['artifact']['commit'] for r in rows if 'artifact' in r}
+        self.assertEqual(len(pins), 1)
+        agent = next(r for r in rows if r['type'] == 'agent')
+        self.assertEqual(agent['botProfile']['id'], 'mithril-public-code-review')
+        composition = json.loads((self.root / 'skills/security/mithril-public-review/integration.json').read_text())
+        self.assertEqual(composition['runtimeArtifact']['commit'], next(iter(pins)))
+        self.assertFalse(composition['readiness']['liveModelConversation'])
+        self.assertFalse(composition['readiness']['githubWrites'])
+        mcp = json.loads((self.root / 'mcp/mithril-public-review/manifest.json').read_text())
+        self.assertEqual(mcp['env'], {})
+        self.assertEqual(mcp['tools'][0]['authentication'], 'none')
+
+    def test_public_review_refuses_credentials_and_escaping_profile_files(self):
+        self.write_manifest('agents/mithril-public-review/manifest.json', lambda d: d.update(env={'GITHUB_TOKEN': 'value'}))
+        with self.assertRaisesRegex(ValueError, 'credential reference'):
+            build_index.build()
+        self.write_manifest('agents/mithril-public-review/manifest.json', lambda d: d.update(env={}))
+        self.write_manifest('agents/mithril-public-review/manifest.json', lambda d: d['botProfile'].update(config='../config.yaml'))
+        with self.assertRaisesRegex(ValueError, 'must be packaged'):
+            build_index.build()
+
     def test_executable_entries_refuse_mutable_refs_and_unbounded_workflows(self):
         self.write_manifest('agents/mithril-system-one/manifest.json', lambda d: d['artifact'].update(commit='main'))
         with self.assertRaisesRegex(ValueError, 'full lowercase Git commit'):

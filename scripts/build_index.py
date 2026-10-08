@@ -50,8 +50,8 @@ def executable_artifact(data: dict, path: Path) -> None:
         for arg in data["args"][1:]
     ):
         raise ValueError(f"{path}: arguments must bind the fixed entrypoint")
-    if data.get("env", {}) != {"MITHRIL_API_KEY": "optional-owning-profile-reference"}:
-        raise ValueError(f"{path}: only a scoped optional credential reference is allowed")
+    if data.get("env", {}) not in ({}, {"MITHRIL_API_KEY": "optional-owning-profile-reference"}):
+        raise ValueError(f"{path}: only an empty environment or a scoped optional credential reference is allowed")
 
 
 def manifest(path: Path, expected_type: str) -> dict:
@@ -160,6 +160,17 @@ def manifest(path: Path, expected_type: str) -> dict:
             or not all(isinstance(tool, str) and NAME.fullmatch(tool.replace("_", "-")) for tool in tools)
         ):
             raise ValueError(f"{path}: tools must be nonempty command names")
+    if "botProfile" in data:
+        profile = data["botProfile"]
+        if expected_type != "agent" or not isinstance(profile, dict) or set(profile) != {"id", "config", "instructions", "metadata", "requiresOwnCredentialForConversation"} or not NAME.fullmatch(str(profile.get("id", ""))) or profile.get("requiresOwnCredentialForConversation") is not True:
+            raise ValueError(f"{path}: invalid independent bot profile")
+        for field in ("config", "instructions", "metadata"):
+            relative = profile[field]
+            if not isinstance(relative, str) or not re.fullmatch(r"profile/[A-Za-z0-9_.-]+", relative):
+                raise ValueError(f"{path}: bot profile must be packaged")
+            target = path.parent / relative
+            if target.is_symlink() or not target.resolve().is_relative_to(path.parent.resolve()) or not target.is_file() or not target.stat().st_size:
+                raise ValueError(f"{path}: bot profile must be packaged")
     return data
 
 
@@ -282,6 +293,8 @@ def build() -> tuple[dict, dict]:
             elif type_ in ("agent", "workflow"):
                 entry.update(artifact=data["artifact"], execution=data["execution"],
                              requirements=data["requirements"], tools=data["tools"])
+                if "botProfile" in data:
+                    entry["botProfile"] = data["botProfile"]
             else:
                 entry["artifact"] = data["artifact"]
                 entry["compatibility"] = data["compatibility"]
