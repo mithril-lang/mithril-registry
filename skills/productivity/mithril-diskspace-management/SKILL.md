@@ -3,7 +3,7 @@ name: mithril-diskspace-management
 description: Measure and visualize disk space, investigate large folders, and build evidence-based cleanup plans for Mithril Desktop or local storage without automatically deleting files.
 license: Apache-2.0
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   author: Mithril
   hermes:
     category: productivity
@@ -39,3 +39,11 @@ Path rules identify hypotheses (dependency copies, cache accumulation, log reten
 The ledger contains exact measured file paths and bytes, `preserve` or `review-required`, cause hypothesis, required owner/active-use/regeneration evidence, proposed next action and `authorization: pending`. Never promote a row to reclaimable until those checks are supported. The executable bundle audits, compares and generates the review plan. Desktop’s existing reviewed temporary-media executor is the supported cleanup adapter; cleanup of other applications remains a separately authorized owner-native action.
 
 Follow [the cleanup evidence checklist](references/cleanup-review.md). Re-measure available space after the approved operation and distinguish recovery, moved bytes and actual reclaimed space.
+
+## Incremental index and freshness
+
+Desktop persists a bounded private directory-listing index and monitors at most 256 directories while open. Unchanged single-link regular files may reuse in-memory measurements for up to 60 seconds. Directory replacement, change notifications, watcher errors and expired leases require fresh checks. Restart preserves listings only: every child receives fresh metadata checks. Native notifications are hints and may be missed; “Analyze this folder in detail” forces a fresh bounded measurement. Read reuse/check counts and update time alongside coverage. A cached report never grants cleanup authority; the executor revalidates real files and content independently.
+
+For repeated CLI audits add `--index /explicit/private/path/listings.json`. This explicitly creates a local 0600 file with atomic replacement, capped at 20,000 entries, 2,000 directories and 4 MiB. Store it outside the measured folder and source repositories. Unchanged directory identity/timestamps reuse its names without enumeration; every file still gets a fresh lstat because the CLI has no continuous watcher. Corrupt indexes fall back to normal analysis; partial directory listings are never persisted. No file contents are cached or uploaded. File-content changes do not reliably change directory timestamps, so never skip file metadata checks on that evidence alone.
+
+Record current observation time separately from reused measurements. Reject Desktop observations with `index.reusedFiles > 0` when verifying growth or post-cleanup reclamation; perform fresh focused analysis first. Fresh CLI observations remain comparable even when listing enumeration was reused. Do not claim instant whole-disk synchronization, a lossless journal, or that a cached file has no active writer. Independent volume free-space measurements remain current metadata observations.

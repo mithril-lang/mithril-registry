@@ -28,6 +28,13 @@ def compare(current, previous):
     unavailable = dict(state="unverified", reason="Comparable complete observations are required", groups=[])
     if not previous or any(report.get("partial", True) for report in (current, previous)):
         return unavailable
+    for report in (current, previous):
+        index = report.get("index", {})
+        if not isinstance(index, dict):
+            return unavailable
+        reused = index.get("reusedFiles", 0)
+        if type(reused) not in (int, float) or not math.isfinite(reused) or reused != 0:
+            return unavailable
     keys = ("schemaVersion", "root", "volumeId", "bounds")
     if any(key not in current or key not in previous or current[key] != previous[key] for key in keys):
         return unavailable

@@ -7,15 +7,29 @@ import os
 import stat
 import time
 from collections import deque
+from pathlib import Path
+import importlib.util
+
+_spec = importlib.util.spec_from_file_location("diskspace_listing_index", Path(__file__).with_name("listing_index.py"))
+_index_module = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_index_module)
+ListingIndex = _index_module.ListingIndex
 
 
-def audit(root, max_entries=20000, max_depth=16, seconds=15):
+def audit(root, max_entries=20000, max_depth=16, seconds=15, index_file=None):
     if max_entries < 1 or max_depth < 0 or seconds <= 0:
         raise ValueError("Bounds must be positive (depth may be zero)")
     root = os.path.abspath(root)
     base = os.lstat(root)
     if not stat.S_ISDIR(base.st_mode) or os.path.realpath(root) != root:
         raise ValueError("Select a real directory without symlink ancestors")
+    try:
+        index_inside_root = index_file and os.path.commonpath([root, os.path.realpath(index_file)]) == root
+    except ValueError:  # Different Windows drives cannot contain one another.
+        index_inside_root = False
+    if index_inside_root:
+        raise ValueError("Store the private index outside the measured folder")
+    index = ListingIndex(index_file) if index_file else None
     capacity = available = None
     try:
         volume = os.statvfs(root)
@@ -37,7 +51,7 @@ def audit(root, max_entries=20000, max_depth=16, seconds=15):
                 if not stat.S_ISDIR(current.st_mode) or current.st_dev != base.st_dev or os.path.realpath(directory) != directory:
                     report["skipped"] += 1
                     continue
-                cursor = os.scandir(directory)
+                cursor = index.open(directory, current) if index else os.scandir(directory)
                 cursors.add(cursor)
             exhausted = False
             for _ in range(32):
@@ -100,6 +114,9 @@ def audit(root, max_entries=20000, max_depth=16, seconds=15):
         report["groups"].append(dict(name="", kind="other", **{key: sum(group[key] for group in ordered[12:]) for key in ("files", "logicalBytes", "allocatedBytes")}))
     report["skipped"] += len(queue)
     report["partial"] = report["partial"] or bool(report["skipped"])
+    if index:
+        index.save()
+        report["index"] = dict(reusedDirectories=index.reused, enumeratedDirectories=index.enumerated, reusedFiles=0, checkedFiles=visited - 1, policy="fresh-child-metadata")
     return report
 
 
@@ -109,9 +126,10 @@ if __name__ == "__main__":
     parser.add_argument("--max-entries", type=int, default=20000)
     parser.add_argument("--max-depth", type=int, default=16)
     parser.add_argument("--seconds", type=float, default=15)
+    parser.add_argument("--index", help="Optional private listing-index file outside the measured folder")
     args = parser.parse_args()
     try:
-        result = audit(args.root, args.max_entries, args.max_depth, args.seconds)
+        result = audit(args.root, args.max_entries, args.max_depth, args.seconds, args.index)
     except (OSError, ValueError) as error:
         parser.exit(2, str(error) + "\n")
     print(json.dumps(result, ensure_ascii=False, indent=2))

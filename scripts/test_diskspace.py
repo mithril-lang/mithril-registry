@@ -11,6 +11,31 @@ spec.loader.exec_module(module)
 
 
 class DiskspaceTests(unittest.TestCase):
+    def test_index_reuses_listings_but_revalidates_file_content_metadata(self):
+        import stat
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp).resolve() / "scope"
+            root.mkdir()
+            folder = root / "a"
+            folder.mkdir()
+            (folder / "file").write_bytes(b"123")
+            index = str(root.parent / "private-index.json")
+            first = module.audit(str(root), index_file=index)
+            second = module.audit(str(root), index_file=index)
+            self.assertEqual(second["index"]["reusedDirectories"], 2)
+            self.assertEqual(second["index"]["reusedFiles"], 0)
+            self.assertEqual(stat.S_IMODE(os.stat(index).st_mode), 0o600)
+            (folder / "file").write_bytes(b"12345678")
+            self.assertEqual(module.audit(str(root), index_file=index)["logicalBytes"], 8)
+            (folder / "new").write_bytes(b"x")
+            changed = module.audit(str(root), index_file=index)
+            self.assertEqual(changed["logicalBytes"], 9)
+            self.assertGreater(changed["index"]["enumeratedDirectories"], 0)
+            Path(index).write_text("corrupt")
+            self.assertEqual(module.audit(str(root), index_file=index)["index"]["enumeratedDirectories"], 2)
+            with self.assertRaises(ValueError):
+                module.audit(str(root), index_file=str(root / "index.json"))
+
     def test_groups_preserve_totals_and_links_are_not_followed(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp).resolve()
@@ -79,7 +104,7 @@ class DiagnosisTests(unittest.TestCase):
         result=self.module.compare(later,report)
         self.assertEqual(result["logicalDelta"],30)
         self.assertEqual(result["freeSpaceDelta"],-5)
-        for change in (dict(partial=True),dict(root="/other"),dict(volumeId="2"),dict(bounds={}),dict(observedAt=report["observedAt"])):
+        for change in (dict(partial=True),dict(root="/other"),dict(volumeId="2"),dict(bounds={}),dict(observedAt=report["observedAt"]),dict(index={"reusedFiles": 1}),dict(index=None),dict(index={"reusedFiles": "invalid"})):
             changed=deepcopy(later);changed.update(change)
             self.assertEqual(self.module.compare(changed,report)["state"],"unverified")
         self.assertEqual(self.module.compare(later,None)["state"],"unverified")
