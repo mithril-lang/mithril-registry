@@ -3,8 +3,8 @@
   "id": "mithril-public-review",
   "category": "security",
   "name": "Mithril Public Code Review",
-  "version": "0.2.0",
-  "description": "Public GitHub commit review using bounded JavaScript/TypeScript AST extraction and actual Mithril ontology receipts; incomplete coverage and candidates require review.",
+  "version": "0.3.0",
+  "description": "Public GitHub source and locked npm dependency review with full OSV matching, Knowledge enrichment and actual Mithril ontology receipts; candidates and unknown coverage require review.",
   "author": "Mithril",
   "license": "Apache-2.0",
   "source": "https://github.com/mithril-lang/mithril-system-one",
@@ -18,13 +18,15 @@
   "permissions": [
     "network:api.github.com",
     "network:raw.githubusercontent.com",
-    "subprocess:node-fixed-entrypoint"
+    "subprocess:node-fixed-entrypoint",
+    "network:api.osv.dev",
+    "network:knowledge.mithril.fund"
   ],
   "type": "agent",
   "artifact": {
     "format": "git",
     "url": "https://github.com/mithril-lang/mithril-system-one",
-    "commit": "f3d07ef403c2c018a1eba5b8d4eabd9a903235e8",
+    "commit": "eab517fdd2fd22848b23280cbbecbe875cd4c6bf",
     "entry": "bin/mithril-public-review.mjs"
   },
   "command": "node",
@@ -41,7 +43,7 @@
     ]
   },
   "configuration": {
-    "system_one_root": "Reviewed artifact.commit checkout; npm ci --ignore-scripts then npm run setup:dynamic. No inference credential is used by the review tool."
+    "system_one_root": "Reviewed artifact.commit checkout; npm ci --ignore-scripts, npm run setup:dynamic and npm run setup:dependencies -- --engine-root /absolute/reviewed/security-core. Private matcher access is separately required. No review-tool inference credential."
   },
   "env": {},
   "executable": true,
