@@ -23,8 +23,8 @@
   "type": "plugin",
   "artifact": {
     "format": "git",
-    "url": "https://github.com/mithril-lang/mithril-system-one/tree/6f684875b0cb5300780d52ba8745caa3a604aaf6/adapters/hermes/mithril-public-review",
-    "commit": "6f684875b0cb5300780d52ba8745caa3a604aaf6"
+    "url": "https://github.com/mithril-lang/mithril-system-one/tree/299937c2e6cb11d36fbdde1278db64723867096c/adapters/hermes/mithril-public-review",
+    "commit": "299937c2e6cb11d36fbdde1278db64723867096c"
   },
   "compatibility": {
     "clients": [

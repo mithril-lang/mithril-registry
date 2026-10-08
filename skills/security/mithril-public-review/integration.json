@@ -25,7 +25,7 @@
   ],
   "runtimeArtifact": {
     "repository": "https://github.com/mithril-lang/mithril-system-one",
-    "commit": "6f684875b0cb5300780d52ba8745caa3a604aaf6"
+    "commit": "299937c2e6cb11d36fbdde1278db64723867096c"
   },
   "botProfile": "mithril-public-code-review",
   "readiness": {

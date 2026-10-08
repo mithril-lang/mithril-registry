@@ -1,6 +1,6 @@
 # Mithril Public Code Review Registry integration
 
-Five entries share ID `mithril-public-review`, version 0.1.0 and one immutable runtime artifact, `6f684875b0cb5300780d52ba8745caa3a604aaf6` in [mithril-system-one](https://github.com/mithril-lang/mithril-system-one/tree/6f684875b0cb5300780d52ba8745caa3a604aaf6).
+Five entries share ID `mithril-public-review`, version 0.1.0 and one immutable runtime artifact, `299937c2e6cb11d36fbdde1278db64723867096c` in [mithril-system-one](https://github.com/mithril-lang/mithril-system-one/tree/299937c2e6cb11d36fbdde1278db64723867096c).
 
 - Skill: scope and evidence instructions.
 - Plugin: opt-in native Agent `mithril_public_repo_review`, toolset `mithril_public_review`.
@@ -14,7 +14,7 @@ Five entries share ID `mithril-public-review`, version 0.1.0 and one immutable r
 
 Review the artifact, use Node 22+, then `npm ci --ignore-scripts`, `npm run setup:dynamic` and `python3 scripts/install-public-review-profile.py --home /absolute/hermes/home --apply` from its checkout. Select `mithril-public-code-review` in a new Agent/Desktop session. The installer creates independent files with private permissions and no keys, copied history, cron, channel or running gateway. The profile's future conversation provider is api.mithril.fund and requires its own credential; deterministic review does not.
 
-Call `mithril_public_repo_review` with exactly `repository` (`owner/name`) and `commit` (40 lowercase hexadecimal characters). JSON stdin uses `bin/mithril-public-review.mjs --stdin`; MCP uses `bin/mithril-public-mcp.mjs`. [Full runtime contract](https://github.com/mithril-lang/mithril-system-one/blob/6f684875b0cb5300780d52ba8745caa3a604aaf6/docs/public-code-review-bot.md).
+Call `mithril_public_repo_review` with exactly `repository` (`owner/name`) and `commit` (40 lowercase hexadecimal characters). JSON stdin uses `bin/mithril-public-review.mjs --stdin`; MCP uses `bin/mithril-public-mcp.mjs`. [Full runtime contract](https://github.com/mithril-lang/mithril-system-one/blob/299937c2e6cb11d36fbdde1278db64723867096c/docs/public-code-review-bot.md).
 
 ## Qualification on 2026-10-08
 

@@ -1,6 +1,6 @@
 # Mithril Public Code Review (agent)
 
-This surface composes the `mithril-public-review` skill, plugin, agent, workflow and MCP into the existing Mithril Agent/Desktop profile flow. Runtime artifact: [6f68487](https://github.com/mithril-lang/mithril-system-one/tree/6f684875b0cb5300780d52ba8745caa3a604aaf6). [Execution contract and installation](https://github.com/mithril-lang/mithril-system-one/blob/6f684875b0cb5300780d52ba8745caa3a604aaf6/docs/public-code-review-bot.md).
+This surface composes the `mithril-public-review` skill, plugin, agent, workflow and MCP into the existing Mithril Agent/Desktop profile flow. Runtime artifact: [299937c](https://github.com/mithril-lang/mithril-system-one/tree/299937c2e6cb11d36fbdde1278db64723867096c). [Execution contract and installation](https://github.com/mithril-lang/mithril-system-one/blob/299937c2e6cb11d36fbdde1278db64723867096c/docs/public-code-review-bot.md).
 
 Input: public `owner/repository` plus an exact 40-character commit. The tool verifies source provenance, parses a bounded JavaScript ESM child_process subset and executes `.mith` ontology policies. Result is always `review_incomplete`; candidates require human review. No target code execution, inference, private repository access, GitHub writes or disclosure.
 

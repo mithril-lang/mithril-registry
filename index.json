@@ -72,7 +72,7 @@
       "license": "Apache-2.0",
       "path": "agents/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:8f59381ae4ea7108ce2496696b0f718e11ec968a71c72a95df24bd139fb98699",
+      "checksum": "sha256:9c8cef760ccd427cd78cb7fb595b8aee6d134a7ef20c655b384c88796fed53d1",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -84,7 +84,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "6f684875b0cb5300780d52ba8745caa3a604aaf6",
+        "commit": "299937c2e6cb11d36fbdde1278db64723867096c",
         "entry": "bin/mithril-public-review.mjs"
       },
       "execution": {
@@ -306,7 +306,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:4e9893e6ba41c57e046e7f2ddd9479832ab1cc85021f2df809a2281b96aeb1d1",
+      "checksum": "sha256:5cc6825772cf576c00fbc0138790476a311afd4d3d7df43d4d2217feb5ed57f3",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -326,7 +326,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "6f684875b0cb5300780d52ba8745caa3a604aaf6",
+        "commit": "299937c2e6cb11d36fbdde1278db64723867096c",
         "entry": "bin/mithril-public-mcp.mjs"
       },
       "solutionIds": []
@@ -560,7 +560,7 @@
       "license": "Apache-2.0",
       "path": "plugins/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:767afd737fa62c5bd5a9cbf693b0b9d71767d884a928c45e4d8550ae42aeb765",
+      "checksum": "sha256:a6ba35816fa9fafc18c71099884a7faaf406c84cd4034db3d1dd5db0ad1719a5",
       "compatibility": {
         "clients": [
           {
@@ -582,8 +582,8 @@
       "installable": true,
       "artifact": {
         "format": "git",
-        "url": "https://github.com/mithril-lang/mithril-system-one/tree/6f684875b0cb5300780d52ba8745caa3a604aaf6/adapters/hermes/mithril-public-review",
-        "commit": "6f684875b0cb5300780d52ba8745caa3a604aaf6"
+        "url": "https://github.com/mithril-lang/mithril-system-one/tree/299937c2e6cb11d36fbdde1278db64723867096c/adapters/hermes/mithril-public-review",
+        "commit": "299937c2e6cb11d36fbdde1278db64723867096c"
       },
       "requirements": {
         "commands": [
@@ -839,7 +839,7 @@
       "license": "Apache-2.0",
       "path": "skills/security/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:1772dfb2d76a59ef0c2b59d0fa28f55d68f343338d726ff2487d12aff02f6874",
+      "checksum": "sha256:8554163e177a1004b82c19b9cac7be1419bc53b990c6df888492e26f59498d65",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,
@@ -1054,7 +1054,7 @@
       "license": "Apache-2.0",
       "path": "workflows/mithril-public-review",
       "icon": null,
-      "checksum": "sha256:f717db227dd64de1fb4bbca66c10c894f33e87aa236c38e4f12107287bbec552",
+      "checksum": "sha256:962262dcbd589591600398ef72bd71e4ebf08bcf41460314346a737ebe27d578",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -1066,7 +1066,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "6f684875b0cb5300780d52ba8745caa3a604aaf6",
+        "commit": "299937c2e6cb11d36fbdde1278db64723867096c",
         "entry": "bin/mithril-public-review.mjs"
       },
       "execution": {
