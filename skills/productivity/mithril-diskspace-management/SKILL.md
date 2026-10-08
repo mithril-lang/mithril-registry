@@ -3,7 +3,7 @@ name: mithril-diskspace-management
 description: Measure and visualize disk space, investigate large folders, and build evidence-based cleanup plans for Mithril Desktop or local storage without automatically deleting files.
 license: Apache-2.0
 metadata:
-  version: "1.2.0"
+  version: "1.3.0"
   author: Mithril
   hermes:
     category: productivity
@@ -16,6 +16,14 @@ metadata:
 # Disk space management
 
 Use when the user requests capacity analysis, a storage map, cleanup planning or a measured check after maintenance. Installing this package grants no deletion authority.
+
+## Execute inside Mithril Desktop
+
+Requires Desktop 0.8.0-preview.47 or newer. Open Skills → Open cleanup Skill, or Device care → Storage → Install / run cleanup Skill. The native runner installs this Registry package into the selected profile if needed, validates `desktop-adapter.json`, and runs the fixed Device care capability. It does not execute arbitrary downloaded shell commands or grant cloud agents local filesystem authority.
+
+The first operation freshly measures Desktop-generated temporary media. The result names this Skill/version and reports `nothing-eligible` or `awaiting-selection`. Select exact candidates, create a reviewed plan and confirm the native Cancel-by-default dialog. The executor rechecks identity, ownership, age and content, moves approved items to OS Trash and records before/after free space. Nothing is automatically removed. Cancelling, changed content, failed Trash moves and retained recovery files remain visible. A completed measurement is not a completed cleanup or verified reclamation.
+
+The executable cleanup scope is Desktop-owned generated media only. Arbitrary folders, npm/Homebrew/browser caches, histories, repositories and application databases are not admitted by this adapter. They can be measured and reviewed through the metadata scripts below, but their native-owner cleanup adapters are not yet provided. The adapter descriptor selects the existing bounded native workflow; it cannot widen paths, actions or cleanup authority.
 
 1. Establish the requested computer and folder. In Mithril Desktop, open Device care → Storage, then analyze home or select a folder with the native picker. Temporary-file analysis has a separate, narrower cleanup scope. Cancel an analysis when its scope is unnecessary.
 2. Alternatively run `python3 scripts/audit.py --root /explicit/selected/folder` from this skill directory. The bundled standard-library tool reads filesystem metadata only, writes JSON to stdout and never deletes, uploads or reads file contents. Defaults: 20,000 entries, depth 16 and 15 seconds. Symlinks, other volumes and unavailable entries are excluded; limits mark partial coverage. Folder names and paths are private: keep output local unless the user requests sharing.
