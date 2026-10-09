@@ -1,0 +1,25 @@
+{
+  "countryId": "SG",
+  "iso3166": "SG",
+  "jurisdictionName": "シンガポール",
+  "sourceRef": "planning-hypothesis-2026-10-09; official structure to be confirmed per case",
+  "verifiedAt": "2026-10-09",
+  "status": "agencies-unverified",
+  "agencies": [
+    {"agencyId": "sg-cid", "agencyType": "police", "name": "Central Investigation Department (CID)", "role": "police-investigation", "channelRef": "cid-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "sg-cic", "agencyType": "regulator", "name": "Commercial Affairs Department (CAD)", "role": "fraud-fund-recovery", "channelRef": "cad-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "sg-mas", "agencyType": "regulator", "name": "Monetary Authority of Singapore (MAS)", "role": "cex-regulator-referral", "channelRef": "mas-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "sg-icc", "agencyType": "judicial", "name": "Singapore High Court (freezing injunction / Mareva)", "role": "interim-freeze-instruments", "channelRef": "sg-court-freeze", "authorityRef": "unverified", "status": "unverified"}
+  ],
+  "channels": [
+    {"routeId": "sg-interpol-ncb", "countryPair": ["SG", "*"], "mechanism": "interpol-ncb-singapore", "competentAuthority": "interpol-ncb-sg", "latencyClass": "weeks-to-months", "status": "unconfirmed"},
+    {"routeId": "sg-mlat-legal", "countryPair": ["SG", "*"], "mechanism": "mutual-legal-assistance-treaty", "competentAuthority": "agc-singapore", "latencyClass": "months", "status": "unconfirmed"},
+    {"routeId": "sg-mas-exchange", "countryPair": ["SG", "SG"], "mechanism": "mas-to-licensed-cex", "competentAuthority": "mas", "latencyClass": "days-to-weeks", "status": "unconfirmed"}
+  ],
+  "legalBasisExamples": ["Criminal Justice Reform Act (financial recovery)", "Freezing injunction (Mareva)", "Payment Services Act 2019"],
+  "exchangePresence": [
+    {"exchangeId": "bybit", "registeredCountryId": "SG", "operationalCountryIds": ["SG", "JP", "EU"], "deskRef": "bybit-liaison", "regulatorRef": "sg-mas", "status": "unverified"},
+    {"exchangeId": "gate-io", "registeredCountryId": "SG", "operationalCountryIds": ["SG", "JP"], "deskRef": "gate-io-liaison", "regulatorRef": "sg-mas", "status": "unverified"},
+    {"exchangeId": "htx", "registeredCountryId": "SG", "operationalCountryIds": ["SG", "JP"], "deskRef": "htx-liaison", "regulatorRef": "sg-mas", "status": "unverified"}
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "countryId": "KY",
+  "iso3166": "KY",
+  "jurisdictionName": "ケイマン諸島",
+  "sourceRef": "planning-hypothesis-2026-10-09; official structure to be confirmed per case",
+  "verifiedAt": "2026-10-09",
+  "status": "agencies-unverified",
+  "agencies": [
+    {"agencyId": "ky-cipf", "agencyType": "police", "name": "Cayman Islands Police Force", "role": "police-investigation", "channelRef": "kipf-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "ky-dofi", "agencyType": "regulator", "name": "Department of Financial Intelligence (DOFI)", "role": "fiu-and-sar", "channelRef": "dofi-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "ky-cma", "agencyType": "regulator", "name": "Cayman Islands Monetary Authority (CIMA)", "role": "cex-regulator-referral", "channelRef": "cima-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "ky-grand-court", "agencyType": "judicial", "name": "Grand Court of the Cayman Islands", "role": "interim-freeze-and-freeze-injunctions", "channelRef": "grand-court-freeze", "authorityRef": "unverified", "status": "unverified"}
+  ],
+  "channels": [
+    {"routeId": "ky-interpol-ncb", "countryPair": ["KY", "*"], "mechanism": "interpol-ncb-grand-cayman", "competentAuthority": "interpol-ncb-ky", "latencyClass": "weeks-to-months", "status": "unconfirmed"},
+    {"routeId": "ky-mlat-legal", "countryPair": ["KY", "*"], "mechanism": "mutual-legal-assistance", "competentAuthority": "attorney-general-ky", "latencyClass": "months", "status": "unconfirmed"},
+    {"routeId": "ky-cima-exchange", "countryPair": ["KY", "KY"], "mechanism": "cima-to-registered-cex", "competentAuthority": "cima", "latencyClass": "days-to-weeks", "status": "unconfirmed"}
+  ],
+  "legalBasisExamples": ["Companies Law (winding-up / freezing)", "Grand Court freezing injunction (Mareva)", "Trustee Act"],
+  "exchangePresence": [
+    {"exchangeId": "binance", "registeredCountryId": "KY", "operationalCountryIds": ["KY", "JP", "US", "SG", "EU", "RU"], "deskRef": "binance-liaison", "regulatorRef": "ky-cma", "status": "unverified"},
+    {"exchangeId": "okx", "registeredCountryId": "KY", "operationalCountryIds": ["KY", "JP", "US", "SG", "EU"], "deskRef": "okx-liaison", "regulatorRef": "ky-cma", "status": "unverified"}
+  ]
+}

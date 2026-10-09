@@ -1,0 +1,9 @@
+description: Planned per-country agency coordination profiles (JP/RU/KP/US/SG/KY) linking international-investigation and exchange-asset-recovery.
+alwaysApply: true
+---
+
+Canonical design: `solutions/country-agency-coordination.json`, per-country profiles at `solutions/country-coordination/<ISO3166>.json`, and the Japanese design document.
+Keep status planned and executable false. Country profiles hold agency structure, channel routes, legal basis examples and CEX exchange presence as planning hypotheses; every agency starts unverified and every channel unconfirmed until a competent human authority or official publication confirms per case.
+Agency name is not agency authority; profile presence is not live capability; a channel route is not case disposition; the country profile is not an executable connector. Cross-border submissions still route through the international-investigation contract (MLAT/NCB) and CEX freeze requests through the exchange-asset-recovery contract; the country layer only supplies the country/agency/route/legal-basis inputs.
+Exchange presence is a planning reference for exchange-asset-recovery route selection; it is not proof of exchange freeze authority or on-chain attribution. Unverified agencies stay unverified; verifiedAt staleness invalidates reuse; agency-structure, channel-competence, legal-basis, classification, authority-expiry, revocation and exchange-presence changes invalidate the link.
+Do not add executable connectors, official channel APIs, automated MLAT submission, remote forensic acquisition, cross-country admissibility or live exchange-presence monitoring to this contract.

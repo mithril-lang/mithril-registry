@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "id": "mithril-country-agency-coordination-design",
+  "version": "0.1.0",
+  "status": "planned",
+  "executable": false,
+  "document": "docs/security-integrations/country-agency-coordination.md",
+  "relatedSolutionIds": ["mithril-international-investigation-design", "mithril-exchange-asset-recovery-design", "agency-national-cyber", "agency-fiu"],
+  "principles": {
+    "agencyStructureIsPlanningHypothesis": true,
+    "domesticAuthorityRetained": true,
+    "evidenceCustodyRetained": true,
+    "automaticCrossBorderTransfer": false,
+    "officialChannelIntegrationProvided": false,
+    "sharedRemoteMcpProvided": false,
+    "judicialDecisionAutomation": false
+  },
+  "roles": ["case-lead", "international-liaison", "country-liaison", "authority-reviewer", "information-custodian", "recipient-country-liaison", "independent-reviewer"],
+  "resources": {
+    "countryProfile": ["countryId", "iso3166", "jurisdictionName", "sourceRef", "verifiedAt", "status", "agencies", "channels", "legalBasisExamples", "exchangePresence"],
+    "agencyEntry": ["agencyId", "countryId", "agencyType", "name", "role", "channelRef", "authorityRef", "verifiedBy", "verifiedAt", "status"],
+    "channelRoute": ["routeId", "countryPair", "mechanism", "competentAuthority", "latencyClass", "status"],
+    "coordinationRequest": ["operationId", "caseId", "originCountryId", "destinationCountryId", "agencyRef", "purpose", "legalBasisRef", "authorityRefs", "selectedPackageIds", "manifestDigest", "classification", "channelRef", "expiresAt"],
+    "coordinationReceipt": ["operationId", "manifestDigest", "destinationAgencyRef", "receivedAt", "integrityResult", "authorityResult", "scopeResult", "gaps", "externalReceiptRef"],
+    "exchangePresence": ["exchangeId", "registeredCountryId", "operationalCountryIds", "deskRef", "regulatorRef", "verifiedAt", "status"]
+  },
+  "countryStates": ["profile-draft", "agencies-unverified", "channel-unconfirmed", "link-ready", "in-use", "suspended", "superseded", "unknown"],
+  "linkInvalidators": ["agency-structure-change", "channel-competence-change", "legal-basis-change", "classification-change", "authority-expiry", "revocation", "exchange-presence-change"],
+  "boundaries": ["agency-name-is-not-agency-authority", "profile-presence-is-not-live-capability", "channel-route-is-not-case-disposition", "country-profile-is-not-executable-connector", "cross-border-still-routes-through-international-investigation", "exchange-presence-is-not-freeze-authority", "unverified-agency-stays-unverified", "profile-staleness-invalidates-reuse"],
+  "verificationPolicy": {
+    "initialMode": "all-agencies-unverified-planning",
+    "agencyVerification": "competent-human-authority-or-official-publication-confirms-name, role and channel per case",
+    "channelVerification": "bilateral-treaty-text-or-ncb-directory-confirmation",
+    "staleness": "agency entries carry verifiedAt; reuse after staleness window requires re-verification",
+    "unknownOutcome": "reconcile-coordination-request-and-destination-receipt-before-retry"
+  },
+  "exchangePresencePolicy": {
+    "source": "registry-maintains-which-country-an-exchange-is-registered-and-operational-in, as a planning reference",
+    "notProof": "exchangePresence is not proof of the exchange's freeze authority or on-chain attribution",
+    "linksTo": "mithril-exchange-asset-recovery-design channelPolicy routeSelection"
+  },
+  "existingBuildingBlocks": ["mithril-international-investigation-design", "mithril-exchange-asset-recovery-design", "mithril-evidence-package-v1", "mithril-custody-v1"],
+  "releaseGates": ["per-country-structure-verification", "channel-competence-verification", "two-country-synthetic-evaluation", "exchange-presence-cross-reference", "profile-staleness-tests", "institutional-operational-acceptance"],
+  "notProvided": ["live-agency-identity-provider", "official-channel-api-connector", "automated-mlat-submission", "remote-forensic-acquisition", "cross-country-evidence-admissibility", "live-exchange-presence-monitoring"]
+}

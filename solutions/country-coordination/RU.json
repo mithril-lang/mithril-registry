@@ -1,0 +1,24 @@
+{
+  "countryId": "RU",
+  "iso3166": "RU",
+  "jurisdictionName": "ロシア連邦",
+  "sourceRef": "planning-hypothesis-2026-10-09; official structure to be confirmed per case",
+  "verifiedAt": "2026-10-09",
+  "status": "agencies-unverified",
+  "agencies": [
+    {"agencyId": "ru-msk-cib", "agencyType": "police", "name": "МВД России (киберпреступность)", "role": "cyber-investigation", "channelRef": "mvd-cyber-lead", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "ru-msk-sled", "agencyType": "prosecution", "name": "Следственный комитет РФ", "role": "investigation-commission", "channelRef": "sledcom-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "ru-cbr", "agencyType": "regulator", "name": "ЦБ РФ (Цифровые рубли, crypto supervision)", "role": "central-bank-crypto-supervision", "channelRef": "cbr-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "ru-court", "agencyType": "judicial", "name": "Суды РФ (арест активов)", "role": "asset-freeze-instruments", "channelRef": "ru-court-freeze", "authorityRef": "unverified", "status": "unverified"}
+  ],
+  "channels": [
+    {"routeId": "ru-interpol-ncb", "countryPair": ["RU", "*"], "mechanism": "interpol-ncb-moscow", "competentAuthority": "interpol-ncb-ru", "latencyClass": "weeks-to-months", "status": "unconfirmed"},
+    {"routeId": "ru-mlat-legal", "countryPair": ["RU", "*"], "mechanism": "mutual-legal-assistance", "competentAuthority": "prosecution-ru", "latencyClass": "months", "status": "unconfirmed"},
+    {"routeId": "ru-sanctions-comp", "countryPair": ["RU", "US", "EU", "JP"], "mechanism": "sanctions-office-coordination", "competentAuthority": "sanctions-authority", "latencyClass": "case-dependent", "status": "unconfirmed"}
+  ],
+  "legalBasisExamples": ["УПК РФ (арест имущества)", "ФЗ о цифровых финансовых активах"],
+  "exchangePresence": [
+    {"exchangeId": "grinex", "registeredCountryId": "RU", "operationalCountryIds": ["RU"], "deskRef": "grinex-liaison", "regulatorRef": "ru-cbr", "status": "unverified"},
+    {"exchangeId": "commEX", "registeredCountryId": "RU", "operationalCountryIds": ["RU"], "deskRef": "commex-liaison", "regulatorRef": "ru-cbr", "status": "unverified"}
+  ]
+}

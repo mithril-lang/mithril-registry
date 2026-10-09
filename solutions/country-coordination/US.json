@@ -1,0 +1,26 @@
+{
+  "countryId": "US",
+  "iso3166": "US",
+  "jurisdictionName": "アメリカ合衆国",
+  "sourceRef": "planning-hypothesis-2026-10-09; official structure to be confirmed per case",
+  "verifiedAt": "2026-10-09",
+  "status": "agencies-unverified",
+  "agencies": [
+    {"agencyId": "us-fbi", "agencyType": "federal", "name": "FBI (Cyber Division / IC3)", "role": "federal-cyber-lead", "channelRef": "fbi-cyber-lead", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "us-sec", "agencyType": "regulator", "name": "SEC (Crypto Assets Task Force)", "role": "cex-regulator-referral", "channelRef": "sec-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "us-treasury", "agencyType": "treasury", "name": "Treasury / OFAC / FinCEN", "role": "sanctions-and-money-laundering", "channelRef": "treasury-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "us-fiu", "agencyType": "fiu", "name": "FinCEN", "role": "financial-intelligence", "channelRef": "fincen-analysis", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "us-court", "agencyType": "judicial", "name": "U.S. District Courts (preliminary injunction)", "role": "interim-freeze-instruments", "channelRef": "us-court-injunction", "authorityRef": "unverified", "status": "unverified"}
+  ],
+  "channels": [
+    {"routeId": "us-interpol-ncb", "countryPair": ["US", "*"], "mechanism": "interpol-ncb-washington", "competentAuthority": "interpol-ncb-us", "latencyClass": "weeks-to-months", "status": "unconfirmed"},
+    {"routeId": "us-mlat-legal", "countryPair": ["US", "*"], "mechanism": "mutual-legal-assistance-treaty", "competentAuthority": "department-of-justice", "latencyClass": "months", "status": "unconfirmed"},
+    {"routeId": "us-sec-exchange", "countryPair": ["US", "US"], "mechanism": "sec-to-registered-cex", "competentAuthority": "sec", "latencyClass": "days-to-weeks", "status": "unconfirmed"}
+  ],
+  "legalBasisExamples": ["18 U.S.C. 1343 (wire fraud)", "preliminary injunction (federal rules of civil procedure)", "OFAC asset freeze authorities"],
+  "exchangePresence": [
+    {"exchangeId": "coinbase", "registeredCountryId": "US", "operationalCountryIds": ["US"], "deskRef": "coinbase-liason", "regulatorRef": "us-sec", "status": "unverified"},
+    {"exchangeId": "kraken", "registeredCountryId": "US", "operationalCountryIds": ["US", "JP", "SG"], "deskRef": "kraken-liaison", "regulatorRef": "us-sec", "status": "unverified"},
+    {"exchangeId": "okx-us", "registeredCountryId": "US", "operationalCountryIds": ["US", "JP", "SG"], "deskRef": "okx-liaison", "regulatorRef": "us-sec", "status": "unverified"}
+  ]
+}

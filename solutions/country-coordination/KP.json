@@ -1,0 +1,22 @@
+{
+  "countryId": "KP",
+  "iso3166": "KP",
+  "jurisdictionName": "朝鮮民主主義人民共和国",
+  "sourceRef": "planning-hypothesis-2026-10-09; official structure to be confirmed per case",
+  "verifiedAt": "2026-10-09",
+  "status": "agencies-unverified",
+  "agencies": [
+    {"agencyId": "kp-sus", "agencyType": "security", "name": "국가보위성 (State Security)", "role": "state-security-investigation", "channelRef": "sus-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "kp-mss", "agencyType": "police", "name": "인민보안성 (Ministry of People's Security)", "role": "public-security-lead", "channelRef": "mps-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "kp-court", "agencyType": "judicial", "name": "인민법원 (People's Courts)", "role": "judicial-instruments", "channelRef": "kp-court", "authorityRef": "unverified", "status": "unverified"}
+  ],
+  "channels": [
+    {"routeId": "kp-interpol-ncb", "countryPair": ["KP", "*"], "mechanism": "interpol-ncb-pyongyang", "competentAuthority": "interpol-ncb-kp", "latencyClass": "case-dependent", "status": "unconfirmed"},
+    {"routeId": "kp-mlat-legal", "countryPair": ["KP", "*"], "mechanism": "mutual-legal-assistance", "competentAuthority": "prosecution-kp", "latencyClass": "months-to-years", "status": "unconfirmed"},
+    {"routeId": "kp-sanctions-comp", "countryPair": ["KP", "US", "EU", "JP", "SG"], "mechanism": "sanctions-office-coordination", "competentAuthority": "sanctions-authority", "latencyClass": "case-dependent", "status": "unconfirmed"}
+  ],
+  "legalBasisExamples": ["CR of DPRK (criminal procedure)"],
+  "exchangePresence": [
+    {"exchangeId": "kp-state-virtual-currency", "registeredCountryId": "KP", "operationalCountryIds": ["KP"], "deskRef": "unverified", "regulatorRef": "unverified", "status": "unverified"}
+  ]
+}

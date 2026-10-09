@@ -5,7 +5,7 @@
   "status": "planned",
   "executable": false,
   "document": "docs/security-integrations/exchange-asset-recovery.md",
-  "relatedSolutionIds": ["agency-fiu", "agency-kill-chain", "agency-prosecution", "mithril-international-investigation-design"],
+  "relatedSolutionIds": ["agency-fiu", "agency-kill-chain", "agency-prosecution", "mithril-international-investigation-design", "mithril-country-agency-coordination-design"],
   "principles": {
     "domesticAuthorityRetained": true,
     "evidenceCustodyRetained": true,
