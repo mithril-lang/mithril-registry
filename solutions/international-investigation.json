@@ -5,7 +5,13 @@
   "status": "planned",
   "executable": false,
   "document": "docs/security-integrations/international-investigation.md",
-  "relatedSolutionIds": ["agency-national-cyber", "agency-forensic-lab", "agency-prosecution", "mithril-exchange-asset-recovery-design", "mithril-country-agency-coordination-design"],
+  "relatedSolutionIds": [
+    "agency-national-cyber",
+    "agency-forensic-lab",
+    "agency-prosecution",
+    "mithril-exchange-asset-recovery-design",
+    "mithril-country-agency-coordination-design"
+  ],
   "principles": {
     "domesticAuthorityRetained": true,
     "sourceCustodyRetained": true,
@@ -15,27 +21,183 @@
     "sharedRemoteMcpProvided": false,
     "judicialDecisionAutomation": false
   },
-  "roles": ["domestic-case-lead", "international-liaison", "authority-reviewer", "information-custodian", "examiner", "independent-reviewer", "recipient-liaison", "recipient-case-lead"],
+  "roles": [
+    "domestic-case-lead",
+    "international-liaison",
+    "authority-reviewer",
+    "information-custodian",
+    "examiner",
+    "independent-reviewer",
+    "recipient-liaison",
+    "recipient-case-lead"
+  ],
   "resources": {
-    "agencyMembership": ["agencyId", "jurisdiction", "principalRef", "role", "authorityRef", "verifiedBy", "verifiedAt", "expiresAt", "revocationRef"],
-    "caseLink": ["collaborationId", "agencyId", "domesticCaseId", "purpose", "leadRef", "authorityRef", "disclosureScope"],
-    "exchangeProposal": ["operationId", "collaborationId", "senderAgencyId", "recipientAgencyId", "purpose", "legalBasisRef", "authorityRefs", "selectedPackageIds", "manifestDigest", "classification", "originJurisdiction", "destinationJurisdiction", "approvedStorage", "retentionPolicyRef", "onwardSharingPolicyRef", "expiresAt", "channelRef"],
-    "exchangeApproval": ["proposalDigest", "approverRef", "authorityRef", "decision", "decidedAt", "expiresAt", "revocationRef"],
-    "receipt": ["operationId", "manifestDigest", "recipientRef", "receivedAt", "integrityResult", "authorityResult", "scopeResult", "gaps", "externalReceiptRef"],
-    "translation": ["sourceDigest", "sourceLanguage", "targetLanguage", "translatorRef", "method", "version", "reviewerRef", "reviewStatus", "gaps"],
-    "answer": ["operationId", "requestDigest", "domesticCaseRef", "reportDigest", "sourceRefs", "observations", "inferences", "gaps", "reviewRef", "disclosureApprovalRef"]
+    "agencyMembership": [
+      "agencyId",
+      "jurisdiction",
+      "principalRef",
+      "role",
+      "authorityRef",
+      "verifiedBy",
+      "verifiedAt",
+      "expiresAt",
+      "revocationRef"
+    ],
+    "caseLink": [
+      "collaborationId",
+      "agencyId",
+      "domesticCaseId",
+      "purpose",
+      "leadRef",
+      "authorityRef",
+      "disclosureScope"
+    ],
+    "exchangeProposal": [
+      "operationId",
+      "collaborationId",
+      "senderAgencyId",
+      "recipientAgencyId",
+      "purpose",
+      "legalBasisRef",
+      "authorityRefs",
+      "selectedPackageIds",
+      "manifestDigest",
+      "classification",
+      "originJurisdiction",
+      "destinationJurisdiction",
+      "approvedStorage",
+      "retentionPolicyRef",
+      "onwardSharingPolicyRef",
+      "expiresAt",
+      "channelRef"
+    ],
+    "exchangeApproval": [
+      "proposalDigest",
+      "approverRef",
+      "authorityRef",
+      "decision",
+      "decidedAt",
+      "expiresAt",
+      "revocationRef"
+    ],
+    "receipt": [
+      "operationId",
+      "manifestDigest",
+      "recipientRef",
+      "receivedAt",
+      "integrityResult",
+      "authorityResult",
+      "scopeResult",
+      "gaps",
+      "externalReceiptRef"
+    ],
+    "translation": [
+      "sourceDigest",
+      "sourceLanguage",
+      "targetLanguage",
+      "translatorRef",
+      "method",
+      "version",
+      "reviewerRef",
+      "reviewStatus",
+      "gaps"
+    ],
+    "answer": [
+      "operationId",
+      "requestDigest",
+      "domesticCaseRef",
+      "reportDigest",
+      "sourceRefs",
+      "observations",
+      "inferences",
+      "gaps",
+      "reviewRef",
+      "disclosureApprovalRef"
+    ]
   },
-  "exchangeStates": ["draft", "authority-review", "approved", "dispatched", "receipt-pending", "received", "integrity-checked", "recipient-authorized", "in-progress", "answer-review", "answered", "closed", "rejected", "expired", "revoked", "suspended", "unknown"],
-  "approvalInvalidators": ["recipient-change", "purpose-change", "manifest-change", "classification-change", "storage-change", "channel-change", "authority-expiry", "revocation"],
-  "receiptBoundaries": ["dispatch-is-not-receipt", "receipt-is-not-integrity", "integrity-is-not-authority", "authority-is-not-completeness", "technical-verification-is-not-admissibility", "answer-is-not-remediation"],
+  "exchangeStates": [
+    "draft",
+    "authority-review",
+    "approved",
+    "dispatched",
+    "receipt-pending",
+    "received",
+    "integrity-checked",
+    "recipient-authorized",
+    "in-progress",
+    "answer-review",
+    "answered",
+    "closed",
+    "rejected",
+    "expired",
+    "revoked",
+    "suspended",
+    "unknown"
+  ],
+  "approvalInvalidators": [
+    "recipient-change",
+    "purpose-change",
+    "manifest-change",
+    "classification-change",
+    "storage-change",
+    "channel-change",
+    "authority-expiry",
+    "revocation"
+  ],
+  "receiptBoundaries": [
+    "dispatch-is-not-receipt",
+    "receipt-is-not-integrity",
+    "integrity-is-not-authority",
+    "authority-is-not-completeness",
+    "technical-verification-is-not-admissibility",
+    "answer-is-not-remediation"
+  ],
   "transportPolicy": {
     "initialMode": "approved-external-channel-or-offline-handoff",
-    "routeExamples": ["national-international-liaison", "interpol-ncb", "authorized-regional-channel", "applicable-electronic-evidence-contact", "applicable-mutual-legal-assistance"],
+    "routeExamples": [
+      "national-international-liaison",
+      "interpol-ncb",
+      "authorized-regional-channel",
+      "applicable-electronic-evidence-contact",
+      "applicable-mutual-legal-assistance"
+    ],
     "routeSelection": "competent-human-authorities-confirm-per-case",
     "unknownOutcome": "reconcile-operation-and-external-receipt-before-retry",
     "onRevocation": "block-future-access-and-dispatch; record-recipient-notification-and-applicable-retention-actions; never-claim-recall-of-exported-bytes"
   },
-  "existingBuildingBlocks": ["mithril-evidence-package-v1", "mithril-custody-v1", "mithril-custody-checkpoint-v1", "mithril-report-draft-v1", "mithril-report-approval-v1"],
-  "releaseGates": ["two-agency-synthetic-evaluation", "external-trust-and-key-verification", "recipient-and-case-isolation", "jurisdiction-and-transfer-review", "approval-invalidation-and-uncertain-outcome-tests", "translation-and-source-traceability", "institutional-operational-acceptance"],
-  "notProvided": ["global-case-database", "agency-identity-provider", "cross-border-transfer-service", "interpol-or-siena-connector", "mutual-legal-assistance-submission", "remote-forensic-acquisition", "universal-evidence-admissibility", "native-case-sync"]
+  "existingBuildingBlocks": [
+    "mithril-evidence-package-v1",
+    "mithril-custody-v1",
+    "mithril-custody-checkpoint-v1",
+    "mithril-report-draft-v1",
+    "mithril-report-approval-v1"
+  ],
+  "releaseGates": [
+    "two-agency-synthetic-evaluation",
+    "external-trust-and-key-verification",
+    "recipient-and-case-isolation",
+    "jurisdiction-and-transfer-review",
+    "approval-invalidation-and-uncertain-outcome-tests",
+    "translation-and-source-traceability",
+    "institutional-operational-acceptance"
+  ],
+  "notProvided": [
+    "global-case-database",
+    "agency-identity-provider",
+    "cross-border-transfer-service",
+    "interpol-or-siena-connector",
+    "remote-forensic-acquisition",
+    "universal-evidence-admissibility",
+    "native-case-sync"
+  ],
+  "providedBy": [
+    {
+      "capability": "cross-border-mlat-submission",
+      "entry": "mithril-cex-mlat",
+      "entrypoint": "bin/cex-mlat.mjs",
+      "artifact": "https://github.com/mithril-lang/mithril-system-one @ a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+      "executionStatus": "deterministic-offline",
+      "guarantee": "canonical digest receipt with executed:false; the live counterparty action (API call, freeze, transmission, settlement, filing) is external to the tool and requires an owning-profile acknowledgement"
+    }
+  ]
 }

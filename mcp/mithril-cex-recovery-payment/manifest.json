@@ -1,0 +1,55 @@
+{
+ "schemaVersion": "1",
+ "id": "mithril-cex-recovery-payment",
+ "category": "security",
+ "name": "Mithril CEX Recovery Payment Settlement",
+ "version": "0.1.0",
+ "description": "Builds a canonical recovery-payment settlement instruction with idempotency key and fee allocation. No funds move: settlement execution requires the owning profile to present the instruction to the settlement channel.",
+ "author": "Mithril",
+ "license": "Apache-2.0",
+ "source": "https://github.com/mithril-lang/mithril-system-one",
+ "tags": [
+  "mithril",
+  "security",
+  "cex",
+  "asset-recovery"
+ ],
+ "permissions": [
+  "subprocess:node-fixed-entrypoint"
+ ],
+ "type": "mcp",
+ "artifact": {
+  "format": "git",
+  "url": "https://github.com/mithril-lang/mithril-system-one",
+  "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+  "entry": "bin/cex-recovery-payment.mjs"
+ },
+ "command": "node",
+ "args": [
+  "${system_one_root}/bin/cex-recovery-payment.mjs"
+ ],
+ "entry": "bin/cex-recovery-payment.mjs",
+ "requirements": {
+  "commands": [
+   "node"
+  ]
+ },
+ "configuration": {
+  "system_one_root": "Reviewed checkout at artifact.commit (deterministic CEX tools are dependency-free; no npm install required)."
+ },
+ "env": {},
+ "tools": [
+  {
+   "name": "mithril_cex_recovery_payment_settlement",
+   "authentication": "none",
+   "effect": "write"
+  }
+ ],
+ "executable": true,
+ "transport": "stdio",
+ "protocolVersion": "2025-06-18",
+ "authentication": {
+  "mode": "per-tool",
+  "credentialSource": "none"
+ }
+}

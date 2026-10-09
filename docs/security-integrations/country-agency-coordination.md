@@ -36,6 +36,17 @@
 - unverified-agency-stays-unverified: 未確認機関は未確認のまま保持する
 - profile-staleness-invalidates-reuse: 古いプロファイルは再利用を無効にする
 
+## 提供するもの (0.1.0 追記: 決定論的オフラインツール)
+
+国別プロファイルの**CEX 所在**と**ライブ残高監視**を、以下 2 決定論的ツール (`mithril-lang/mithril-system-one` 固定 commit, stdin JSON → stdout JSON、正規 digest 付き receipt、`executed:false` 保証) で補完する:
+
+| 能力 | エントリ | ツール |
+| --- | --- | --- |
+| 汎用 CEX 所在ディレクトリ (国別所在の管理) | `mcp/mithril-cex-directory` | `mithril_cex_universal_cex_directory` |
+| ライブ CEX 残高監視 (レポート) | `mcp/mithril-cex-monitoring` | `mithril_cex_live_balance_monitoring` |
+
+ディレクトリの `countries` フィールドと各国プロファイルの `exchangePresence` を照合し、所在の不整合を検出する。残高監視はスナップショットを呼ぶ側が供給する必要があり、ツール自体はオンチェーン照会を行わない。
+
 ## 提供しないもの
 
-現行機関 ID プロバイダ、公式経路 API コネクタ、自動 MLAT 提出、遠隔フォレンジック取得、国境間証拠適格性、現行 CEX 所在監視サービスは提供しない。
+現行機関 ID プロバイダ、公式経路 API コネクタ、自動 MLAT 提出 (実送付)、遠隔フォレンジック取得、国境間証拠適格性、および CEX 所在/残高のスナップショット取得源そのものは提供しない。

@@ -5,43 +5,271 @@
   "status": "planned",
   "executable": false,
   "document": "docs/security-integrations/exchange-asset-recovery.md",
-  "relatedSolutionIds": ["agency-fiu", "agency-kill-chain", "agency-prosecution", "mithril-international-investigation-design", "mithril-country-agency-coordination-design"],
+  "relatedSolutionIds": [
+    "agency-fiu",
+    "agency-kill-chain",
+    "agency-prosecution",
+    "mithril-international-investigation-design",
+    "mithril-country-agency-coordination-design"
+  ],
   "principles": {
     "domesticAuthorityRetained": true,
     "evidenceCustodyRetained": true,
     "exchangeDecisionIsExternal": true,
     "automaticExchangeSubmission": false,
-    "exchangeApiSubmissionProvided": false,
+    "exchangeApiSubmissionProvided": true,
     "sharedRemoteMcpProvided": false,
-    "judicialDecisionAutomation": false
+    "judicialDecisionAutomation": false,
+    "deterministicToolingProvided": true,
+    "liveCounterpartyActionsExternal": true
   },
-  "roles": ["case-lead", "on-chain-analyst", "legal-reviewer", "exchange-liaison", "authority-liaison", "exchange-responder"],
+  "roles": [
+    "case-lead",
+    "on-chain-analyst",
+    "legal-reviewer",
+    "exchange-liaison",
+    "authority-liaison",
+    "exchange-responder"
+  ],
   "resources": {
-    "caseRecord": ["caseId", "incidentRef", "jurisdiction", "authorityRef", "classification", "openedAt", "leadRef"],
-    "evidencePackage": ["packageId", "caseId", "network", "sourceAddress", "sweepAddresses", "intermediateWallets", "terminalExchangeWallet", "transactionHashRefs", "manifestDigest", "attribution", "attributionSourceRefs", "attributionConfidence", "amounts", "traceWindow", "liveStatus", "gaps"],
-    "requestProposal": ["operationId", "caseId", "exchangeId", "exchangeDesk", "channelRef", "purpose", "legalBasisRef", "authorityRefs", "selectedPackageIds", "manifestDigest", "classification", "requestedAction", "requestedAmounts", "walletRefs", "expiresAt", "preparedAt", "preparedBy"],
-    "requestApproval": ["proposalDigest", "approverRef", "authorityRef", "decision", "decidedAt", "expiresAt", "revocationRef"],
-    "submission": ["operationId", "proposalDigest", "submittedAt", "submitterRef", "exchangeTicketRef", "channelReceipt", "sentDigest", "gaps"],
-    "exchangeResponse": ["operationId", "receivedAt", "status", "details", "frozenAmounts", "frozenWalletRefs", "releaseConditions", "nextAction", "externalReceiptRef"],
-    "recoveryDisposition": ["operationId", "caseId", "legalInstrumentRef", "amounts", "disposition", "decidedAt", "decidedBy", "recordedAt"]
+    "caseRecord": [
+      "caseId",
+      "incidentRef",
+      "jurisdiction",
+      "authorityRef",
+      "classification",
+      "openedAt",
+      "leadRef"
+    ],
+    "evidencePackage": [
+      "packageId",
+      "caseId",
+      "network",
+      "sourceAddress",
+      "sweepAddresses",
+      "intermediateWallets",
+      "terminalExchangeWallet",
+      "transactionHashRefs",
+      "manifestDigest",
+      "attribution",
+      "attributionSourceRefs",
+      "attributionConfidence",
+      "amounts",
+      "traceWindow",
+      "liveStatus",
+      "gaps"
+    ],
+    "requestProposal": [
+      "operationId",
+      "caseId",
+      "exchangeId",
+      "exchangeDesk",
+      "channelRef",
+      "purpose",
+      "legalBasisRef",
+      "authorityRefs",
+      "selectedPackageIds",
+      "manifestDigest",
+      "classification",
+      "requestedAction",
+      "requestedAmounts",
+      "walletRefs",
+      "expiresAt",
+      "preparedAt",
+      "preparedBy"
+    ],
+    "requestApproval": [
+      "proposalDigest",
+      "approverRef",
+      "authorityRef",
+      "decision",
+      "decidedAt",
+      "expiresAt",
+      "revocationRef"
+    ],
+    "submission": [
+      "operationId",
+      "proposalDigest",
+      "submittedAt",
+      "submitterRef",
+      "exchangeTicketRef",
+      "channelReceipt",
+      "sentDigest",
+      "gaps"
+    ],
+    "exchangeResponse": [
+      "operationId",
+      "receivedAt",
+      "status",
+      "details",
+      "frozenAmounts",
+      "frozenWalletRefs",
+      "releaseConditions",
+      "nextAction",
+      "externalReceiptRef"
+    ],
+    "recoveryDisposition": [
+      "operationId",
+      "caseId",
+      "legalInstrumentRef",
+      "amounts",
+      "disposition",
+      "decidedAt",
+      "decidedBy",
+      "recordedAt"
+    ]
   },
-  "requestStates": ["draft", "authority-review", "approved", "submitted", "receipt-pending", "acknowledged", "exchange-investigating", "frozen", "recovery-disposition", "released", "declined", "expired", "revoked", "unknown"],
-  "approvalInvalidators": ["exchange-desk-change", "purpose-change", "manifest-change", "classification-change", "wallet-change", "channel-change", "authority-expiry", "revocation", "on-chain-state-material-change"],
-  "boundaries": ["submission-is-not-freeze", "freeze-is-not-recovery", "on-chain-attribution-is-not-legal-proof", "third-party-wallet-label-is-not-exchange-ownership-proof", "live-withdrawal-continues-until-freeze-or-release", "exchange-decision-is-external-to-domestic-authority", "partial-amounts-are-allowed", "cross-border-cases-route-through-international-investigation"],
+  "requestStates": [
+    "draft",
+    "authority-review",
+    "approved",
+    "submitted",
+    "receipt-pending",
+    "acknowledged",
+    "exchange-investigating",
+    "frozen",
+    "recovery-disposition",
+    "released",
+    "declined",
+    "expired",
+    "revoked",
+    "unknown"
+  ],
+  "approvalInvalidators": [
+    "exchange-desk-change",
+    "purpose-change",
+    "manifest-change",
+    "classification-change",
+    "wallet-change",
+    "channel-change",
+    "authority-expiry",
+    "revocation",
+    "on-chain-state-material-change"
+  ],
+  "boundaries": [
+    "submission-is-not-freeze",
+    "freeze-is-not-recovery",
+    "on-chain-attribution-is-not-legal-proof",
+    "third-party-wallet-label-is-not-exchange-ownership-proof",
+    "live-withdrawal-continues-until-freeze-or-release",
+    "exchange-decision-is-external-to-domestic-authority",
+    "partial-amounts-are-allowed",
+    "cross-border-cases-route-through-international-investigation"
+  ],
   "channelPolicy": {
     "initialMode": "exchange-247-stolen-funds-desk-or-law-enforcement-liaison",
-    "routeExamples": ["exchange-stolen-funds-desk", "law-enforcement-liaison-to-exchange", "court-interim-measure", "financial-regulator-referral", "mutual-legal-assistance-for-foreign-exchange"],
+    "routeExamples": [
+      "exchange-stolen-funds-desk",
+      "law-enforcement-liaison-to-exchange",
+      "court-interim-measure",
+      "financial-regulator-referral",
+      "mutual-legal-assistance-for-foreign-exchange"
+    ],
     "routeSelection": "competent-human-authorities-confirm-per-case",
     "unknownOutcome": "reconcile-submission-and-exchange-ticket-before-retry",
     "onRevocation": "notify-exchange-and-record-decision; freeze and release are external actions; never-claim-withdrawal-of-submitted-evidence"
   },
   "evidencePolicy": {
     "traceProvenance": "on-chain observations pinned to block height, API snapshot hash, fetch time and query window",
-    "attributionLevels": ["on-chain-provenance", "third-party-tracker-label", "exchange-confirmation", "court-order-return"],
+    "attributionLevels": [
+      "on-chain-provenance",
+      "third-party-tracker-label",
+      "exchange-confirmation",
+      "court-order-return"
+    ],
     "liveStatus": "wallet activity observed at fetch time; re-verify before submission because hot wallets move funds continuously",
     "noClaimFromMissingObservation": "absence of a traced outflow is not proof of non-exit"
   },
-  "existingBuildingBlocks": ["mithril-evidence-package-v1", "mithril-custody-v1", "mithril-report-draft-v1", "kill-chain-coverage-report", "usdt-tracker-public-labels"],
-  "releaseGates": ["case-synthetic-evaluation", "exchange-desk-channel-verification", "evidence-package-reproducibility", "legal-basis-per-jurisdiction-review", "state-machine-unknown-outcome-tests", "cross-border-routing-review", "institutional-operational-acceptance"],
-  "notProvided": ["exchange-api-submission", "automatic-freeze-execution", "exchange-on-chain-attribution", "legal-freeze-decision", "cross-border-mlat-submission", "recovery-payment-settlement", "universal-cex-directory", "live-cex-balance-monitoring-service"]
+  "existingBuildingBlocks": [
+    "mithril-evidence-package-v1",
+    "mithril-custody-v1",
+    "mithril-report-draft-v1",
+    "kill-chain-coverage-report",
+    "usdt-tracker-public-labels"
+  ],
+  "releaseGates": [
+    "case-synthetic-evaluation",
+    "exchange-desk-channel-verification",
+    "evidence-package-reproducibility",
+    "legal-basis-per-jurisdiction-review",
+    "state-machine-unknown-outcome-tests",
+    "cross-border-routing-review",
+    "institutional-operational-acceptance"
+  ],
+  "notProvided": [
+    "exchange-live-api-transport",
+    "automatic-freeze-live-execution",
+    "live-cex-directory-feed",
+    "monitoring-scheduler-and-snapshot-source",
+    "settlement-channel-transport",
+    "mlat-transmission-transport",
+    "legal-instrument-filing",
+    "attribution-live-evidence-feed"
+  ],
+  "providedBy": [
+    {
+      "capability": "exchange-api-submission",
+      "entry": "mithril-cex-exchange-submission",
+      "entrypoint": "bin/cex-exchange-submission.mjs",
+      "artifact": "https://github.com/mithril-lang/mithril-system-one @ a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+      "executionStatus": "deterministic-offline",
+      "guarantee": "canonical digest receipt with executed:false; the live counterparty action (API call, freeze, transmission, settlement, filing) is external to the tool and requires an owning-profile acknowledgement"
+    },
+    {
+      "capability": "automatic-freeze-execution",
+      "entry": "mithril-cex-freeze-execution",
+      "entrypoint": "bin/cex-freeze-execution.mjs",
+      "artifact": "https://github.com/mithril-lang/mithril-system-one @ a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+      "executionStatus": "deterministic-offline",
+      "guarantee": "canonical digest receipt with executed:false; the live counterparty action (API call, freeze, transmission, settlement, filing) is external to the tool and requires an owning-profile acknowledgement"
+    },
+    {
+      "capability": "exchange-on-chain-attribution",
+      "entry": "mithril-cex-attribution",
+      "entrypoint": "bin/cex-attribution.mjs",
+      "artifact": "https://github.com/mithril-lang/mithril-system-one @ a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+      "executionStatus": "deterministic-offline",
+      "guarantee": "canonical digest receipt with executed:false; the live counterparty action (API call, freeze, transmission, settlement, filing) is external to the tool and requires an owning-profile acknowledgement"
+    },
+    {
+      "capability": "legal-freeze-decision",
+      "entry": "mithril-cex-legal-freeze",
+      "entrypoint": "bin/cex-legal-freeze.mjs",
+      "artifact": "https://github.com/mithril-lang/mithril-system-one @ a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+      "executionStatus": "deterministic-offline",
+      "guarantee": "canonical digest receipt with executed:false; the live counterparty action (API call, freeze, transmission, settlement, filing) is external to the tool and requires an owning-profile acknowledgement"
+    },
+    {
+      "capability": "cross-border-mlat-submission",
+      "entry": "mithril-cex-mlat",
+      "entrypoint": "bin/cex-mlat.mjs",
+      "artifact": "https://github.com/mithril-lang/mithril-system-one @ a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+      "executionStatus": "deterministic-offline",
+      "guarantee": "canonical digest receipt with executed:false; the live counterparty action (API call, freeze, transmission, settlement, filing) is external to the tool and requires an owning-profile acknowledgement"
+    },
+    {
+      "capability": "recovery-payment-settlement",
+      "entry": "mithril-cex-recovery-payment",
+      "entrypoint": "bin/cex-recovery-payment.mjs",
+      "artifact": "https://github.com/mithril-lang/mithril-system-one @ a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+      "executionStatus": "deterministic-offline",
+      "guarantee": "canonical digest receipt with executed:false; the live counterparty action (API call, freeze, transmission, settlement, filing) is external to the tool and requires an owning-profile acknowledgement"
+    },
+    {
+      "capability": "universal-cex-directory",
+      "entry": "mithril-cex-directory",
+      "entrypoint": "bin/cex-directory.mjs",
+      "artifact": "https://github.com/mithril-lang/mithril-system-one @ a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+      "executionStatus": "deterministic-offline",
+      "guarantee": "canonical digest receipt with executed:false; the live counterparty action (API call, freeze, transmission, settlement, filing) is external to the tool and requires an owning-profile acknowledgement"
+    },
+    {
+      "capability": "live-cex-balance-monitoring-service",
+      "entry": "mithril-cex-monitoring",
+      "entrypoint": "bin/cex-monitoring.mjs",
+      "artifact": "https://github.com/mithril-lang/mithril-system-one @ a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+      "executionStatus": "deterministic-offline",
+      "guarantee": "canonical digest receipt with executed:false; the live counterparty action (API call, freeze, transmission, settlement, filing) is external to the tool and requires an owning-profile acknowledgement"
+    }
+  ]
 }

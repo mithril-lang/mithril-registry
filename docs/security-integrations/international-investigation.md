@@ -61,6 +61,10 @@ flowchart TB
 | iOS / Android | 現在はchat/balance/device grant。将来は機関が許可した通知/読取から評価し、証拠や承認能力を通知本文へ含めない |
 | Knowledge / Analysis / Graph / Kyber | 公開知識・方法・関係探索・窓口/手続説明。公的データの案内と機関間データ交換を分離する |
 
+## 提供するもの (0.1.0 追記: 決定論的オフラインツール)
+
+国外 MLAT 提出の**パッケージ化と検証**は `mcp/mithril-cex-mlat` (`mithril_cex_cross_border_mlat_submission`, `mithril-lang/mithril-system-one` 固定 commit) の決定論的ツールとして提供される。stdin JSON → stdout JSON、正規 digest 付き receipt、`executed:false` 保証。MLAT の**実送付** (NCB/MLAT 当局への送信) と受領確認はツール外であり、この契約の国際協力経路 (MLAT/NCB) での人間による提出・受領記録と整合させる。
+
 ## 受入条件と導入順
 
 1. 2つの架空機関・別trust・合成資料でオフライン受渡しを評価。原本を維持し、受領記録、宛先違い/改変拒否、翻訳対応、資料の限界を確認する。

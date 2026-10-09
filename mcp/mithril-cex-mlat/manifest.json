@@ -1,0 +1,55 @@
+{
+ "schemaVersion": "1",
+ "id": "mithril-cex-mlat",
+ "category": "security",
+ "name": "Mithril CEX Cross-Border MLAT Submission",
+ "version": "0.1.0",
+ "description": "Validates and packages a cross-border MLAT request with per-treaty routing (MLAT treaty, Hague Evidence Convention, Interpol CCN). Offline: the request is NOT transmitted by this tool.",
+ "author": "Mithril",
+ "license": "Apache-2.0",
+ "source": "https://github.com/mithril-lang/mithril-system-one",
+ "tags": [
+  "mithril",
+  "security",
+  "cex",
+  "asset-recovery"
+ ],
+ "permissions": [
+  "subprocess:node-fixed-entrypoint"
+ ],
+ "type": "mcp",
+ "artifact": {
+  "format": "git",
+  "url": "https://github.com/mithril-lang/mithril-system-one",
+  "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+  "entry": "bin/cex-mlat.mjs"
+ },
+ "command": "node",
+ "args": [
+  "${system_one_root}/bin/cex-mlat.mjs"
+ ],
+ "entry": "bin/cex-mlat.mjs",
+ "requirements": {
+  "commands": [
+   "node"
+  ]
+ },
+ "configuration": {
+  "system_one_root": "Reviewed checkout at artifact.commit (deterministic CEX tools are dependency-free; no npm install required)."
+ },
+ "env": {},
+ "tools": [
+  {
+   "name": "mithril_cex_cross_border_mlat_submission",
+   "authentication": "none",
+   "effect": "write"
+  }
+ ],
+ "executable": true,
+ "transport": "stdio",
+ "protocolVersion": "2025-06-18",
+ "authentication": {
+  "mode": "per-tool",
+  "credentialSource": "none"
+ }
+}

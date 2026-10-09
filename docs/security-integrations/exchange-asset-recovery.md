@@ -47,6 +47,21 @@ flowchart TB
 - 国外取引所は `international-investigation` の国際捜査連携経路 (MLAT・NCB) へ接続し、この契約の domestic 経路で国外提出をしない。
 - 期限切れ・却下・失効・unknown は別々の状態として保存し、結果不明を「安全」または「提出済み」に畳み込まない。失効時の取引所への通知記録を保持し、提出済み資料の recall を主張しない。
 
+## 提供するもの (0.1.0 追記: 決定論的オフラインツール)
+
+以下の 8 能力は `mithril-lang/mithril-system-one` (固定 commit) の決定論的ツールとして提供される。全ツールは stdin JSON → stdout JSON で、正規 digest 付き receipt と `executed:false` を保証する。**実取引所・実権限機関へのライブ操作 (API 送信・凍結・MLAT 送付・決済執行・提出) はツール外であり、所有プロファイルによる受領確認が必要**:
+
+| 能力 | エントリ | ツール |
+| --- | --- | --- |
+| 取引所 API 提出 | `mcp/mithril-cex-exchange-submission` | `mithril_cex_exchange_api_submission` |
+| 自動凍結実行 (ゲート) | `mcp/mithril-cex-freeze-execution` | `mithril_cex_automatic_freeze_execution` |
+| 取引所によるオンチェーン帰属 | `mcp/mithril-cex-attribution` | `mithril_cex_exchange_on_chain_attribution` |
+| 法的凍結判断 | `mcp/mithril-cex-legal-freeze` | `mithril_cex_legal_freeze_decision` |
+| 国外 MLAT 提出 (パッケージ) | `mcp/mithril-cex-mlat` | `mithril_cex_cross_border_mlat_submission` |
+| 回収支払決済 (指示) | `mcp/mithril-cex-recovery-payment` | `mithril_cex_recovery_payment_settlement` |
+| 汎用 CEX ディレクトリ | `mcp/mithril-cex-directory` | `mithril_cex_universal_cex_directory` |
+| ライブ CEX 残高監視 (レポート) | `mcp/mithril-cex-monitoring` | `mithril_cex_live_balance_monitoring` |
+
 ## 提供しないもの
 
-取引所 API 提出、自動凍結実行、取引所によるオンチェーン帰属、法的凍結判断、国外 MLAT 提出、回収支払決済、汎用 CEX ディレクトリ、ライブ CEX 残高監視サービスは提供しない。これらは本契約の範囲外であり、将来の別モジュールとして評価する。
+取引所 API へのライブ送信、自動凍結のライブ執行、ライブ CEX ディレクトリフィード、監視スケジューラとスナップショット取得源、決済チャネル送信、MLAT の実送付、法的文書の提出、帰属のエビデンスライブフィードは提供しない。これらは本契約の範囲外であり、将来の別モジュールとして評価する。

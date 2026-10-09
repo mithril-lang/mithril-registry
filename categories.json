@@ -33,7 +33,7 @@
     },
     {
       "type": "mcp",
-      "count": 6,
+      "count": 14,
       "categories": [
         {
           "name": "data",
@@ -45,7 +45,7 @@
         },
         {
           "name": "security",
-          "count": 2
+          "count": 10
         }
       ]
     },
