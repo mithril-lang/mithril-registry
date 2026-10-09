@@ -289,7 +289,12 @@ class Cases:
                 raise ValueError('Action integrity failed')
         else:
             write_new(target, canonical(record))
-        return {'actionId': aid, **record, 'state': 'prepared', 'submitted': False}
+        events = self.action_events(cid, aid)
+        state = events[-1]['state'] if events else 'prepared'
+        sent_states = {'submitted', 'acknowledged', 'under-review', 'frozen', 'declined', 'returned-and-reconciled'}
+        return {'actionId': aid, **record, 'state': state,
+                'submittedObservationRecorded': any(e['state'] in sent_states for e in events),
+                'retryBlocked': state in ('dispatch-started', 'unknown')}
 
     def action_load(self, cid, aid):
         self.metadata(cid)

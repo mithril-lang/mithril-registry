@@ -158,12 +158,15 @@ class ResponseTests(unittest.TestCase):
         self.event(first, 'unknown')
         with self.assertRaisesRegex(ValueError, 'reconcile'):
             self.dispatch(first)
-        second, _ = self.prepare('Changed synthetic disclosure')
+        second, second_args = self.prepare('Changed synthetic disclosure')
         with self.assertRaisesRegex(ValueError, 'unresolved'):
             self.dispatch(second)
         self.event(first, 'reconciled-not-submitted')
         self.dispatch(second)
         self.event(second, 'acknowledged')
+        repeated = module.execute(self.store, 'fraud_action_prepare', second_args)
+        self.assertEqual(repeated['state'], 'acknowledged')
+        self.assertTrue(repeated['submittedObservationRecorded'])
         status = module.execute(self.store, 'fraud_action_status', {'caseId': 'fixture'})
         observed = next(a for a in status['actions'] if a['actionId'] == second['actionId'])
         self.assertTrue(observed['receiptRecorded'])
