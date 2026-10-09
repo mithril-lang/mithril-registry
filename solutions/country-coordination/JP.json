@@ -1,0 +1,27 @@
+{
+  "countryId": "JP",
+  "iso3166": "JP",
+  "jurisdictionName": "日本",
+  "sourceRef": "planning-hypothesis-2026-10-09; official structure to be confirmed per case",
+  "verifiedAt": "2026-10-09",
+  "status": "agencies-unverified",
+  "agencies": [
+    {"agencyId": "jp-nps-cyber", "agencyType": "police", "name": "国家警察庁サイバー犯罪対策局", "role": "cyber-investigation", "channelRef": "national-cyber-lead", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "jp-metpol-cyber", "agencyType": "police", "name": "警視庁サイバー犯罪対策部", "role": "major-metropolitan-cyber-lead", "channelRef": "metropolitan-cyber-lead", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "jp-sapporo-pol", "agencyType": "police", "name": "札幌南警察署 / 北海道警察", "role": "regional-cyber-lead", "channelRef": "regional-cyber-lead", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "jp-prosec", "agencyType": "prosecution", "name": "検察庁 (各検察庁・検察官)", "role": "instruments-indictment", "channelRef": "prosecution-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "jp-fsa", "agencyType": "regulator", "name": "金融庁 (暗号資産交換業務監督)", "role": "cex-regulator-referral", "channelRef": "fsa-regulator-liaison", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "jp-fiu", "agencyType": "fiu", "name": "金融情報分析室 (FIU)", "role": "financial-intelligence", "channelRef": "fiu-analysis", "authorityRef": "unverified", "status": "unverified"},
+    {"agencyId": "jp-court", "agencyType": "judicial", "name": "裁判所 (仮処分・差押え)", "role": "interim-freeze-instruments", "channelRef": "court-interim-measure", "authorityRef": "unverified", "status": "unverified"}
+  ],
+  "channels": [
+    {"routeId": "jp-interpol-ncb", "countryPair": ["JP", "*"], "mechanism": "interpol-ncb-tokyo", "competentAuthority": "interpol-ncb-jp", "latencyClass": "weeks-to-months", "status": "unconfirmed"},
+    {"routeId": "jp-mlat-legal", "countryPair": ["JP", "*"], "mechanism": "mutual-legal-assistance-treaty", "competentAuthority": "ministry-of-justice-jp", "latencyClass": "months", "status": "unconfirmed"},
+    {"routeId": "jp-fsa-exchange", "countryPair": ["JP", "JP"], "mechanism": "fsa-to-registered-cex", "competentAuthority": "fsa", "latencyClass": "days-to-weeks", "status": "unconfirmed"}
+  ],
+  "legalBasisExamples": ["金融商品取引法 (暗号資産交換業務)", "民事執行法 (差押え・仮差押え)", "民事訴訟法 (仮処分)"],
+  "exchangePresence": [
+    {"exchangeId": "binance-jp", "registeredCountryId": "JP", "operationalCountryIds": ["JP"], "deskRef": "binance-jp-liaison", "regulatorRef": "jp-fsa", "status": "unverified"},
+    {"exchangeId": "coinex", "registeredCountryId": "JP", "operationalCountryIds": ["JP"], "deskRef": "coinex-liaison", "regulatorRef": "jp-fsa", "status": "unverified"}
+  ]
+}

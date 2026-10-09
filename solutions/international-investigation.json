@@ -5,7 +5,7 @@
   "status": "planned",
   "executable": false,
   "document": "docs/security-integrations/international-investigation.md",
-  "relatedSolutionIds": ["agency-national-cyber", "agency-forensic-lab", "agency-prosecution"],
+  "relatedSolutionIds": ["agency-national-cyber", "agency-forensic-lab", "agency-prosecution", "mithril-exchange-asset-recovery-design", "mithril-country-agency-coordination-design"],
   "principles": {
     "domesticAuthorityRetained": true,
     "sourceCustodyRetained": true,
