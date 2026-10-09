@@ -1,0 +1,55 @@
+{
+ "schemaVersion": "1",
+ "id": "mithril-cex-exchange-submission",
+ "category": "security",
+ "name": "Mithril CEX Exchange API Submission",
+ "version": "0.1.0",
+ "description": "Validates and packages an exchange freeze/submission request into a canonical, digest-stamped submission package. Offline: submission to the exchange API is NOT executed by this tool.",
+ "author": "Mithril",
+ "license": "Apache-2.0",
+ "source": "https://github.com/mithril-lang/mithril-system-one",
+ "tags": [
+  "mithril",
+  "security",
+  "cex",
+  "asset-recovery"
+ ],
+ "permissions": [
+  "subprocess:node-fixed-entrypoint"
+ ],
+ "type": "mcp",
+ "artifact": {
+  "format": "git",
+  "url": "https://github.com/mithril-lang/mithril-system-one",
+  "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+  "entry": "bin/cex-exchange-submission.mjs"
+ },
+ "command": "node",
+ "args": [
+  "${system_one_root}/bin/cex-exchange-submission.mjs"
+ ],
+ "entry": "bin/cex-exchange-submission.mjs",
+ "requirements": {
+  "commands": [
+   "node"
+  ]
+ },
+ "configuration": {
+  "system_one_root": "Reviewed checkout at artifact.commit (deterministic CEX tools are dependency-free; no npm install required)."
+ },
+ "env": {},
+ "tools": [
+  {
+   "name": "mithril_cex_exchange_api_submission",
+   "authentication": "none",
+   "effect": "write"
+  }
+ ],
+ "executable": true,
+ "transport": "stdio",
+ "protocolVersion": "2025-06-18",
+ "authentication": {
+  "mode": "per-tool",
+  "credentialSource": "none"
+ }
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 36,
+  "count": 44,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -316,6 +316,326 @@
         "url": "https://github.com/mithril-lang/mithril-system-one",
         "commit": "f940459126490a81b86d6d3474e48205b7bdf9c2",
         "entry": "bin/mithril-mcp.mjs"
+      },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-cex-attribution",
+      "type": "mcp",
+      "category": "security",
+      "name": "Mithril CEX On-Chain Attribution",
+      "version": "0.1.0",
+      "description": "Attributes on-chain entities to exchanges with a deterministic evidence rubric (low/medium/high/confirmed tiers). No live endpoint is called; external tracker evidence is passed in by the caller.",
+      "tags": [
+        "mithril",
+        "security",
+        "cex",
+        "asset-recovery"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-cex-attribution",
+      "icon": null,
+      "checksum": "sha256:b44ae60e80964e8a14a815960c64c1c0eb1ed338ee9e7bdeae66b80e44e488bb",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "stdio",
+        "authentication": "per-tool",
+        "command": "node",
+        "args": [
+          "${system_one_root}/bin/cex-attribution.mjs"
+        ]
+      },
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "entry": "bin/cex-attribution.mjs"
+      },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-cex-directory",
+      "type": "mcp",
+      "category": "security",
+      "name": "Mithril CEX Universal CEX Directory",
+      "version": "0.1.0",
+      "description": "Deterministic universal CEX directory service: query / upsert / prune operations over a caller-supplied directory state, with per-entry freshness verdicts and canonical digests. No network.",
+      "tags": [
+        "mithril",
+        "security",
+        "cex",
+        "asset-recovery"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-cex-directory",
+      "icon": null,
+      "checksum": "sha256:e86ada99fe593db6e94289458c3390bed67f761aa601878539011ec5202a7498",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "stdio",
+        "authentication": "per-tool",
+        "command": "node",
+        "args": [
+          "${system_one_root}/bin/cex-directory.mjs"
+        ]
+      },
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "entry": "bin/cex-directory.mjs"
+      },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-cex-exchange-submission",
+      "type": "mcp",
+      "category": "security",
+      "name": "Mithril CEX Exchange API Submission",
+      "version": "0.1.0",
+      "description": "Validates and packages an exchange freeze/submission request into a canonical, digest-stamped submission package. Offline: submission to the exchange API is NOT executed by this tool.",
+      "tags": [
+        "mithril",
+        "security",
+        "cex",
+        "asset-recovery"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-cex-exchange-submission",
+      "icon": null,
+      "checksum": "sha256:511c029bf0418f5c91b2668e12c7193de057154a28ba81aa1e50a8e7b941db45",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "stdio",
+        "authentication": "per-tool",
+        "command": "node",
+        "args": [
+          "${system_one_root}/bin/cex-exchange-submission.mjs"
+        ]
+      },
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "entry": "bin/cex-exchange-submission.mjs"
+      },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-cex-freeze-execution",
+      "type": "mcp",
+      "category": "security",
+      "name": "Mithril CEX Automatic Freeze Execution",
+      "version": "0.1.0",
+      "description": "Evaluates a deterministic automatic-freeze policy gate over a validated submission package and exchange account state. Returns an executable/no-action plan; the freeze itself is NOT executed by this tool.",
+      "tags": [
+        "mithril",
+        "security",
+        "cex",
+        "asset-recovery"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-cex-freeze-execution",
+      "icon": null,
+      "checksum": "sha256:9e6e032093e08de78f183714764d114919ac0bfb969000982d9345ebfa806863",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "stdio",
+        "authentication": "per-tool",
+        "command": "node",
+        "args": [
+          "${system_one_root}/bin/cex-freeze-execution.mjs"
+        ]
+      },
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "entry": "bin/cex-freeze-execution.mjs"
+      },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-cex-legal-freeze",
+      "type": "mcp",
+      "category": "security",
+      "name": "Mithril CEX Legal Freeze Decision",
+      "version": "0.1.0",
+      "description": "Evaluates a deterministic legal-freeze decision matrix over jurisdiction, custody and authority facts, recommending an instrument (preliminary injunction, seizure order, MLAT request, ...). Does not issue or file the instrument.",
+      "tags": [
+        "mithril",
+        "security",
+        "cex",
+        "asset-recovery"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-cex-legal-freeze",
+      "icon": null,
+      "checksum": "sha256:3e6a2b18d77a9d9b5ae3934a50240d5fa2ee9e6bbb21dda32f7fd2ea32990084",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "stdio",
+        "authentication": "per-tool",
+        "command": "node",
+        "args": [
+          "${system_one_root}/bin/cex-legal-freeze.mjs"
+        ]
+      },
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "entry": "bin/cex-legal-freeze.mjs"
+      },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-cex-mlat",
+      "type": "mcp",
+      "category": "security",
+      "name": "Mithril CEX Cross-Border MLAT Submission",
+      "version": "0.1.0",
+      "description": "Validates and packages a cross-border MLAT request with per-treaty routing (MLAT treaty, Hague Evidence Convention, Interpol CCN). Offline: the request is NOT transmitted by this tool.",
+      "tags": [
+        "mithril",
+        "security",
+        "cex",
+        "asset-recovery"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-cex-mlat",
+      "icon": null,
+      "checksum": "sha256:03bff3ef3c49cc2c6a5a28f407f34f516456f9fc114d997c283c21e7bb87d3f6",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "stdio",
+        "authentication": "per-tool",
+        "command": "node",
+        "args": [
+          "${system_one_root}/bin/cex-mlat.mjs"
+        ]
+      },
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "entry": "bin/cex-mlat.mjs"
+      },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-cex-monitoring",
+      "type": "mcp",
+      "category": "security",
+      "name": "Mithril CEX Live Balance Monitoring",
+      "version": "0.1.0",
+      "description": "Deterministic live CEX balance-monitoring report over caller-supplied snapshots: deltas, threshold violations, freeze-state verdicts, monitoring receipt digest. No on-chain query is made by this tool; a scheduler supplies fresh snapshots.",
+      "tags": [
+        "mithril",
+        "security",
+        "cex",
+        "asset-recovery"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-cex-monitoring",
+      "icon": null,
+      "checksum": "sha256:37c7842eb22531660559656f2037b279aa55b1c9622984dc038b568c11045720",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "stdio",
+        "authentication": "per-tool",
+        "command": "node",
+        "args": [
+          "${system_one_root}/bin/cex-monitoring.mjs"
+        ]
+      },
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "entry": "bin/cex-monitoring.mjs"
+      },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-cex-recovery-payment",
+      "type": "mcp",
+      "category": "security",
+      "name": "Mithril CEX Recovery Payment Settlement",
+      "version": "0.1.0",
+      "description": "Builds a canonical recovery-payment settlement instruction with idempotency key and fee allocation. No funds move: settlement execution requires the owning profile to present the instruction to the settlement channel.",
+      "tags": [
+        "mithril",
+        "security",
+        "cex",
+        "asset-recovery"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-cex-recovery-payment",
+      "icon": null,
+      "checksum": "sha256:b82da4269b6687a542c4de528c66355f915c9e9fbe78a620cfba08e94b0a7f05",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "stdio",
+        "authentication": "per-tool",
+        "command": "node",
+        "args": [
+          "${system_one_root}/bin/cex-recovery-payment.mjs"
+        ]
+      },
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "entry": "bin/cex-recovery-payment.mjs"
       },
       "solutionIds": []
     },
