@@ -1332,7 +1332,7 @@
       "license": "Apache-2.0",
       "path": "skills/security/mithril-crypto-fraud-response",
       "icon": null,
-      "checksum": "sha256:d7db2173576a6983a980b1296abadcb5ea58bf04c1c321b8f494fa6ea93d6135",
+      "checksum": "sha256:357ee196f0e11ff4f697ce3d02448fe127ad94cbd94174bb5e8c652f647a4c59",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,
