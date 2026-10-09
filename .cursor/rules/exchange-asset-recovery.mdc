@@ -1,0 +1,11 @@
+description: Planned exchange asset-recovery contract: on-chain trace to CEX freeze/recovery request boundaries.
+alwaysApply: true
+---
+
+Canonical design: `solutions/exchange-asset-recovery.json` and `docs/security-integrations/exchange-asset-recovery.md`.
+Keep status planned and executable false. Connect kill-chain on-chain reports to exchange stolen-funds desk / law-enforcement liaison / court / regulator channels without creating an executable exchange tool, API submission connector or credential.
+Evidence packages pin tx refs to block height, API snapshot hash, fetch time and query window. Attribution levels are separate: on-chain provenance, third-party tracker label, exchange confirmation, court order return. Third-party labels are not on-chain proof; missing outflow is not proof of non-exit.
+Live wallet status is observed at fetch time and re-verified before submission because hot wallets keep paying out. Freeze is not recovery; recovery is only finalized by a legal instrument.
+Bind requests to exchange desk, purpose, immutable proposal/manifest digest, classification, wallet refs, amounts and expiry. Desk, purpose, manifest, wallet, channel, legal basis, authority expiry or material on-chain state change invalidate approval. Submission is not acknowledgment; freeze is not recovery; partial amounts are allowed.
+Unknown, declined, expired and revoked states are preserved separately; never collapse an unknown outcome into submitted or safe. Reconcile submission and exchange ticket before retry. Revocation notifies the exchange and records the decision without claiming recall of submitted evidence.
+Cross-border exchanges route through the international-investigation contract (MLAT/NCB); domestic channels do not submit abroad.
