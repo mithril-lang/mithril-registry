@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 45,
+  "count": 46,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -1434,6 +1434,33 @@
       "solutionIds": [
         "agency-kill-chain"
       ]
+    },
+    {
+      "id": "mithril-message-spam-watch",
+      "type": "skill",
+      "category": "security",
+      "name": "mithril-message-spam-watch",
+      "version": "0.1.0",
+      "description": "Deterministic local spam/phishing triage for the operator's own iMessage (chat.db) and Mail (.emlx) in a bounded window, using the phishing_dns corpus, a Contacts whitelist and deterministic signal rules; publishes observations with manifest to R2 with read-back sha256 and archives to Google Drive. Read-only over sources; no LLM inference, no sending.",
+      "tags": [
+        "spam",
+        "phishing",
+        "imessage",
+        "mail",
+        "triage",
+        "evidence",
+        "local",
+        "deterministic"
+      ],
+      "author": "jun (junkawasaki), Mithril",
+      "license": "MIT",
+      "path": "skills/security/mithril-message-spam-watch",
+      "icon": null,
+      "checksum": "sha256:09282f63fcf5a1370a1675e2bb50ef069ee3bfe4fc2fe6cb8a4b8c60c8ce550c",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
+      "solutionIds": []
     },
     {
       "id": "mithril-public-review",
