@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 44,
+  "count": 45,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -1307,6 +1307,32 @@
       "path": "skills/security/mithril-brand-protection",
       "icon": null,
       "checksum": "sha256:9fcace10a788238b1de5b6d9f2af87aebee19d5083ac32b253c7791b776e9e87",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-crypto-fraud-response",
+      "type": "skill",
+      "category": "security",
+      "name": "mithril-crypto-fraud-response",
+      "version": "0.1.0",
+      "description": "Prepare authorized Android SMS and LINE export evidence for cryptocurrency fraud response, source-linked identifier and transaction review, police reports, exchange preservation requests and legal counsel handoff.",
+      "tags": [
+        "crypto-fraud",
+        "android",
+        "line",
+        "sms",
+        "evidence",
+        "recovery",
+        "legal"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/security/mithril-crypto-fraud-response",
+      "icon": null,
+      "checksum": "sha256:0c0d478954c624440b115b9bb4076e1c099b4689f655e29a5c09377a92ae7f1d",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,

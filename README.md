@@ -65,6 +65,19 @@ python3 scripts/package_plugin.py mithril-data-catalog --check
 
 [Forensic Evidence](skills/security/mithril-forensic-evidence/SKILL.md) adds a local agency-evaluation toolkit: signed packages retaining original bytes, an independent verifier with an external trust key, signed custody/checkpoints, case/role/input-root policy and source-linked report drafts with a separate reviewer. It includes an offline-wheel distribution builder and synthetic acceptance exercise. This is supervised local evaluation software; remote identity, WORM, HSM, vendor authenticity and agency acceptance remain separately qualified. See the [agency evaluation kit](docs/security-integrations/agency-evaluation.md).
 
+## Cryptocurrency fraud response
+
+[Crypto Fraud Response](skills/security/mithril-crypto-fraud-response/SKILL.md) adds a
+local Skill, Python CLI, five case-scoped stdio MCP tools and a dedicated
+Desktop/Agent profile installer. It retains selected LINE/text/SMS exports and
+attachments, verifies original bytes, extracts source-linked candidate identifiers
+and supplied transaction edges, and prepares police/exchange/counsel checklists.
+The [workflow](skills/security/mithril-crypto-fraud-response/references/workflow.md)
+connects those drafts to existing offline CEX packaging and separately approved
+official actions. Direct phone acquisition, live blockchain tracing, verified
+identity, outbound reports, freezing, payments and automatic monitoring are not
+implemented. The installer copies no credentials and starts no background jobs.
+
 ## Cyber kill-chain evaluation
 
 [Cyber Kill Chain](skills/security/mithril-kill-chain/SKILL.md) maps a supplied evidence set onto the seven-phase kill chain and reports covered, partial and absent phases per phase, plus bounded C2 candidates from local classic .pcap files (DNS query names, TLS SNI, cleartext HTTP hosts, periodic TCP beacon streams). A standard-library Python CLI and read-only local stdio MCP bridge are bundled with the Skill; there is no network, no state, and no attack execution. Coverage is an evidence-availability statement, not attribution; absent phases and beacon candidates are collection gaps and periodicity observations, not confirmed findings. The [contract](skills/security/mithril-kill-chain/references/contract.md) documents input shapes, limits and failure handling; the [collection loop](skills/security/mithril-kill-chain/references/workflows.md) is the supervised operator workflow. A [synthetic acceptance exercise](skills/security/mithril-kill-chain/scripts/acceptance.py) drives the public CLI and stdio MCP bridge and prints a machine-readable `synthetic-local-evaluation` receipt; the [validation receipt](docs/security-integrations/killchain-validation.md) records the observable checks and reproduction steps. Full-packet analysis, IPv6, TLS certificate validation, attribution and legal qualification remain out of scope.

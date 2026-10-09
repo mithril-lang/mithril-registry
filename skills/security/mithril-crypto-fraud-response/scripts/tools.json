@@ -1,0 +1,175 @@
+[
+  {
+    "name": "fraud_case_create",
+    "description": "Create a private case after recording owner/representative scope. Operator declaration is not independent authentication.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
+        },
+        "authority": {
+          "type": "object",
+          "properties": {
+            "authorized": {
+              "type": "boolean",
+              "const": true
+            },
+            "basis": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "operator": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "authorized",
+            "basis",
+            "scope",
+            "operator"
+          ],
+          "additionalProperties": false
+        },
+        "inputRoots": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "jurisdiction": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "caseId",
+        "authority",
+        "inputRoots"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "fraud_import",
+    "description": "Retain selected authorized export bytes locally; no device acquisition or upload.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
+        },
+        "path": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "line-text",
+            "message-text",
+            "sms-xml",
+            "chain-json",
+            "attachment"
+          ]
+        },
+        "collection": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "caseId",
+        "path",
+        "format"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "fraud_inventory",
+    "description": "Reverify retained evidence bytes and return case inventory.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
+        }
+      },
+      "required": [
+        "caseId"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "fraud_analyze",
+    "description": "Extract source-linked candidates and supplied transaction edges. No identity or live chain tracing.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
+        }
+      },
+      "required": [
+        "caseId"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "fraud_draft",
+    "description": "Prepare missing-field checklists for police/exchange/counsel review; never submit or recover funds.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
+        }
+      },
+      "required": [
+        "caseId"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  }
+]
