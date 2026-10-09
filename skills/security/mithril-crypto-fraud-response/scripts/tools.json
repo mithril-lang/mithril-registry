@@ -171,5 +171,233 @@
       "idempotentHint": true,
       "openWorldHint": false
     }
+  },
+  {
+    "name": "fraud_action_prepare",
+    "description": "Bind selected/redacted retained payload to an official recipient and purpose; local preparation only.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recipient": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "officialUrl": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "name",
+            "officialUrl"
+          ],
+          "additionalProperties": false
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reporterRole": {
+          "type": "string",
+          "minLength": 1
+        },
+        "legalBasis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "routeVerifiedAt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "payloadEvidenceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supportingEvidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "caseId",
+        "recipient",
+        "purpose",
+        "reporterRole",
+        "legalBasis",
+        "routeVerifiedAt",
+        "payloadEvidenceId",
+        "supportingEvidenceIds"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "fraud_action_event",
+    "description": "Append evidence-linked disclosure, dispatch and outcome observations; never sends or freezes funds.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "dispatch-started",
+            "submitted",
+            "unknown",
+            "reconciled-not-submitted",
+            "acknowledged",
+            "under-review",
+            "frozen",
+            "declined",
+            "returned-and-reconciled"
+          ]
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "observedAt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "approval": {
+          "type": "object",
+          "properties": {
+            "authorized": {
+              "type": "boolean",
+              "const": true
+            },
+            "actionId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operator": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "authorized",
+            "actionId",
+            "basis",
+            "operator"
+          ],
+          "additionalProperties": false
+        },
+        "amount": {
+          "type": "string",
+          "minLength": 1
+        },
+        "currency": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "caseId",
+        "actionId",
+        "state",
+        "evidenceIds",
+        "note",
+        "observedAt"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "fraud_action_status",
+    "description": "Reverify action/evidence references and show separate dispatch, receipt, freeze and return observations.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "caseId"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "fraud_receipt_decode",
+    "description": "Decode retained RFC822 MIME headers and plain text including Japanese charsets. No sender or receipt authentication.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceId": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "caseId",
+        "evidenceId"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
   }
 ]

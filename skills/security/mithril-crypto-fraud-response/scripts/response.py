@@ -2,6 +2,11 @@
 """Local, case-scoped fraud evidence preparation. No network or device acquisition."""
 import argparse
 import datetime as dt
+from decimal import Decimal, InvalidOperation
+from email import policy
+from email.parser import BytesParser
+import fcntl
+from urllib.parse import urlsplit
 import hashlib
 import json
 import os
@@ -11,7 +16,7 @@ import sys
 import tempfile
 import xml.etree.ElementTree as ET
 
-VERSION = '0.1.0'
+VERSION = '0.2.0'
 MAX_BYTES = 16 * 1024 * 1024
 ID = re.compile(r'^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$')
 PATTERNS = {
@@ -34,6 +39,17 @@ def digest(raw):
 
 def canonical(value):
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode()
+
+
+def validate_timestamp(value):
+    if not isinstance(value, str):
+        raise ValueError('Timestamp must include an explicit timezone')
+    try:
+        stamp = dt.datetime.fromisoformat(value.replace('Z', '+00:00'))
+    except ValueError:
+        raise ValueError('Invalid timestamp') from None
+    if stamp.tzinfo is None:
+        raise ValueError('Timestamp must include an explicit timezone')
 
 
 def safe_path(path):
@@ -239,13 +255,218 @@ class Cases:
                 ], 'recoveryStatus': 'not-verified', 'limitations': analysis['limitations']}
 
 
+    def evidence_refs(self, case_id, ids):
+        if not isinstance(ids, list) or not ids or len(ids) != len(set(ids)):
+            raise ValueError('Specify distinct retained evidence IDs')
+        inventory = {r['evidenceId']: r for r, _ in self.inventory(case_id)}
+        if any(eid not in inventory for eid in ids):
+            raise ValueError('Evidence reference is not retained in this case')
+        return [{'evidenceId': eid, 'sha256': inventory[eid]['sha256']} for eid in ids]
+
+    def action_prepare(self, args):
+        cid = args['caseId']
+        self.metadata(cid)
+        recipient = args['recipient']
+        validate_timestamp(args['routeVerifiedAt'])
+        route = urlsplit(recipient['officialUrl'])
+        if route.scheme != 'https' or not route.hostname or route.username or route.password or route.query or route.fragment:
+            raise ValueError('Use a public official HTTPS route without credentials, tokens or query parameters')
+        for value in (recipient['name'], args['purpose'], args['legalBasis'], args['reporterRole'], args['routeVerifiedAt']):
+            if not isinstance(value, str) or not value.strip():
+                raise ValueError('Recipient, purpose, role, legal basis and route verification time are required')
+        # Selected/redacted payload is an imported original, not an arbitrary path.
+        refs = self.evidence_refs(cid, [args['payloadEvidenceId'], *args['supportingEvidenceIds']])
+        record = {'caseId': cid, 'recipient': recipient, 'purpose': args['purpose'],
+                  'reporterRole': args['reporterRole'], 'legalBasis': args['legalBasis'],
+                  'routeVerifiedAt': args['routeVerifiedAt'], 'payload': refs[0], 'supportingEvidence': refs[1:],
+                  'externalExecution': False, 'authorityVerification': 'operator-declared'}
+        aid = 'action-' + digest(canonical(record))
+        directory = safe_path(str(self.case(cid) / 'actions'))
+        directory.mkdir(mode=0o700, exist_ok=True)
+        target = directory / (aid + '.json')
+        if target.exists():
+            if read_bytes(target) != canonical(record):
+                raise ValueError('Action integrity failed')
+        else:
+            write_new(target, canonical(record))
+        return {'actionId': aid, **record, 'state': 'prepared', 'submitted': False}
+
+    def action_load(self, cid, aid):
+        self.metadata(cid)
+        if not isinstance(aid, str) or not re.fullmatch(r'action-[a-f0-9]{64}', aid):
+            raise ValueError('Invalid action ID')
+        record = json.loads(read_bytes(self.case(cid) / 'actions' / (aid + '.json')))
+        if record.get('caseId') != cid or aid != 'action-' + digest(canonical(record)):
+            raise ValueError('Action integrity failed')
+        refs = [record['payload'], *record['supportingEvidence']]
+        if refs != self.evidence_refs(cid, [r['evidenceId'] for r in refs]):
+            raise ValueError('Action evidence integrity failed')
+        return record
+
+    def action_events(self, cid, aid):
+        directory = safe_path(str(self.case(cid) / 'actions' / aid))
+        if not directory.exists():
+            return []
+        events, previous = [], None
+        for i, path in enumerate(sorted(directory.glob('*.json')), 1):
+            event = json.loads(read_bytes(path))
+            if path.name != f'{i:06d}.json' or event['sequence'] != i or event['previousDigest'] != previous or event['actionId'] != aid:
+                raise ValueError('Event chain integrity failed')
+            if event['evidence'] != self.evidence_refs(cid, [r['evidenceId'] for r in event['evidence']]):
+                raise ValueError('Event evidence integrity failed')
+            events.append(event)
+            previous = digest(canonical(event))
+        return events
+
+    def action_event(self, args):
+        cid, aid = args['caseId'], args['actionId']
+        validate_timestamp(args['observedAt'])
+        record = self.action_load(cid, aid)
+        directory = safe_path(str(self.case(cid) / 'actions' / aid))
+        directory.mkdir(mode=0o700, exist_ok=True)
+        lock = safe_path(str(directory.parent / '.lock'))
+        fd = os.open(lock, os.O_CREAT | os.O_RDWR, 0o600)
+        with os.fdopen(fd, 'r+') as stream:
+            fcntl.flock(stream, fcntl.LOCK_EX)
+            events = self.action_events(cid, aid)
+            state = events[-1]['state'] if events else 'prepared'
+            target = args['state']
+            transitions = {
+                'prepared': {'dispatch-started'},
+                'reconciled-not-submitted': {'dispatch-started'},
+                'dispatch-started': {'submitted', 'unknown', 'acknowledged', 'reconciled-not-submitted'},
+                'unknown': {'submitted', 'acknowledged', 'reconciled-not-submitted'},
+                'submitted': {'acknowledged', 'under-review', 'frozen', 'declined', 'returned-and-reconciled'},
+                'acknowledged': {'under-review', 'frozen', 'declined', 'returned-and-reconciled'},
+                'under-review': {'under-review', 'frozen', 'declined', 'returned-and-reconciled'},
+                'frozen': {'under-review', 'declined', 'returned-and-reconciled'},
+                'declined': set(), 'returned-and-reconciled': set()}
+            if target not in transitions.get(state, set()):
+                raise ValueError('Invalid transition; reconcile uncertain dispatch before retrying')
+            refs = self.evidence_refs(cid, args['evidenceIds'])
+            note = args['note']
+            if not isinstance(note, str) or not note.strip() or len(note) > 4000:
+                raise ValueError('Provide a bounded observation and source locator')
+            approval = args.get('approval')
+            if target == 'dispatch-started':
+                if not isinstance(approval, dict) or approval.get('authorized') is not True or approval.get('actionId') != aid:
+                    raise ValueError('Disclosure/external action approval must bind this exact action ID')
+                for key in ('basis', 'operator'):
+                    if not isinstance(approval.get(key), str) or not approval[key].strip():
+                        raise ValueError('External action approval requires basis and operator')
+                # A changed payload must not bypass an unresolved attempt to this desk.
+                for sibling in directory.parent.glob('action-*.json'):
+                    other_id = sibling.stem
+                    if other_id == aid:
+                        continue
+                    other = self.action_load(cid, other_id)
+                    history = self.action_events(cid, other_id)
+                    if other['recipient']['officialUrl'] == record['recipient']['officialUrl'] and other['purpose'] == record['purpose'] and history and history[-1]['state'] in ('dispatch-started', 'unknown'):
+                        raise ValueError('Another dispatch to this recipient is unresolved; reconcile first')
+            amount = args.get('amount')
+            currency = args.get('currency')
+            if target in ('frozen', 'returned-and-reconciled'):
+                if not isinstance(amount, str) or len(amount) > 64 or not re.fullmatch(r'(?:0|[1-9][0-9]*)(?:\.[0-9]+)?', amount):
+                    raise ValueError('Use an exact positive decimal amount')
+                try:
+                    number = Decimal(amount) if isinstance(amount, str) else Decimal('NaN')
+                except InvalidOperation:
+                    raise ValueError('Use an exact positive decimal amount') from None
+                if not number.is_finite() or number <= 0 or not isinstance(currency, str) or not re.fullmatch(r'[A-Z]{3,10}', currency):
+                    raise ValueError('Use a positive amount and explicit currency')
+            elif amount is not None or currency is not None:
+                raise ValueError('Only confirmed freeze/return observations carry amounts')
+            event = {'actionId': aid, 'sequence': len(events)+1, 'previousDigest': digest(canonical(events[-1])) if events else None,
+                     'recordedAt': now(), 'observedAt': args['observedAt'], 'state': target, 'evidence': refs,
+                     'note': note, 'approval': approval if target == 'dispatch-started' else None,
+                     'amount': amount, 'currency': currency, 'authenticity': 'operator-observed-not-independently-verified'}
+            write_new(directory / f"{event['sequence']:06d}.json", canonical(event))
+            return event
+
+    def action_status(self, args):
+        cid = args['caseId']
+        self.metadata(cid)
+        out = []
+        directory = safe_path(str(self.case(cid) / 'actions'))
+        if directory.exists():
+            for path in sorted(directory.glob('action-*.json')):
+                aid = path.stem
+                record = self.action_load(cid, aid)
+                events = self.action_events(cid, aid)
+                state = events[-1]['state'] if events else 'prepared'
+                out.append({'actionId': aid, 'recipient': record['recipient'], 'purpose': record['purpose'],
+                            'state': state, 'events': events, 'retryBlocked': state in ('dispatch-started', 'unknown'),
+                            'receiptRecorded': any(e['state'] == 'acknowledged' for e in events),
+                            'freezeObservationRecorded': any(e['state'] == 'frozen' for e in events),
+                            'returnObservationRecorded': any(e['state'] == 'returned-and-reconciled' for e in events)})
+        return {'caseId': cid, 'actions': out, 'externalExecution': False,
+                'limitations': ['Local operator records, not bank/police authentication',
+                                'Do not sum overlapping frozen/returned amounts or currencies',
+                                'Receipt is not a freeze, reimbursement or formal complaint acceptance']}
+
+    def receipt_decode(self, args):
+        cid, eid = args['caseId'], args['evidenceId']
+        inventory = {r['evidenceId']: (r, raw) for r, raw in self.inventory(cid)}
+        if eid not in inventory or inventory[eid][0]['format'] != 'attachment':
+            raise ValueError('Import the original RFC822 email as an attachment first')
+        receipt, raw = inventory[eid]
+        message = BytesParser(policy=policy.default).parsebytes(raw)
+        if message.defects:
+            raise ValueError('Malformed RFC822 email requires manual review')
+        parts = []
+        for part in message.walk():
+            if part.get_content_type() == 'text/plain' and part.get_content_disposition() != 'attachment':
+                if part.defects:
+                    raise ValueError('Malformed MIME requires manual review')
+                parts.append({'charset': part.get_content_charset(), 'text': part.get_content()})
+        return {'evidenceId': eid, 'sha256': receipt['sha256'], 'headers': {
+                k: str(message.get(k, '')) for k in ('From', 'To', 'Subject', 'Date', 'Message-ID')},
+                'plainTextParts': parts, 'status': 'decoded-only', 'senderAuthenticated': False,
+                'receiptConfirmed': False, 'externalExecution': False}
+
+
 OPS = {'fraud_case_create': 'create', 'fraud_import': 'ingest', 'fraud_inventory': 'inventory',
-       'fraud_analyze': 'analyze', 'fraud_draft': 'draft'}
+       'fraud_analyze': 'analyze', 'fraud_draft': 'draft',
+       'fraud_action_prepare': 'action_prepare', 'fraud_action_event': 'action_event',
+       'fraud_action_status': 'action_status', 'fraud_receipt_decode': 'receipt_decode'}
+
+
+def validate_args(value, schema):
+    kind = schema.get('type')
+    if kind == 'object':
+        if not isinstance(value, dict) or any(k not in value for k in schema.get('required', [])):
+            raise ValueError('Missing required object arguments')
+        properties = schema.get('properties', {})
+        if schema.get('additionalProperties') is False and set(value) - set(properties):
+            raise ValueError('Unexpected arguments')
+        for key in value:
+            if key in properties:
+                validate_args(value[key], properties[key])
+    elif kind == 'array':
+        if not isinstance(value, list) or len(value) < schema.get('minItems', 0):
+            raise ValueError('Invalid array arguments')
+        if schema.get('uniqueItems') and len({canonical(v) for v in value}) != len(value):
+            raise ValueError('Array arguments must be distinct')
+        for item in value:
+            validate_args(item, schema['items'])
+    elif kind == 'string':
+        if not isinstance(value, str) or not schema.get('minLength', 0) <= len(value) <= schema.get('maxLength', MAX_BYTES):
+            raise ValueError('Invalid string argument')
+        if 'pattern' in schema and not re.search(schema['pattern'], value):
+            raise ValueError('String argument does not match pattern')
+    elif kind == 'boolean' and not isinstance(value, bool):
+        raise ValueError('Invalid boolean argument')
+    if 'enum' in schema and value not in schema['enum']:
+        raise ValueError('Unsupported argument value')
+    if 'const' in schema and value != schema['const']:
+        raise ValueError('Invalid constant argument')
 
 
 def execute(store, name, args):
     if name not in OPS or not isinstance(args, dict):
         raise ValueError('Unknown operation or invalid arguments')
+    schemas = json.loads(Path(__file__).with_name('tools.json').read_text())
+    validate_args(args, next(t['inputSchema'] for t in schemas if t['name'] == name))
     function = getattr(store, OPS[name])
     if name == 'fraud_inventory':
         return {'caseId': args['caseId'], 'evidence': [receipt for receipt, _ in store.inventory(args['caseId'])],
@@ -286,7 +507,7 @@ def serve(store):
                 try:
                     data = execute(store, params['name'], params.get('arguments', {}))
                     result = {'content': [{'type': 'text', 'text': json.dumps(data, ensure_ascii=False)}]}
-                except (ValueError, KeyError, OSError, ET.ParseError) as exc:
+                except (ValueError, KeyError, TypeError, LookupError, OSError, ET.ParseError) as exc:
                     result = {'isError': True, 'content': [{'type': 'text', 'text': str(exc)}]}
             else:
                 error = {'code': -32601, 'message': 'Method not found'}
@@ -314,6 +535,6 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except (ValueError, KeyError, OSError, ET.ParseError) as exc:
+    except (ValueError, KeyError, TypeError, LookupError, OSError, ET.ParseError) as exc:
         print(json.dumps({'error': str(exc)}), file=sys.stderr)
         sys.exit(1)

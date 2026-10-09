@@ -1,6 +1,11 @@
 # Crypto fraud response validation
 
-Version 0.1.0 provides local evidence preparation, not an acquisition or recovery service. Cases and incident data stay outside source control. Collection authorization, inference disclosure, jurisdiction and recipient approval remain operator responsibilities.
+Version 0.2.0 provides local evidence preparation, submission/outcome records and
+original-email decoding. It packages observed selected-file acquisition and
+Japan bank/police handoff procedures as references. It does not implement device
+acquisition, a bank/police connector or recovery execution. Cases and incident
+data stay outside source control. Collection authorization, inference disclosure,
+jurisdiction and recipient approval remain operator responsibilities.
 
 ## Verified contracts
 
@@ -11,6 +16,19 @@ SMS epoch parsing and empty/unsupported XML, transaction provenance spoofing,
 private permissions and interrupted staging, and installed-profile MCP discovery
 and execution via actual subprocesses. All input is synthetic. The complete
 Registry test suite runs the same checks in CI.
+
+Additional checks exercise exact-content action binding/idempotence, runtime
+schema validation, token-route/timezone rejection, authority-gated dispatch,
+unknown-result retry blocking across changed payloads, source/amount requirements,
+terminal-return deduplication, evidence tampering and Japanese ISO-2022-JP email
+decoding. An acknowledgement leaves freeze/return flags false. All nine tools are
+discoverable from the installed-profile stdio MCP.
+
+Event tools record operator observations without verifying institution decisions
+or sender authentication. Advisory locks and hash-linked exclusive files provide
+local coordination, not an institution-authenticated ledger. Actual submissions
+remain separately authorized connector work; no unattended reporting or money
+transfer bot is included.
 
 The [Skill](../../skills/security/mithril-crypto-fraud-response/SKILL.md) includes
 the CLI, tool schemas, workflow and profile installer. Registry validates its
