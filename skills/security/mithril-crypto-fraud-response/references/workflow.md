@@ -36,4 +36,38 @@ Japan: consult the current [NPA cyber consultation/reporting routes](https://www
 
 Approval binds exact recipient/route, purpose, selected evidence and redaction, content digest, legal basis and action. Changing these requires review again. Sending is explicitly authorized at action time. Save submission receipt, acknowledgement/ticket, later decision, frozen amount and return transaction as distinct records. Unknown outcome stops automatic retries pending reconciliation. An unavailable connector is a blocker, not a successful filing. Never schedule outbound complaints, contact suspects or transfer funds through this profile.
 
-Use `not-submitted → submitted → acknowledged → under-review → frozen/declined/unknown` for requests. Recovery is separately `not-verified → return-authorized → returned-and-reconciled`. These are workflow records, not an implemented state-changing API. Retain real receipts when progressing them. Optional future monitoring watches only approved public transactions and produces reviewable changes; it grants no external execution permission.
+Use `not-submitted → submitted → acknowledged → under-review → frozen/declined/unknown` for requests. Recovery is separately `not-verified → return-authorized → returned-and-reconciled`. Use the implemented local [action ledger](action-ledger.md) to record observations; it never changes an institution’s state. Retain real receipts when progressing them. Optional future monitoring watches only approved public transactions and produces reviewable changes; it grants no external execution permission.
+
+
+## Selected shared-storage acquisition and scanned documents
+
+Record `adb devices -l`, tool version and authorized exact device reference.
+An authorized phone may need renewed on-device approval; `unauthorized` is a
+blocker. If the default macOS USB backend fails, inspect the error before trying
+`ADB_LIBUSB=0`; this does not bypass authorization. LINE's Android package is
+`jp.naver.line.android`; its presence proves neither access nor history coverage.
+For each explicitly selected shared-storage file, record remote byte size and
+mtime, hash before pull, `adb -s SERIAL pull -a EXACT_REMOTE LOCAL`, then remote
+hash after pull and local SHA-256. Compare all hashes. Use argument arrays and
+quote remote paths safely; do not interpolate untrusted filenames into shell
+commands. Keep destination directories 0700 and files 0600. Repeated identical
+bytes add acquisition provenance without replacing the retained original.
+
+For ZIP/PDF exports, retain the container and extracted document separately.
+Inspect members before extracting; reject traversal, links and oversized or
+unexpected entries. An image-only PDF with little/no extracted text is an OCR
+coverage gap. Render a selected bounded page range locally with `pdftoppm` and
+use installed Tesseract `jpn+eng` where appropriate. Record tool versions,
+page locators, render/OCR settings and hashes; manually compare critical claims
+with page images. OCR is derived evidence, not a restored LINE database. Check
+available disk space before rendering and retain originals if work stops.
+
+Confirm whether an EVM address is a contract or account and whether a transaction
+moves assets or merely calls `approve`. Zero native value is not itself a token
+transfer. Do not equate fiat transfers with crypto flows without a documented
+bridge. Historical corporate-register names are dated registry facts, not
+criminal attribution. Match bank, branch and account together; an account number
+alone can match a different branch. Historical relief notices and amounts do not
+prove present balances, filing eligibility or victim entitlement. Reconcile
+incoming payments and prior relief before calling a gross payment total the
+unrecovered loss.

@@ -1,7 +1,7 @@
 ---
 name: mithril-crypto-fraud-response
-description: Prepare authorized Android SMS and LINE export evidence for cryptocurrency fraud response, source-linked identifier and transaction review, police reports, exchange preservation requests and legal counsel handoff.
-version: 0.1.0
+description: Prepare authorized Android SMS and LINE fraud evidence, review transaction candidates, and maintain source-linked bank/police submission and recovery-status records for victims or delegated representatives.
+version: 0.2.0
 author: Mithril
 license: Apache-2.0
 platforms: [macos, linux]
@@ -37,6 +37,24 @@ python3 /absolute/skill/scripts/response.py --root /absolute/private/cases --too
 `fraud_analyze` extracts candidate EVM/Bitcoin/TRON addresses, hashes, emails and URLs, source-order timeline observations and supplied transaction edges. Regex candidates have no checksum/chain/identity verification. It does not extract all platforms' account IDs or infer common ownership from co-occurrence. Preserve sender labels, raw times, locators and unknown timezone. Open the retained original only for a specific authorized claim; do not dump all chats into an agent prompt.
 
 `fraud_draft` returns evidence inventory and missing-field checklists for police, exchanges and counsel; all remain `not-submitted` and `executed:false`. Use reviewed evidence to compose actual recipient-specific narratives and loss schedules. Before sharing, show exact recipient, purpose, selected/redacted bytes, content digest, legal basis and action for approval. Retain provider/exchange/court receipts separately; never infer freeze or recovery from submission.
+
+## Reports and receipt ledger
+
+Read [Japan reporting](references/japan-reporting.md) for bank/police form
+handling, delegated reporter fields and official route verification. Read
+[the action ledger](references/action-ledger.md) for tool inputs, transitions
+and receipt reconciliation.
+
+Four additional local tools are `fraud_action_prepare`, `fraud_action_event`,
+`fraud_action_status` and `fraud_receipt_decode`. They bind reviewed payloads
+to recipients, preserve evidence-linked observations and decode original emails.
+They do not send forms/mail, place calls, authenticate bank decisions or move
+funds. Use a separately available authorized browser/connector for submission.
+A prepared action and successful tool call never mean a report was sent.
+Record `dispatch-started` immediately before external execution; an interrupted
+or unknown result blocks retries until reconciled. Existing user authorization
+remains valid within its scope; record it rather than asking again.
+Scope to acquire/analyze data alone does not authorize disclosure.
 
 ## Profile and bots
 
