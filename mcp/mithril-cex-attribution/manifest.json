@@ -21,7 +21,7 @@
  "artifact": {
   "format": "git",
   "url": "https://github.com/mithril-lang/mithril-system-one",
-  "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+  "commit": "1d1b370513ae084e0eb0810e5b4c956fa6631571",
   "entry": "bin/cex-attribution.mjs"
  },
  "command": "node",
