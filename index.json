@@ -336,7 +336,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-cex-attribution",
       "icon": null,
-      "checksum": "sha256:b44ae60e80964e8a14a815960c64c1c0eb1ed338ee9e7bdeae66b80e44e488bb",
+      "checksum": "sha256:f5e62d3fba84d64795a58d0cb1914f73d340e7f348629a80897dbaf1e2bb46dd",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -354,7 +354,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "commit": "1d1b370513ae084e0eb0810e5b4c956fa6631571",
         "entry": "bin/cex-attribution.mjs"
       },
       "solutionIds": []
@@ -376,7 +376,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-cex-directory",
       "icon": null,
-      "checksum": "sha256:e86ada99fe593db6e94289458c3390bed67f761aa601878539011ec5202a7498",
+      "checksum": "sha256:ff0d8d51feaaf775845c11c00321f654ff7af5298e7c1461a1c97a2d4b3daedf",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -394,7 +394,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "commit": "1d1b370513ae084e0eb0810e5b4c956fa6631571",
         "entry": "bin/cex-directory.mjs"
       },
       "solutionIds": []
@@ -416,7 +416,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-cex-exchange-submission",
       "icon": null,
-      "checksum": "sha256:511c029bf0418f5c91b2668e12c7193de057154a28ba81aa1e50a8e7b941db45",
+      "checksum": "sha256:b56d392d549097729f60906783339ae5f6b2630e887781f24e2449aff95e84bb",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -434,7 +434,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "commit": "1d1b370513ae084e0eb0810e5b4c956fa6631571",
         "entry": "bin/cex-exchange-submission.mjs"
       },
       "solutionIds": []
@@ -456,7 +456,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-cex-freeze-execution",
       "icon": null,
-      "checksum": "sha256:9e6e032093e08de78f183714764d114919ac0bfb969000982d9345ebfa806863",
+      "checksum": "sha256:7990ef8eaf05955a08e1be2a3450b21901dae5e205ec8bae05d00de09f3b46b1",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -474,7 +474,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "commit": "1d1b370513ae084e0eb0810e5b4c956fa6631571",
         "entry": "bin/cex-freeze-execution.mjs"
       },
       "solutionIds": []
@@ -496,7 +496,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-cex-legal-freeze",
       "icon": null,
-      "checksum": "sha256:3e6a2b18d77a9d9b5ae3934a50240d5fa2ee9e6bbb21dda32f7fd2ea32990084",
+      "checksum": "sha256:98e5fa7694507b36c199ecf0c5cc0db2ae726954ab71f781ff073794d3d2c759",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -514,7 +514,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "commit": "1d1b370513ae084e0eb0810e5b4c956fa6631571",
         "entry": "bin/cex-legal-freeze.mjs"
       },
       "solutionIds": []
@@ -536,7 +536,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-cex-mlat",
       "icon": null,
-      "checksum": "sha256:03bff3ef3c49cc2c6a5a28f407f34f516456f9fc114d997c283c21e7bb87d3f6",
+      "checksum": "sha256:5af821075550329590c2a4d8b764c3750fd1e394a585c3d78cf5a247102932de",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -554,7 +554,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "commit": "1d1b370513ae084e0eb0810e5b4c956fa6631571",
         "entry": "bin/cex-mlat.mjs"
       },
       "solutionIds": []
@@ -576,7 +576,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-cex-monitoring",
       "icon": null,
-      "checksum": "sha256:37c7842eb22531660559656f2037b279aa55b1c9622984dc038b568c11045720",
+      "checksum": "sha256:60d90df9da0f24ae8bb89386bc628981a691bd6a62efb27eaaed1ba96d556a45",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -594,7 +594,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "commit": "1d1b370513ae084e0eb0810e5b4c956fa6631571",
         "entry": "bin/cex-monitoring.mjs"
       },
       "solutionIds": []
@@ -616,7 +616,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-cex-recovery-payment",
       "icon": null,
-      "checksum": "sha256:b82da4269b6687a542c4de528c66355f915c9e9fbe78a620cfba08e94b0a7f05",
+      "checksum": "sha256:9180132b263012fce363713a720ca945c41b5a3304c565c966d735d461592a49",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -634,7 +634,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "a478c27050ac77d0cd841af07d4fe78b6ddb0f86",
+        "commit": "1d1b370513ae084e0eb0810e5b4c956fa6631571",
         "entry": "bin/cex-recovery-payment.mjs"
       },
       "solutionIds": []
