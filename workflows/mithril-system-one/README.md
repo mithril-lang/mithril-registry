@@ -1,4 +1,6 @@
-# Mithril System One workflow
+# Mithril System One Coding
+
+**System One Coding** is the development method; **Mithril Semantic Loop** is its agent loop. The technical descriptor is **ontology-driven generation and verification**. These names describe the supported executor contract below.
 
 This executable finite workflow runs 1–3 distinct supported task IDs in order.
 All inputs are checked before the first external call. Each task returns the same

@@ -1,4 +1,6 @@
-# System One coding Registry integration
+# System One Coding Registry integration
+
+**System One Coding** names the development method; **Mithril Semantic Loop** names the agent loop. The technical descriptor is **ontology-driven generation and verification**. See the [canonical introduction](https://github.com/mithril-lang/mithril-system-one/blob/main/docs/naming.md). Display names use Mithril System One Coding; executable IDs and immutable runtime pins are unchanged.
 
 Five Registry surfaces share the public Mithril-specific coding harness at
 `f940459126490a81b86d6d3474e48205b7bdf9c2`:

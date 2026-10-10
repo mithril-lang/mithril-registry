@@ -6,9 +6,9 @@
       "id": "mithril-system-one",
       "type": "agent",
       "category": "development",
-      "name": "Mithril System One",
-      "version": "0.3.1",
-      "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
+      "name": "Mithril System One Coding",
+      "version": "0.3.2",
+      "description": "System One Coding with the Mithril Semantic Loop: ontology-driven generation and verification of supported Mithril tasks, repairs and refactors.",
       "tags": [
         "mithril",
         "coding",
@@ -20,7 +20,7 @@
       "license": "Apache-2.0",
       "path": "agents/mithril-system-one",
       "icon": null,
-      "checksum": "sha256:22bf1e92d841226431d087263353e20c6b10bc3819ba5b1f27d1e171dbc7a2f1",
+      "checksum": "sha256:914f1bd4a6918c7a88f3c47d57aa2f628187d1e49beda8f6dacf5532ab1441ae",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -280,9 +280,9 @@
       "id": "mithril-system-one",
       "type": "mcp",
       "category": "development",
-      "name": "Mithril System One",
-      "version": "0.3.1",
-      "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
+      "name": "Mithril System One Coding",
+      "version": "0.3.2",
+      "description": "System One Coding with the Mithril Semantic Loop: ontology-driven generation and verification of supported Mithril tasks, repairs and refactors.",
       "tags": [
         "mithril",
         "coding",
@@ -294,7 +294,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-system-one",
       "icon": null,
-      "checksum": "sha256:84fd80872caa82963078d6ea9a9bc7d44eb2e0e4cfc47143a17b9b7bb52bcfa7",
+      "checksum": "sha256:095d9b199b652bb791ab67871901f31b02b20d34aaecacb03c02755ebc975be1",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -825,9 +825,9 @@
       "id": "mithril-tasks",
       "type": "plugin",
       "category": "development",
-      "name": "Mithril System One tasks",
-      "version": "0.3.1",
-      "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
+      "name": "Mithril System One Coding",
+      "version": "0.3.2",
+      "description": "System One Coding with the Mithril Semantic Loop: ontology-driven generation and verification of supported Mithril tasks, repairs and refactors.",
       "tags": [
         "mithril",
         "coding",
@@ -839,7 +839,7 @@
       "license": "Apache-2.0",
       "path": "plugins/mithril-tasks",
       "icon": null,
-      "checksum": "sha256:09fad009208ef47ce0f2e930061f83f886d57f4f94e12c1d0f022580e73c15e7",
+      "checksum": "sha256:f071635f19fad60423e6e06f6e8b1b0c7d791749b99e8c7778e38dcfb0828ced",
       "compatibility": {
         "clients": [
           {
@@ -1105,8 +1105,8 @@
       "type": "skill",
       "category": "development",
       "name": "mithril-system-one",
-      "version": "0.3.1",
-      "description": "Implement and verify supported Mithril coding tasks, ontology repairs and semantic refactors using the System One harness when the user wants a checked Mithril artifact.",
+      "version": "0.3.2",
+      "description": "Implement and verify supported Mithril coding tasks, ontology repairs and semantic refactors using System One Coding and the Mithril Semantic Loop when the user wants a checked Mithril artifact.",
       "tags": [
         "mithril",
         "coding",
@@ -1118,7 +1118,7 @@
       "license": "Apache-2.0",
       "path": "skills/development/mithril-system-one",
       "icon": null,
-      "checksum": "sha256:978dc1d5bfaa5adadd45d367bea25cd97f0192cb7cb001effd912662009de76d",
+      "checksum": "sha256:fe516c49b7036bd6adaaec73774701921c89877e063a655e1af7a9045851297b",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,
@@ -1656,9 +1656,9 @@
       "id": "mithril-system-one",
       "type": "workflow",
       "category": "development",
-      "name": "Mithril System One",
-      "version": "0.3.1",
-      "description": "Bounded Mithril coding with actual compiler receipts, dynamic ontology evaluation and independent refactor checks.",
+      "name": "Mithril System One Coding",
+      "version": "0.3.2",
+      "description": "System One Coding with the Mithril Semantic Loop: ontology-driven generation and verification of supported Mithril tasks, repairs and refactors.",
       "tags": [
         "mithril",
         "coding",
@@ -1670,7 +1670,7 @@
       "license": "Apache-2.0",
       "path": "workflows/mithril-system-one",
       "icon": null,
-      "checksum": "sha256:01d32b395970da0ea4f8f90e0bce056c4df5cad807aeaec5d0335466562c00bc",
+      "checksum": "sha256:eda7e19e68019f76e4387db43f55d3e22756748f0111954af19718f0ad75fd35",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [

@@ -1,15 +1,17 @@
 ---
 name: mithril-system-one
-description: Implement and verify supported Mithril coding tasks, ontology repairs and semantic refactors using the System One harness when the user wants a checked Mithril artifact.
+description: Implement and verify supported Mithril coding tasks, ontology repairs and semantic refactors using System One Coding and the Mithril Semantic Loop when the user wants a checked Mithril artifact.
 license: Apache-2.0
 metadata:
-  version: 0.3.1
+  version: 0.3.2
   author: Mithril
   hermes:
     tags: [mithril, coding, ontology, system-one, refactor]
 ---
 
-# Mithril System One coding
+# Mithril System One Coding
+
+**System One Coding** is the development method; **Mithril Semantic Loop** is the agent loop for ontology-driven generation and verification of supported tasks.
 
 Use the owning profile's `mithril_task` for a single task and `mithril_workflow`
 for 1–3 distinct tasks. The same operations are available from the local MCP

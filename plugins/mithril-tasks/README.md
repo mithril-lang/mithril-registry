@@ -1,4 +1,6 @@
-# Mithril System One plugin
+# Mithril System One Coding
+
+**System One Coding** is the development method; **Mithril Semantic Loop** is its agent loop. The technical descriptor is **ontology-driven generation and verification**. These names describe the supported executor contract below.
 
 Install the immutable artifact in `manifest.json` through the owning Hermes
 profile's normal plugin manager. The package exposes `mithril_task` and
