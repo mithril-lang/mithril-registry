@@ -84,21 +84,55 @@
   "profiles": [
     {
       "id": "mithril-bb-0001",
-      "cases": ["BB-0001"],
+      "cases": [
+        "BB-0001"
+      ],
       "repository": "freedomofpress/securedrop-client",
       "cron": "0 * * * *"
     },
     {
       "id": "mithril-bb-0002",
-      "cases": ["BB-0002", "BB-0002b"],
+      "cases": [
+        "BB-0002",
+        "BB-0002b"
+      ],
       "repository": "mattermost/mattermost-plugin-msteams (+ mattermost/mattermost-plugin-confluence as BB-0002b)",
       "cron": "0 * * * *"
     },
     {
       "id": "mithril-bb-0003",
-      "cases": ["BB-0003"],
+      "cases": [
+        "BB-0003"
+      ],
       "repository": "ClickHouse/ClickHouse",
       "cron": "0 * * * *"
+    },
+    {
+      "id": "mithril-bb-0004",
+      "cases": [
+        "BB-0004"
+      ],
+      "repository": "WebKit/webkit (Safari-614.1.9 release commit)",
+      "cron": "0 * * * *",
+      "intake_profile": "mithril-apple-webkit-challenge"
+    },
+    {
+      "id": "mithril-bb-0005",
+      "cases": [
+        "BB-0005"
+      ],
+      "repository": "chromium/chromium (GitHub mirror HEAD; official origin chromium.googlesource.com)",
+      "cron": "0 * * * *",
+      "intake_profile": "mithril-google-chrome-challenge"
+    },
+    {
+      "id": "mithril-bb-0006",
+      "cases": [
+        "BB-0006"
+      ],
+      "repository": "ensdomains/ens-contracts (v1.7.0)",
+      "cron": "0 * * * *",
+      "intake_profile": "immunefi-ens"
     }
   ],
   "retired": [
