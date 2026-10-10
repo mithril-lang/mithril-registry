@@ -133,6 +133,33 @@
       "repository": "ensdomains/ens-contracts (v1.7.0)",
       "cron": "0 * * * *",
       "intake_profile": "immunefi-ens"
+    },
+    {
+      "id": "mithril-bb-0007",
+      "cases": [
+        "BB-0007"
+      ],
+      "repository": "mozilla/firefox (main HEAD, Mozilla Client Bug Bounty)",
+      "cron": "0 * * * *",
+      "intake_profile": "operator (360 Programs #8)"
+    },
+    {
+      "id": "mithril-bb-0008",
+      "cases": [
+        "BB-0008"
+      ],
+      "repository": "ethereum-optimism/optimism (HEAD; TypeScript core)",
+      "cron": "0 * * * *",
+      "intake_profile": "mithril-optimism-bounty"
+    },
+    {
+      "id": "mithril-bb-0009",
+      "cases": [
+        "BB-0009"
+      ],
+      "repository": "OffchainLabs/arbitrum (HEAD; L2 core)",
+      "cron": "0 * * * *",
+      "intake_profile": "mithril-arbitrum-bounty"
     }
   ],
   "retired": [
