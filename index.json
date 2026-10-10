@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 47,
+  "count": 50,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -636,6 +636,48 @@
         "url": "https://github.com/mithril-lang/mithril-system-one",
         "commit": "1d1b370513ae084e0eb0810e5b4c956fa6631571",
         "entry": "bin/cex-recovery-payment.mjs"
+      },
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-coscientist-bb",
+      "type": "mcp",
+      "category": "security",
+      "name": "Mithril Coscientist Bug Bounty Core",
+      "version": "0.1.0",
+      "description": "Deterministic Coscientist planner-round ledger for bug-bounty challenges: validates and digests the GOOGLE/PYTHON/DOCUMENTATION/EXPERIMENT command space, advances a hypothesis ledger and synthesizes the decision (submit_to_human on confirmation). No network, no target execution, no probe, no submission.",
+      "tags": [
+        "mithril",
+        "security",
+        "bug-bounty",
+        "coscientist",
+        "deterministic"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "mcp/mithril-coscientist-bb",
+      "icon": null,
+      "checksum": "sha256:49a1bc83605cd8ef555e7def28b114e9c93dd881b4dc299d2b92378bcfeb2e55",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint",
+        "filesystem:temporary-workspace"
+      ],
+      "installable": true,
+      "connection": {
+        "transport": "stdio",
+        "authentication": "per-tool",
+        "command": "node",
+        "args": [
+          "${system_one_root}/bin/mithril-coscientist-bb.mjs"
+        ]
+      },
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "4967c369a6ce92d9988ba63009b9ea9fd4910e87",
+        "entry": "bin/mithril-coscientist-bb.mjs"
       },
       "solutionIds": []
     },
@@ -1313,6 +1355,30 @@
       "solutionIds": []
     },
     {
+      "id": "mithril-coscientist-bb",
+      "type": "skill",
+      "category": "security",
+      "name": "mithril-coscientist-bb",
+      "version": "0.1.0",
+      "description": "Run a deterministic Coscientist bug-bounty challenge round when the user asks to plan, advance or review a public bug-bounty finding using the GOOGLE/PYTHON/DOCUMENTATION/EXPERIMENT loop.",
+      "tags": [
+        "mithril",
+        "security",
+        "bug-bounty",
+        "coscientist",
+        "planner-loop"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "skills/security/mithril-coscientist-bb",
+      "icon": null,
+      "checksum": "sha256:1ffa6d0fbc461ba8e19a3c1e9a9379056ae676d113a635633f449d7fe7165d74",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
+      "solutionIds": []
+    },
+    {
       "id": "mithril-crypto-fraud-response",
       "type": "skill",
       "category": "security",
@@ -1749,6 +1815,55 @@
       },
       "tools": [
         "mithril_terms_review"
+      ],
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-coscientist-bb",
+      "type": "workflow",
+      "category": "security",
+      "name": "Mithril Coscientist Bug Bounty Core",
+      "version": "0.1.0",
+      "description": "Coscientist planner-round loop for bug-bounty challenges: bounded GOOGLE/PYTHON/DOCUMENTATION/EXPERIMENT command planning, hypothesis ledger evaluation and deterministic report synthesis. Offline-verifiable; the Planner LLM and all experiments run in the owning profile.",
+      "tags": [
+        "mithril",
+        "security",
+        "bug-bounty",
+        "coscientist",
+        "planner-loop"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "workflows/mithril-coscientist-bb",
+      "icon": null,
+      "checksum": "sha256:180cbcd2493d86fd75c30ed133d989f2ee3bdf41c3798b797227295421d20156",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "subprocess:node-fixed-entrypoint",
+        "filesystem:temporary-workspace"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "4967c369a6ce92d9988ba63009b9ea9fd4910e87",
+        "entry": "bin/mithril-coscientist-bb.mjs"
+      },
+      "execution": {
+        "runtime": "mithril-system-one",
+        "input": "json-stdin",
+        "maxTasks": 1,
+        "stopOnFailure": true,
+        "retryUnknown": false
+      },
+      "requirements": {
+        "commands": [
+          "node"
+        ]
+      },
+      "tools": [
+        "mithril_coscientist_bb"
       ],
       "solutionIds": []
     },

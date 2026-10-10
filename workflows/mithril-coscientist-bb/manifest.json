@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1",
+  "id": "mithril-coscientist-bb",
+  "category": "security",
+  "name": "Mithril Coscientist Bug Bounty Core",
+  "version": "0.1.0",
+  "description": "Coscientist planner-round loop for bug-bounty challenges: bounded GOOGLE/PYTHON/DOCUMENTATION/EXPERIMENT command planning, hypothesis ledger evaluation and deterministic report synthesis. Offline-verifiable; the Planner LLM and all experiments run in the owning profile.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://github.com/mithril-lang/mithril-system-one",
+  "tags": [
+    "mithril",
+    "security",
+    "bug-bounty",
+    "coscientist",
+    "planner-loop"
+  ],
+  "permissions": [
+    "subprocess:node-fixed-entrypoint",
+    "filesystem:temporary-workspace"
+  ],
+  "type": "workflow",
+  "artifact": {
+    "format": "git",
+    "url": "https://github.com/mithril-lang/mithril-system-one",
+    "commit": "4967c369a6ce92d9988ba63009b9ea9fd4910e87",
+    "entry": "bin/mithril-coscientist-bb.mjs"
+  },
+  "command": "node",
+  "args": [
+    "${system_one_root}/bin/mithril-coscientist-bb.mjs"
+  ],
+  "entry": "bin/mithril-coscientist-bb.mjs",
+  "requirements": {
+    "commands": [
+      "node"
+    ]
+  },
+  "configuration": {
+    "system_one_root": "Reviewed artifact.commit checkout; deterministic core is dependency-free (no npm install). The Planner LLM and experiment tools (public repo review, web search) run in the owning profile."
+  },
+  "env": {},
+  "executable": true,
+  "tools": [
+    "mithril_coscientist_bb"
+  ],
+  "execution": {
+    "runtime": "mithril-system-one",
+    "input": "json-stdin",
+    "maxTasks": 1,
+    "stopOnFailure": true,
+    "retryUnknown": false
+  }
+}

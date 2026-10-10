@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "mithril-coscientist-bb-design",
+  "version": "0.1.0",
+  "status": "planned",
+  "executable": false,
+  "document": "docs/security-integrations/coscientist-bb.md",
+  "relatedSolutionIds": [
+    "mithril-exchange-asset-recovery-design"
+  ],
+  "principles": {
+    "deterministicCoreProvided": true,
+    "plannerLlmExternal": true,
+    "fourCommandSpace": ["GOOGLE", "PYTHON", "DOCUMENTATION", "EXPERIMENT"],
+    "hypothesisLedgerLedgerStatus": ["open", "confirmed", "refuted", "superseded"],
+    "confirmationIsCandidateNotVulnerability": true,
+    "humanSubmissionGate": true,
+    "liveProbeOrSubmissionAutomated": false,
+    "targetExecutionAutomated": false,
+    "networkAccessAutomated": false,
+    "identicalInputIdenticalDigest": true,
+    "unknownOutcomeNoAutomaticRetry": true
+  },
+  "roles": [
+    "planner-llm",
+    "deterministic-ledger",
+    "experiment-runner",
+    "human-reviewer",
+    "submitter"
+  ],
+  "commandBindings": {
+    "GOOGLE": "web_search (declared, executed by the Planner/agent)",
+    "PYTHON": "execute_code (declared, executed by the owning agent)",
+    "DOCUMENTATION": "web_extract (declared, executed by the Planner/agent)",
+    "EXPERIMENT": "a registered tool (bound, executed in the owning profile)"
+  },
+  "registeredExperimentTools": [
+    "mithril_public_repo_review",
+    "mithril_business_process_review",
+    "mithril_scap_review",
+    "mithril_dependency_upgrade",
+    "web_search",
+    "web_extract",
+    "terminal",
+    "read_file",
+    "git_ls_remote"
+  ],
+  "limits": {
+    "maxCommandsPerRound": 12,
+    "maxHypotheses": 32,
+    "maxObservationBytes": 262144
+  },
+  "decision": {
+    "submit_to_human": "at least one hypothesis confirmed",
+    "continue": "no confirmed hypothesis, observations recorded",
+    "observe_more": "round planned, observations not yet recorded"
+  },
+  "providedBy": [
+    {
+      "capability": "coscientist-bb-round-ledger",
+      "entry": "mithril-coscientist-bb",
+      "entrypoint": "bin/mithril-coscientist-bb.mjs",
+      "artifact": "https://github.com/mithril-lang/mithril-system-one @ 4967c369a6ce92d9988ba63009b9ea9fd4910e87",
+      "executionStatus": "deterministic-offline",
+      "guarantee": "canonical sha256 digest receipt over the normalized round, hypothesis ledger and decision; identical input produces an identical digest"
+    }
+  ],
+  "notProvided": [
+    "planner-llm-inference",
+    "live-network-retrieval",
+    "target-code-execution",
+    "deployment-probing",
+    "bug-bounty-submission",
+    "vulnerability-confirmation"
+  ]
+}
