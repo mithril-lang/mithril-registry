@@ -382,10 +382,10 @@ def tick_case(profile, case_id, case, canonical_path, review_root,
         sets = sheet_summary(case, payload, outcome, now_jst,
                              case_id=case_id)
         sheet_args = [sys.executable, str(SYNC), "--profile-dir",
-                      str(profile), "log", "--case", case_id,
-                      "--sheet-id", os.environ.get(
+                      str(profile), "--sheet-id", os.environ.get(
                           "BBOPS_SHEET_ID",
-                          "1gJ-CfDviZZltpc2qIlsW5hxs386E9fCWhkS0vR_50yo")]
+                          "1gJ-CfDviZZltpc2qIlsW5hxs386E9fCWhkS0vR_50yo"),
+                      "log", "--case", case_id]
         for k, v in sets.items():
             sheet_args += ["--set", "%s=%s" % (k, v)]
         s = subprocess.run(sheet_args, capture_output=True, text=True,
