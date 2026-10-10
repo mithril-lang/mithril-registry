@@ -160,6 +160,24 @@
       "repository": "OffchainLabs/arbitrum (HEAD; L2 core)",
       "cron": "0 * * * *",
       "intake_profile": "mithril-arbitrum-bounty"
+    },
+    {
+      "id": "mithril-bb-0010",
+      "cases": [
+        "BB-0010"
+      ],
+      "repository": "aave/aave-v3-origin (HEAD; TS task scripts + package-lock.json)",
+      "cron": "0 * * * *",
+      "intake_profile": "mithril-aave-bounty"
+    },
+    {
+      "id": "mithril-bb-0011",
+      "cases": [
+        "BB-0011"
+      ],
+      "repository": "0xPolygon/pos-contracts (HEAD; package-lock.json)",
+      "cron": "0 * * * *",
+      "intake_profile": "mithril-polygon-bounty"
     }
   ],
   "retired": [
