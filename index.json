@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 46,
+  "count": 47,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -1374,6 +1374,33 @@
       "solutionIds": [
         "agency-cyber"
       ]
+    },
+    {
+      "id": "mithril-flame-sword",
+      "type": "skill",
+      "category": "security",
+      "name": "mithril-flame-sword",
+      "version": "0.1.0",
+      "description": "Deterministic local triage of user-supplied Flame Sword web attack-surface observations (domain plus subdomain HTTP(S) statuses) with the pinned vendored rule-based analyst, plus a capability map of the broader Flame Sword scanner (subdomains, ports, DNS, real-IP, TLS, tech, email, Mithril AI). No network calls; a zero-finding analysis is not a safety statement.",
+      "tags": [
+        "attack-surface",
+        "subdomain",
+        "http-status",
+        "recon",
+        "triage",
+        "flame-sword",
+        "defensive",
+        "local"
+      ],
+      "author": "Mithril",
+      "license": "MIT",
+      "path": "skills/security/mithril-flame-sword",
+      "icon": null,
+      "checksum": "sha256:ed8d4987453e71b8ec34e2a1be017c14c32d270c340479d6b7c97b74ec0b61a9",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "installable": true,
+      "solutionIds": []
     },
     {
       "id": "mithril-forensic-evidence",

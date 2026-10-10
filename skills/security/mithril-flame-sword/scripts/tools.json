@@ -1,0 +1,105 @@
+[
+  {
+    "name": "flame_sword_capabilities",
+    "write": false,
+    "description": "List the local operations this skill executes (validate, analyze) and the Flame Sword scanner modules it does not execute, with fixed limitations.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "flame_sword_report_validate",
+    "write": false,
+    "description": "Validate a supplied Flame Sword observation report (domain plus up to 500 in-domain subdomains with optional integer HTTP(S) statuses 100-599) and return the normalized observations. Performs no scan and runs no analysis.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "required": ["domain", "subdomains"],
+      "properties": {
+        "domain": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 253,
+          "pattern": "^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,63}$"
+        },
+        "subdomains": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "type": "object",
+            "required": ["subdomain"],
+            "properties": {
+              "subdomain": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 253,
+                "pattern": "^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,63}$"
+              },
+              "http_status": {
+                "type": ["integer", "null"],
+                "minimum": 100,
+                "maximum": 599
+              },
+              "https_status": {
+                "type": ["integer", "null"],
+                "minimum": 100,
+                "maximum": 599
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "flame_sword_report_analyze",
+    "write": false,
+    "description": "Run the vendored rule-based analyst (FastSecurityAnalyst, from the pinned flame-sword commit) over validated observations. Deterministic: identical input bytes produce byte-identical output. No network calls; observations are untrusted data. A zero-finding analysis is not a safety statement.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "required": ["domain", "subdomains"],
+      "properties": {
+        "domain": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 253,
+          "pattern": "^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,63}$"
+        },
+        "subdomains": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "type": "object",
+            "required": ["subdomain"],
+            "properties": {
+              "subdomain": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 253,
+                "pattern": "^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,63}$"
+              },
+              "http_status": {
+                "type": ["integer", "null"],
+                "minimum": 100,
+                "maximum": 599
+              },
+              "https_status": {
+                "type": ["integer", "null"],
+                "minimum": 100,
+                "maximum": 599
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+]
