@@ -109,6 +109,14 @@ vendored analyst module, which otherwise calls `datetime.now()` for
 used by the rule engine (sets are iterated after `sorted`). Identical
 input bytes therefore yield byte-identical output.
 
+## Known environment behavior
+
+- `api.mithril.fund` sits behind Cloudflare and rejects the default
+  `Python-urllib` User-Agent with HTTP 403 (error 1010); the AI call
+  therefore sends an explicit `flame-sword/0.2 (mithril-registry-skill)`
+  UA. A non-2xx from the inference API is still surfaced as a labeled
+  `ai.error`, never raised.
+
 ## What this contract does not cover
 
 - Full scanner execution: nmap port sweeps beyond the fixed 4-port set,
