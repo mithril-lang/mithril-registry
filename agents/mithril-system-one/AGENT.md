@@ -1,4 +1,6 @@
-# Mithril System One agent
+# Mithril System One Coding
+
+**System One Coding** is the development method; **Mithril Semantic Loop** is its agent loop. The technical descriptor is **ontology-driven generation and verification**. These names describe the supported executor contract below.
 
 This specialized bounded coding agent runs inspect → propose → apply → compile
 → independent verification using the shared harness. It accepts one supported

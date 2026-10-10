@@ -1,4 +1,6 @@
-# Mithril System One MCP
+# Mithril System One Coding
+
+**System One Coding** is the development method; **Mithril Semantic Loop** is its agent loop. The technical descriptor is **ontology-driven generation and verification**. These names describe the supported executor contract below.
 
 A local stdio MCP server backed by the actual shared System One executor. This
 entry has no hosted HTTP endpoint. Check out the immutable artifact commit in
