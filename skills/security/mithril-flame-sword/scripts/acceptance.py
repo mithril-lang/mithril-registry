@@ -92,15 +92,21 @@ def exercise():
         report = root / 'report.json'
         report.write_text(json.dumps(REPORT), encoding='utf-8')
 
-        # Capabilities: the skill executes exactly two operations locally.
+        # Capabilities: the skill executes three operations locally; the
+        # scan is the only network operation.
         caps = _run_cli(script, ['--tool', 'flame_sword_capabilities'])
         if caps.returncode:
             raise ValueError(f'capabilities_failed: {caps.stderr.decode(errors="replace")}')
         cap_data = json.loads(caps.stdout.decode())
-        if [op['id'] for op in cap_data['operations']] != ['report_validate', 'report_analyze']:
+        if [op['id'] for op in cap_data['operations']] != ['report_validate', 'report_analyze', 'scan_domain']:
             raise ValueError('capabilities_operations_changed')
-        if any(op['network'] for op in cap_data['operations']) or not cap_data['limitations']:
+        by_id = {op['id']: op for op in cap_data['operations']}
+        if by_id['report_validate']['network'] or by_id['report_analyze']['network'] \
+                or not by_id['scan_domain']['network'] or not cap_data['limitations']:
             raise ValueError('capabilities_limits_changed')
+        if not any('Bounded stdlib scan' in line for line in cap_data['limitations']) \
+                or not any('GET-only' in line for line in cap_data['limitations']):
+            raise ValueError('scan_limitations_missing')
 
         # Validation normalizes and is deterministic.
         validate = _run_cli(script, ['--tool', 'flame_sword_report_validate', '--input', str(report)])
@@ -187,7 +193,9 @@ def exercise():
             'nonStdlibImports': 0,
             'networkCalls': 0,
             'operationsExecuted': ['report_validate', 'report_analyze'],
-            'determinism': 'byte-identical-across-runs-frozen-clock',
+            'operationsAvailable': ['report_validate', 'report_analyze', 'scan_domain'],
+            'scanTool': 'bounded-stdlib-get-only (exercises live network; run separately against a caller-named domain)',
+            'determinism': 'byte-identical-across-runs-frozen-clock (analyst operations; scan output is a live observation)',
             'failureReasons': dict(reasons, missing_file='file_not_found'),
             'mcp': {'oversizedLine': 'request-too-large-then-continues', 'exitCode': 0},
             'keysRetained': False,

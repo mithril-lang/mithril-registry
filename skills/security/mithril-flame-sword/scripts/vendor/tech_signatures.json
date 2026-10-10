@@ -1,0 +1,377 @@
+{
+  "version": 1,
+  "source": "mithril-lang/flame-sword TechnologyDetector subset (pinned commit 6e969b247baa53ab49d4bd993aef8def3dff967a), hand-picked high-signal entries",
+  "signatures": [
+    {
+      "name": "Cloudflare",
+      "checks": [
+        {
+          "type": "header",
+          "field": "server",
+          "pattern": "cloudflare"
+        },
+        {
+          "type": "header",
+          "field": "cf-ray",
+          "pattern": ".+"
+        }
+      ]
+    },
+    {
+      "name": "Cloudflare WAF",
+      "checks": [
+        {
+          "type": "header",
+          "field": "server",
+          "pattern": "cloudflare"
+        },
+        {
+          "type": "body",
+          "pattern": "cf-chl-bypass|cf_chl_|challenges\\.cloudflare\\.com"
+        }
+      ]
+    },
+    {
+      "name": "nginx",
+      "checks": [
+        {
+          "type": "header",
+          "field": "server",
+          "pattern": "nginx"
+        }
+      ]
+    },
+    {
+      "name": "Apache",
+      "checks": [
+        {
+          "type": "header",
+          "field": "server",
+          "pattern": "apache"
+        }
+      ]
+    },
+    {
+      "name": "Microsoft IIS",
+      "checks": [
+        {
+          "type": "header",
+          "field": "server",
+          "pattern": "microsoft-iis"
+        },
+        {
+          "type": "header",
+          "field": "x-aspnet-version",
+          "pattern": ".+"
+        }
+      ]
+    },
+    {
+      "name": "Amazon S3",
+      "checks": [
+        {
+          "type": "header",
+          "field": "x-amz-cf-id",
+          "pattern": ".+"
+        },
+        {
+          "type": "header",
+          "field": "server",
+          "pattern": "amazon s3"
+        }
+      ]
+    },
+    {
+      "name": "Amazon CloudFront",
+      "checks": [
+        {
+          "type": "header",
+          "field": "x-cache",
+          "pattern": "cloudfront"
+        },
+        {
+          "type": "header",
+          "field": "server",
+          "pattern": "cloudfront"
+        }
+      ]
+    },
+    {
+      "name": "Microsoft Azure",
+      "checks": [
+        {
+          "type": "header",
+          "field": "x-azure-ref",
+          "pattern": ".+"
+        },
+        {
+          "type": "header",
+          "field": "server",
+          "pattern": "azure|microsoft-azure-web"
+        }
+      ]
+    },
+    {
+      "name": "Google Cloud",
+      "checks": [
+        {
+          "type": "header",
+          "field": "server",
+          "pattern": "google|gws"
+        },
+        {
+          "type": "header",
+          "field": "x-cloud-trace-context",
+          "pattern": ".+"
+        }
+      ]
+    },
+    {
+      "name": "Fastly",
+      "checks": [
+        {
+          "type": "header",
+          "field": "server",
+          "pattern": "fastly"
+        },
+        {
+          "type": "header",
+          "field": "via",
+          "pattern": "fastly"
+        }
+      ]
+    },
+    {
+      "name": "Vercel",
+      "checks": [
+        {
+          "type": "header",
+          "field": "server",
+          "pattern": "vercel"
+        },
+        {
+          "type": "header",
+          "field": "x-vercel-id",
+          "pattern": ".+"
+        }
+      ]
+    },
+    {
+      "name": "Netlify",
+      "checks": [
+        {
+          "type": "header",
+          "field": "server",
+          "pattern": "netlify"
+        },
+        {
+          "type": "header",
+          "field": "x-nf-request-id",
+          "pattern": ".+"
+        }
+      ]
+    },
+    {
+      "name": "Heroku",
+      "checks": [
+        {
+          "type": "header",
+          "field": "x-powered-by",
+          "pattern": "heroku"
+        },
+        {
+          "type": "header",
+          "field": "via",
+          "pattern": "heroku"
+        }
+      ]
+    },
+    {
+      "name": "PHP",
+      "checks": [
+        {
+          "type": "header",
+          "field": "x-powered-by",
+          "pattern": "php"
+        },
+        {
+          "type": "header",
+          "field": "set-cookie",
+          "pattern": "phpsessid"
+        }
+      ]
+    },
+    {
+      "name": "ASP.NET",
+      "checks": [
+        {
+          "type": "header",
+          "field": "x-aspnet-version",
+          "pattern": ".+"
+        },
+        {
+          "type": "header",
+          "field": "set-cookie",
+          "pattern": "asp\\.net_sessionid"
+        }
+      ]
+    },
+    {
+      "name": "Node.js",
+      "checks": [
+        {
+          "type": "header",
+          "field": "x-powered-by",
+          "pattern": "express|node"
+        }
+      ]
+    },
+    {
+      "name": "Java Servlet",
+      "checks": [
+        {
+          "type": "header",
+          "field": "x-powered-by",
+          "pattern": "jetty|tomcat|grizzly"
+        },
+        {
+          "type": "header",
+          "field": "set-cookie",
+          "pattern": "jsessionid"
+        }
+      ]
+    },
+    {
+      "name": "WordPress",
+      "checks": [
+        {
+          "type": "header",
+          "field": "x-powered-by",
+          "pattern": "wordpress"
+        },
+        {
+          "type": "body",
+          "pattern": "wp-content|wp-includes|wp-emoji"
+        }
+      ]
+    },
+    {
+      "name": "Drupal",
+      "checks": [
+        {
+          "type": "body",
+          "pattern": "drupal-settings-json|sites/default/files"
+        }
+      ]
+    },
+    {
+      "name": "Shopify",
+      "checks": [
+        {
+          "type": "body",
+          "pattern": "cdn\\.shopify\\.com|shopify\\.theme"
+        },
+        {
+          "type": "header",
+          "field": "x-shopid",
+          "pattern": ".+"
+        }
+      ]
+    },
+    {
+      "name": "Wix",
+      "checks": [
+        {
+          "type": "body",
+          "pattern": "wixstatic\\.com|wix\\.com/"
+        }
+      ]
+    },
+    {
+      "name": "React",
+      "checks": [
+        {
+          "type": "body",
+          "pattern": "__next|_next/static|react-dom"
+        }
+      ]
+    },
+    {
+      "name": "Next.js",
+      "checks": [
+        {
+          "type": "body",
+          "pattern": "_next/static|__NEXT_DATA__"
+        },
+        {
+          "type": "header",
+          "field": "x-nextjs-cache",
+          "pattern": ".+"
+        }
+      ]
+    },
+    {
+      "name": "Vue",
+      "checks": [
+        {
+          "type": "body",
+          "pattern": "data-v-[a-f0-9]{8}|__vue__"
+        }
+      ]
+    },
+    {
+      "name": "Google Analytics",
+      "checks": [
+        {
+          "type": "body",
+          "pattern": "google-analytics\\.com|gtag\\(|ga\\("
+        }
+      ]
+    },
+    {
+      "name": "Hotjar",
+      "checks": [
+        {
+          "type": "body",
+          "pattern": "static\\.hotjar\\.com"
+        }
+      ]
+    },
+    {
+      "name": "jQuery",
+      "checks": [
+        {
+          "type": "body",
+          "pattern": "jquery[/-][0-9]"
+        }
+      ]
+    },
+    {
+      "name": "Bootstrap",
+      "checks": [
+        {
+          "type": "body",
+          "pattern": "bootstrap[./][0-9]|bootstrap\\.min\\.css"
+        }
+      ]
+    },
+    {
+      "name": "Sentry",
+      "checks": [
+        {
+          "type": "body",
+          "pattern": "browser\\.sentry-cdn\\.com|__sentry"
+        }
+      ]
+    },
+    {
+      "name": "Stripe",
+      "checks": [
+        {
+          "type": "body",
+          "pattern": "js\\.stripe\\.com|stripe\\.com/"
+        }
+      ]
+    }
+  ]
+}

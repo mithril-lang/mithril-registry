@@ -9,6 +9,7 @@ import json
 import os
 import re
 import subprocess
+import struct
 import sys
 import tempfile
 import unittest
@@ -54,13 +55,18 @@ class TestFlameSwordCli(unittest.TestCase):
         self.assertEqual(r.returncode, 0, r.stderr)
         data = json.loads(r.stdout)
         self.assertEqual(data["name"], "mithril-flame-sword")
+        self.assertEqual(data["version"], "0.2.0")
         self.assertEqual([op["id"] for op in data["operations"]],
-                         ["report_validate", "report_analyze"])
-        self.assertFalse(any(op["network"] for op in data["operations"]))
+                         ["report_validate", "report_analyze", "scan_domain"])
+        by_id = {op["id"]: op for op in data["operations"]}
+        self.assertFalse(by_id["report_validate"]["network"])
+        self.assertFalse(by_id["report_analyze"]["network"])
+        self.assertTrue(by_id["scan_domain"]["network"])
         self.assertGreaterEqual(len(data["modules"]), 8)
         for module in data["modules"]:
-            self.assertIn("not by this skill", module["executedBy"])
-        self.assertTrue(data["limitations"])
+            self.assertIn("this skill", module["executedBy"])
+        self.assertTrue(any("Bounded stdlib scan" in line for line in data["limitations"]))
+        self.assertTrue(any("GET-only" in line for line in data["limitations"]))
 
     def test_validate_normalizes(self):
         r = run_cli(["--tool", "flame_sword_report_validate"], {"domain": "Example.COM",
@@ -141,7 +147,8 @@ class TestFlameSwordCli(unittest.TestCase):
         self.assertEqual([t["name"] for t in tools],
                          ["flame_sword_capabilities",
                           "flame_sword_report_validate",
-                          "flame_sword_report_analyze"])
+                          "flame_sword_report_analyze",
+                          "flame_sword_scan"])
         self.assertFalse(any(t.get("write") for t in tools))
         for tool in tools:
             self.assertIsInstance(tool["inputSchema"], dict)
@@ -171,7 +178,8 @@ class TestFlameSwordMcp(unittest.TestCase):
         names = [t["name"] for t in lines[1]["result"]["tools"]]
         self.assertEqual(names, ["flame_sword_capabilities",
                                  "flame_sword_report_validate",
-                                 "flame_sword_report_analyze"])
+                                 "flame_sword_report_analyze",
+                                 "flame_sword_scan"])
         self.assertIs(lines[2]["result"]["isError"], False)
         self.assertEqual(lines[2]["result"]["content"][0]["type"], "text")
         # Unknown tool names surface as isError results, not JSON-RPC errors.
@@ -204,6 +212,102 @@ class TestFlameSwordMcp(unittest.TestCase):
         lines = [json.loads(x) for x in r.stdout.strip().splitlines()]
         self.assertEqual(len(lines), 1)
         self.assertEqual(lines[0]["error"]["code"], -32700)
+
+
+class TestScannerOffline(unittest.TestCase):
+    """In-process, network-independent tests of the bounded scanner core."""
+
+    @classmethod
+    def setUpClass(cls):
+        spec = importlib.util.spec_from_file_location("flame_sword", SCRIPT)
+        if spec is None:
+            raise AssertionError("could not build module spec for flame_sword")
+        cls.fs = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.fs)
+
+    def test_scan_invalid_domain(self):
+        with self.assertRaisesRegex(self.fs.FlameSwordFailure, "invalid_domain"):
+            self.fs.scan_domain({"domain": "bad_domain"})
+
+    def test_scan_invalid_options_key(self):
+        with self.assertRaisesRegex(self.fs.FlameSwordFailure, "invalid_options"):
+            self.fs.scan_domain({"domain": "example.com",
+                                 "options": {"bogus": True}})
+
+    def test_scan_invalid_options_type(self):
+        with self.assertRaisesRegex(self.fs.FlameSwordFailure, "invalid_options"):
+            self.fs.scan_domain({"domain": "example.com",
+                                 "options": {"ai": "yes"}})
+
+    def test_dns_read_name_with_compression_pointer(self):
+        # name "a.b.example.com" followed by a pointer back to its start.
+        name = self.fs._dns_name_bytes("a.b.example.com")
+        record = name + struct.pack(">H", 0xC000 + 0)  # pointer to offset 0
+        self.assertEqual(self.fs._dns_read_name(record, 0), "a.b.example.com")
+        self.assertEqual(self.fs._dns_read_name(record, len(name)), "a.b.example.com")
+
+    def test_dns_query_timeout_is_labeled_not_raised(self):
+        # 0.0.0.0:53 must not raise; the failure comes back as a labeled error.
+        result = self.fs._dns_query("unavailable.example", 1, resolver="0.0.0.0")
+        self.assertIn("records", result)
+        self.assertIsInstance(result["records"], list)
+
+    def test_tcp_probe_closed_port_is_labeled(self):
+        probe = self.fs._tcp_probe("127.0.0.1", 1)
+        self.assertFalse(probe["open"])
+        self.assertIsNotNone(probe["error"])
+
+    def test_tech_detect_matches_header_and_body(self):
+        signatures = [
+            {"name": "nginx", "checks": [{"type": "header", "field": "server",
+                                          "pattern": "nginx/\\d+"}]},
+            {"name": "flask", "checks": [{"type": "body",
+                                          "pattern": "<title>.*</title>"}]},
+        ]
+        probe = {"status": 200, "body": b"<title>Home</title>",
+                 "headers": [("Server", "nginx/1.27")]
+                 }
+        self.assertEqual(self.fs._tech_detect(probe, signatures), ["nginx", "flask"])
+        self.assertEqual(self.fs._tech_detect(None, signatures), [])
+
+    def test_scan_ai_fail_soft_without_key(self):
+        env = {"MITHRIL_API_KEY": "", "MITHRIL_API_KEY_REF": ""}
+        options = {key: False for key in ("subdomains", "ports", "dns",
+                                          "real_ip", "tls", "tech", "email")}
+        options["ai"] = True
+        import os as _os
+        saved = {k: _os.environ.get(k) for k in env}
+        try:
+            for key in env:
+                _os.environ.pop(key, None)
+            scan = self.fs.scan_domain({"domain": "example.com", "options": options})
+        finally:
+            for key, value in saved.items():
+                if value is None:
+                    _os.environ.pop(key, None)
+                else:
+                    _os.environ[key] = value
+        self.assertEqual(scan["domain"], "example.com")
+        self.assertEqual(scan["observations"]["subdomains"][0]["subdomain"], "example.com")
+        ai = scan["observations"]["ai"]
+        if "mithril_key_unavailable" in ai.get("error", ""):
+            pass
+        else:
+            self.assertIn("provider", ai)  # a real (failed) call is still labeled.
+
+    def test_scan_rows_feed_analyst_contract(self):
+        # report_scan's observation rows must satisfy report_analyze validation.
+        options = {key: False for key in ("subdomains", "ports", "dns",
+                                          "real_ip", "tls", "tech", "email")}
+        scan = self.fs.scan_domain({"domain": "example.com", "options": options})
+        observations = [{"subdomain": row["subdomain"],
+                         "http_status": row.get("http_status"),
+                         "https_status": row.get("https_status")}
+                        for row in scan["observations"]["subdomains"]]
+        domain, clean = self.fs.validate_observations(
+            {"domain": scan["domain"], "subdomains": observations})
+        self.assertEqual(domain, "example.com")
+        self.assertEqual(clean, observations)
 
 
 class TestVendorIntegrity(unittest.TestCase):
