@@ -23,7 +23,7 @@
   "artifact": {
     "format": "git",
     "url": "https://github.com/mithril-lang/mithril-system-one",
-    "commit": "4967c369a6ce92d9988ba63009b9ea9fd4910e87",
+    "commit": "068c840719c822c015e8e0d1ddec97e715ab5ce7",
     "entry": "bin/mithril-coscientist-bb.mjs"
   },
   "command": "node",

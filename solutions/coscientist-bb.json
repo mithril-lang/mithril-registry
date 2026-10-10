@@ -60,7 +60,7 @@
       "capability": "coscientist-bb-round-ledger",
       "entry": "mithril-coscientist-bb",
       "entrypoint": "bin/mithril-coscientist-bb.mjs",
-      "artifact": "https://github.com/mithril-lang/mithril-system-one @ 4967c369a6ce92d9988ba63009b9ea9fd4910e87",
+      "artifact": "https://github.com/mithril-lang/mithril-system-one @ 068c840719c822c015e8e0d1ddec97e715ab5ce7",
       "executionStatus": "deterministic-offline",
       "guarantee": "canonical sha256 digest receipt over the normalized round, hypothesis ledger and decision; identical input produces an identical digest"
     }
