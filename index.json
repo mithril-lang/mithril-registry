@@ -657,7 +657,7 @@
       "license": "Apache-2.0",
       "path": "mcp/mithril-coscientist-bb",
       "icon": null,
-      "checksum": "sha256:49a1bc83605cd8ef555e7def28b114e9c93dd881b4dc299d2b92378bcfeb2e55",
+      "checksum": "sha256:ed5e21ac834dec4ac2e09c9bd4f2efbbd7f15df36c03064fa5236142fb6f3469",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -676,7 +676,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "4967c369a6ce92d9988ba63009b9ea9fd4910e87",
+        "commit": "068c840719c822c015e8e0d1ddec97e715ab5ce7",
         "entry": "bin/mithril-coscientist-bb.mjs"
       },
       "solutionIds": []
@@ -1836,7 +1836,7 @@
       "license": "Apache-2.0",
       "path": "workflows/mithril-coscientist-bb",
       "icon": null,
-      "checksum": "sha256:180cbcd2493d86fd75c30ed133d989f2ee3bdf41c3798b797227295421d20156",
+      "checksum": "sha256:8b4ebbc656dbb035eabaa2ce02040f67e019bc3e3b8698439bcbdd2c75ea4f13",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [
@@ -1847,7 +1847,7 @@
       "artifact": {
         "format": "git",
         "url": "https://github.com/mithril-lang/mithril-system-one",
-        "commit": "4967c369a6ce92d9988ba63009b9ea9fd4910e87",
+        "commit": "068c840719c822c015e8e0d1ddec97e715ab5ce7",
         "entry": "bin/mithril-coscientist-bb.mjs"
       },
       "execution": {
