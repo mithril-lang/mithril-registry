@@ -3,7 +3,7 @@
   "types": [
     {
       "type": "skill",
-      "count": 18,
+      "count": 19,
       "categories": [
         {
           "name": "data",
@@ -27,13 +27,13 @@
         },
         {
           "name": "security",
-          "count": 9
+          "count": 10
         }
       ]
     },
     {
       "type": "mcp",
-      "count": 14,
+      "count": 15,
       "categories": [
         {
           "name": "data",
@@ -45,7 +45,7 @@
         },
         {
           "name": "security",
-          "count": 10
+          "count": 11
         }
       ]
     },
@@ -105,7 +105,7 @@
     },
     {
       "type": "workflow",
-      "count": 3,
+      "count": 4,
       "categories": [
         {
           "name": "development",
@@ -117,7 +117,7 @@
         },
         {
           "name": "security",
-          "count": 1
+          "count": 2
         }
       ]
     }
