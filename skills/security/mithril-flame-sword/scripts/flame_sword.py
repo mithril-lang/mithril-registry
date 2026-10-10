@@ -372,7 +372,8 @@ def _ai_analyze(scan, api_key):
         f'{MITHRIL_BASE_URL}/chat/completions',
         data=json.dumps(payload).encode(),
         headers={'Content-Type': 'application/json',
-                 'Authorization': f'Bearer {api_key}'},
+                 'Authorization': f'Bearer {api_key}',
+                 'User-Agent': 'flame-sword/0.2 (mithril-registry-skill)'},
         method='POST')
     try:
         with urllib.request.urlopen(request, timeout=60) as response:
