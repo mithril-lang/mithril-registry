@@ -31,7 +31,7 @@
   "artifact": {
     "format": "git",
     "url": "https://github.com/mithril-lang/mithril-registry",
-    "commit": "5bfd026e1da459a9aba8d0109b9e65f8934906c1",
+    "commit": "1ae085a31e18831819f427a8b6507d0e334168d7",
     "entry": "bin/mithril-bounty-vrf-ops.mjs"
   },
   "command": "node",

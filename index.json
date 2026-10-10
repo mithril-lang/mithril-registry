@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 50,
+  "count": 51,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -1462,7 +1462,7 @@
       "license": "MIT",
       "path": "skills/security/mithril-flame-sword",
       "icon": null,
-      "checksum": "sha256:ed8d4987453e71b8ec34e2a1be017c14c32d270c340479d6b7c97b74ec0b61a9",
+      "checksum": "sha256:66e1f5c0e0ff36b217070bbdae1d1ccf5d0ef6151141322bc45b010242edd7c0",
       "compatibility": null,
       "acceptsFunding": false,
       "installable": true,
@@ -1815,6 +1815,80 @@
       },
       "tools": [
         "mithril_terms_review"
+      ],
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-bounty-vrf-ops",
+      "type": "workflow",
+      "category": "security",
+      "name": "Mithril Bug Bounty VRF Ops (case-scoped)",
+      "version": "0.3.0",
+      "description": "One owning profile per Bug Bounty challenge (mithril-bb-<id>). Each tick runs the deterministic Mithril public review against every case the profile owns from data/canonical/challenges.json, writes receipts to R2 under bounty-vrf/<case>/ and Drive jklux, and writes the status row back into the shared Challenge Log via the Drive API (rclone public-client token refresh; no browser UI). Secondary in-scope repositories are separate canonical cases with a lowercase letter suffix (BB-0002b); they are reviewed and archived but do not carry a sheet row.",
+      "tags": [
+        "mithril",
+        "security",
+        "bug-bounty",
+        "profile",
+        "google-drive",
+        "r2"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "workflows/mithril-bounty-vrf-ops",
+      "icon": null,
+      "checksum": "sha256:66d5d2d5eab5b7295391b19b31d09ff8e685af64dc707f6cd469b27700f37089",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "network:api.github.com",
+        "network:github.com",
+        "network:oauth2.googleapis.com",
+        "network:www.googleapis.com",
+        "subprocess:node-fixed-entrypoint",
+        "subprocess:python-fixed-entrypoint",
+        "subprocess:wrangler",
+        "filesystem:profile-data",
+        "filesystem:temporary-workspace"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-registry",
+        "commit": "1ae085a31e18831819f427a8b6507d0e334168d7",
+        "entry": "bin/mithril-bounty-vrf-ops.mjs"
+      },
+      "execution": {
+        "runtime": "mithril-system-one",
+        "input": "json-stdin",
+        "maxTasks": 1,
+        "stopOnFailure": true,
+        "retryUnknown": false
+      },
+      "requirements": {
+        "commands": [
+          "python3",
+          "node",
+          "wrangler"
+        ],
+        "python": [
+          "openpyxl"
+        ],
+        "env": [
+          "CLOUDFLARE_API_TOKEN"
+        ],
+        "envOptional": [
+          "CLOUDFLARE_ACCOUNT_ID",
+          "MITHRIL_SYSTEM_ONE_ROOT",
+          "BBOPS_CASE",
+          "BBOPS_SHEET_ID",
+          "BBOPS_PROFILE_DIR",
+          "BBOPS_SKIP_SHEET"
+        ]
+      },
+      "tools": [
+        "mithril_public_repo_review",
+        "google_sheets_sync"
       ],
       "solutionIds": []
     },
