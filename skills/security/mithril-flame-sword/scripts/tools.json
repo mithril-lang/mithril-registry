@@ -2,7 +2,7 @@
   {
     "name": "flame_sword_capabilities",
     "write": false,
-    "description": "List the local operations this skill executes (validate, analyze) and the Flame Sword scanner modules it does not execute, with fixed limitations.",
+    "description": "List the local operations this skill executes (validate, analyze, bounded stdlib scan) and the Flame Sword scanner modules with their execution owners, plus fixed limitations.",
     "inputSchema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "type": "object",
@@ -97,6 +97,39 @@
             },
             "additionalProperties": false
           }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "flame_sword_scan",
+    "write": false,
+    "description": "Bounded stdlib scan of a caller-named domain (GET-only, no host mutation, stdout only). Collects live observations: apex plus fixed keyword subdomains with HTTP(S) probes, TCP port checks on the apex (80/443/8080/8443), raw-UDP DNS lookups (A/AAAA/CNAME/NS/MX/TXT), apex A records as real-ip (no CDN-origin guarantee), one TLS handshake on 443, vendored tech-signature detection, fixed login-path GET probes, and optional Mithril AI (explicit opt-in, fail-soft). Coverage is partial by design; a zero-finding scan is not a safety or completeness statement. Output is a live observation, not byte-deterministic across runs. Scan subdomain rows feed flame_sword_report_analyze unchanged.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "required": ["domain"],
+      "properties": {
+        "domain": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 253,
+          "pattern": "^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,63}$"
+        },
+        "options": {
+          "type": "object",
+          "properties": {
+            "subdomains": {"type": "boolean"},
+            "ports": {"type": "boolean"},
+            "dns": {"type": "boolean"},
+            "real_ip": {"type": "boolean"},
+            "tls": {"type": "boolean"},
+            "tech": {"type": "boolean"},
+            "email": {"type": "boolean"},
+            "ai": {"type": "boolean"}
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
