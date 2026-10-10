@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "1",
+  "id": "mithril-bounty-vrf-ops",
+  "category": "security",
+  "name": "Mithril Bug Bounty VRF Ops (case-scoped)",
+  "version": "0.3.0",
+  "description": "One owning profile per Bug Bounty challenge (mithril-bb-<id>). Each tick runs the deterministic Mithril public review against every case the profile owns from data/canonical/challenges.json, writes receipts to R2 under bounty-vrf/<case>/ and Drive jklux, and writes the status row back into the shared Challenge Log via the Drive API (rclone public-client token refresh; no browser UI). Secondary in-scope repositories are separate canonical cases with a lowercase letter suffix (BB-0002b); they are reviewed and archived but do not carry a sheet row.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://github.com/mithril-lang/mithril-registry",
+  "tags": [
+    "mithril",
+    "security",
+    "bug-bounty",
+    "profile",
+    "google-drive",
+    "r2"
+  ],
+  "permissions": [
+    "network:api.github.com",
+    "network:github.com",
+    "network:oauth2.googleapis.com",
+    "network:www.googleapis.com",
+    "subprocess:node-fixed-entrypoint",
+    "subprocess:python-fixed-entrypoint",
+    "subprocess:wrangler",
+    "filesystem:profile-data",
+    "filesystem:temporary-workspace"
+  ],
+  "type": "workflow",
+  "artifact": {
+    "format": "git",
+    "url": "https://github.com/mithril-lang/mithril-registry",
+    "commit": "HEAD",
+    "entry": "skills/security/mithril-bounty-vrf/scripts/bounty_vrf_tick.py"
+  },
+  "command": "python3",
+  "args": [
+    "skills/security/mithril-bounty-vrf/scripts/bounty_vrf_tick.py"
+  ],
+  "entry": "skills/security/mithril-bounty-vrf/scripts/bounty_vrf_tick.py",
+  "requirements": {
+    "commands": [
+      "python3",
+      "node",
+      "wrangler"
+    ],
+    "python": [
+      "openpyxl"
+    ],
+    "env": [
+      "CLOUDFLARE_API_TOKEN"
+    ],
+    "envOptional": [
+      "CLOUDFLARE_ACCOUNT_ID",
+      "MITHRIL_SYSTEM_ONE_ROOT",
+      "BBOPS_CASE",
+      "BBOPS_SHEET_ID",
+      "BBOPS_PROFILE_DIR",
+      "BBOPS_SKIP_SHEET"
+    ]
+  },
+  "configuration": {
+    "case_binding": "Profile name mithril-bb-<id> (or BBOPS_CASE, comma separated, matching canonical ids exactly) selects the primary case BB-<ID> and, if present in canonical, the secondary case BB-<ID>b from data/canonical/challenges.json.",
+    "google_access": "rclone public Google OAuth client (202264815644.apps.googleusercontent.com); refresh token from the owning profile's data/rclone.conf; Sheets API is disabled for that project, so reads are Drive xlsx export and writes are multipart/related PATCH with read-back (google_sheets_sync.py).",
+    "r2": "internal-security-nvd bucket (fund account 62e1fda53188460698f8c66d3aef59c6), prefix bounty-vrf/<case>/ (per-case ownership; no two profiles write the same key).",
+    "sheet": "Only primary cases write the shared Challenge Log row of sheet 1gJ-CfDviZZltpc2qIlsW5hxs386E9fCWhkS0vR_50yo; sheet write-back is warn-and-continue.",
+    "cooldown": "12h per case after any recorded outcome (ok, refused, timeout, resolve_failed); a new tick then SKIPs the case."
+  },
+  "env": {},
+  "executable": true,
+  "tools": [
+    "mithril_public_repo_review",
+    "google_sheets_sync"
+  ],
+  "execution": {
+    "runtime": "python3",
+    "input": "env",
+    "maxTasks": 1,
+    "stopOnFailure": false,
+    "retryUnknown": false
+  },
+  "profiles": [
+    {
+      "id": "mithril-bb-0001",
+      "cases": ["BB-0001"],
+      "repository": "freedomofpress/securedrop-client",
+      "cron": "0 * * * *"
+    },
+    {
+      "id": "mithril-bb-0002",
+      "cases": ["BB-0002", "BB-0002b"],
+      "repository": "mattermost/mattermost-plugin-msteams (+ mattermost/mattermost-plugin-confluence as BB-0002b)",
+      "cron": "0 * * * *"
+    },
+    {
+      "id": "mithril-bb-0003",
+      "cases": ["BB-0003"],
+      "repository": "ClickHouse/ClickHouse",
+      "cron": "0 * * * *"
+    }
+  ],
+  "retired": [
+    {
+      "id": "mithril-bounty-vrf-ops",
+      "note": "Legacy single profile; cron b9354d5b6999 paused 2026-10-10 in favour of the per-challenge profiles. Kept for state/history."
+    }
+  ]
+}

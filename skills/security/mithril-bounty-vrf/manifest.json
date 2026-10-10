@@ -1,0 +1,111 @@
+{
+  "kind": "skill",
+  "name": "mithril-bounty-vrf",
+  "version": "0.3.0",
+  "category": "security",
+  "description": "Run per-challenge Bug Bounty VRF cases: deterministic Mithril public review of fixed commits, R2/Drive receipts per case (bounty-vrf/<case>/), and write-back to the shared Challenge Log via the Drive API. One owning profile per challenge (mithril-bb-<id>); secondary in-scope repos are letter-suffixed cases without a sheet row.",
+  "tags": [
+    "security",
+    "bug-bounty",
+    "review",
+    "google",
+    "google-drive",
+    "r2"
+  ],
+  "inputs": [
+    {
+      "name": "repository",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "commit",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "case_id",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "sheet_id",
+      "type": "string",
+      "required": false
+    }
+  ],
+  "outputs": [
+    {
+      "name": "status",
+      "type": "string"
+    },
+    {
+      "name": "review_commit",
+      "type": "string"
+    },
+    {
+      "name": "r2_prefix",
+      "type": "string"
+    },
+    {
+      "name": "sheet_row",
+      "type": "number"
+    }
+  ],
+  "capabilities": [
+    "google-drive-api",
+    "google-oauth-token-cache",
+    "mithril-public-review",
+    "r2-publish"
+  ],
+  "environment": {
+    "required": [
+      "node",
+      "openpyxl",
+      "CLOUDFLARE_API_TOKEN"
+    ],
+    "optional": [
+      "rclone",
+      "CLOUDFLARE_ACCOUNT_ID"
+    ]
+  },
+  "entrypoint": {
+    "type": "python",
+    "path": "scripts/bounty_vrf_tick.py"
+  },
+  "files": [
+    "manifest.json",
+    "README.md",
+    "acceptance.sh",
+    "scripts/google_sheets_sync.py",
+    "scripts/bounty_vrf_tick.py",
+    "tests/test_bounty_vrf.py"
+  ],
+  "permissions": [
+    {
+      "capability": "network",
+      "allowed": [
+        "github.com",
+        "api.github.com",
+        "oauth2.googleapis.com",
+        "www.googleapis.com"
+      ]
+    },
+    {
+      "capability": "process",
+      "allowed": [
+        "node",
+        "wrangler",
+        "bash"
+      ]
+    },
+    {
+      "capability": "filesystem",
+      "allowed": [
+        "profile:data",
+        "profile:scripts",
+        "profile:cache"
+      ]
+    }
+  ]
+}
