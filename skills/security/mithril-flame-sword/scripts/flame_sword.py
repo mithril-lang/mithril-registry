@@ -35,6 +35,7 @@ Two layers, both driven from this single standard-library file:
    unchanged.
 """
 import argparse
+import base64
 import importlib.util
 import json
 import os
@@ -47,6 +48,7 @@ import subprocess
 import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime as _real_datetime
 from pathlib import Path
@@ -89,6 +91,13 @@ CONNECT_TIMEOUT_S = 2.0
 MITHRIL_BASE_URL = 'https://api.mithril.fund/v1'
 MITHRIL_MODEL = 'qwen/qwen3.8-27b'
 EMAIL_PROBE_STATUSES = (200, 301, 302, 401, 403)
+# DoH (JSON) providers used only after raw UDP/53 and TCP/53 to the
+# configured resolver both fail; keeps DNS observable on networks that
+# block port 53. No key is sent; the same User-Agent as the AI call.
+DOH_PROVIDERS = (
+    'https://cloudflare-dns.com/dns-query',
+    'https://dns.google/resolve',
+)
 
 VENDOR_DIR = Path(__file__).resolve().with_name('vendor')
 TOOLS = json.loads(Path(__file__).with_name('tools.json').read_text())
@@ -181,6 +190,8 @@ def _tcp_probe(host, port):
 def _dns_name_bytes(name):
     out = b''
     for label in name.split('.'):
+        if label == '':
+            continue
         raw = label.encode('ascii')
         if not (1 <= len(raw) <= 63):
             raise FlameSwordFailure('invalid_dns_name')
@@ -208,21 +219,134 @@ def _dns_read_name(data, offset):
 
 
 def _dns_query(host, qtype, resolver='1.1.1.1'):
-    """Raw DNS query; tries UDP first, falls back to TCP (same wire format)."""
+    """Raw DNS query; tries UDP, then TCP (same wire format), then DoH."""
     packet = (struct.pack('>HHHHHH', 0x9c3d, 0x8400, 1, 0, 0, 0)
               + _dns_name_bytes(host.lower())
               + struct.pack('>HH', qtype, 1))
     raw = _dns_query_udp(packet, resolver)
+    doh = False
     error = None
     if raw is None:
         error = 'udp_unreachable'
         raw = _dns_query_tcp(packet, resolver)
         if raw is None:
-            return {'records': [], 'error': f'dns_unreachable ({error}; tcp fallback also failed)'}
+            raw = _dns_query_doh(host, qtype)
+            doh = raw is not None
+            if raw is None:
+                return {'records': [], 'error': f'dns_unreachable ({error}; tcp 53 and DoH fallbacks also failed)'}
     try:
-        return _dns_decode(raw, qtype, first_error=error)
+        return _dns_decode(raw, qtype, first_error=None if doh else error)
     except FlameSwordFailure as error:
         return {'records': [], 'error': str(error)}
+
+
+def _inet4_to_bytes(value):
+    try:
+        return socket.inet_aton(str(value))
+    except (OSError, ValueError):
+        return None
+
+
+def _inet6_to_bytes(value):
+    try:
+        return socket.inet_pton(socket.AF_INET6, str(value))
+    except (OSError, ValueError):
+        return None
+
+
+def _txt_to_rdata(value):
+    """Encode a JSON DoH TXT ``data`` string (which may be quoted) to rdata."""
+    text = str(value)
+    if len(text) >= 2 and text[0] == '"' and text[-1] == '"':
+        text = text[1:-1]
+    encoded = text.encode('utf-8', 'replace')
+    if not encoded or len(encoded) > 255:
+        return None
+    return bytes([len(encoded)]) + encoded
+
+
+def _dns_query_doh(host, qtype):
+    """JSON DoH (no key) as a last resort when port 53 is blocked.
+
+    Returns a raw DNS wire-format packet (the provider's ``Answer``
+    section is not used; providers return the same wire format inside
+    the message field) or ``None`` when every provider fails.
+    """
+    for base in DOH_PROVIDERS:
+        url = f'{base}?name={urllib.parse.quote(host.lower())}&type={qtype}'
+        request = urllib.request.Request(
+            url, headers={'User-Agent': 'flame-sword/0.2 (mithril-registry-skill)',
+                          'Accept': 'application/dns-message, application/dns-json'})
+        try:
+            with urllib.request.urlopen(request, timeout=HTTP_TIMEOUT_S) as response:
+                content_type = response.getheader('content-type', '')
+                if content_type.startswith('application/dns-message'):
+                    return response.read()
+                data = json.loads(response.read().decode('utf-8', 'replace'))
+            # Both JSON DoH providers embed the answer as wire-format
+            # base64 only for cloudflare's ``message``; dns.google uses
+            # structured Answer entries. Prefer the wire ``message``.
+            message = data.get('message')
+            if isinstance(message, str) and message:
+                return base64.b64decode(message)
+            return _dns_json_to_wire(data, qtype)
+        except (urllib.error.URLError, OSError, ValueError):
+            continue
+    return None
+
+
+def _json_answer_rdata(answer):
+    """Encode one JSON DoH ``Answer`` entry to rdata (or ``None``)."""
+    rtype = answer.get('type')
+    if rtype == 1:
+        return _inet4_to_bytes(answer.get('data'))
+    if rtype == 28:
+        return _inet6_to_bytes(answer.get('data'))
+    if rtype in (5, 2):  # CNAME / NS (a root exchange encodes as a single NUL)
+        return _dns_name_bytes(str(answer.get('data') or '').rstrip('.'))
+    if rtype == 15:
+        if 'exchange' in answer:
+            exchange = answer.get('exchange', '').rstrip('.')
+            return struct.pack('>H', answer.get('preference', 0)) \
+                + _dns_name_bytes(exchange)
+        # dns.google encodes MX as a single "preference exchange"
+        # string inside ``data``.
+        parts = str(answer.get('data', '')).split(' ', 1)
+        if len(parts) < 2 or not parts[0].isdigit():
+            return None
+        exchange = parts[1].rstrip('.')
+        return struct.pack('>H', int(parts[0])) + _dns_name_bytes(exchange)
+    if rtype == 16:
+        return _txt_to_rdata(answer.get('data'))
+    return None
+
+
+def _dns_json_to_wire(data, qtype):
+    """Build a minimal DNS wire packet from JSON DoH ``Answer`` entries.
+
+    Only the subset this scanner decodes (A, AAAA, CNAME, NS, MX, TXT)
+    is supported; other records are skipped. A successful provider
+    response (Status 0 NOERROR or 3 NXDOMAIN) yields a wire packet even
+    with zero decodable answers, so the decoder can label it
+    ``dns_no_answer`` instead of ``dns_unreachable``. SERVFAIL/REFUSED
+    (Status 2/4) yield ``None`` so the next provider is tried.
+    """
+    status = data.get('Status', 0)
+    if status in (2, 4):
+        return None
+    name_source = data.get('Answer') or data.get('Question') or [{}]
+    qname = _dns_name_bytes((name_source[0].get('name') or '').lower().rstrip('.'))
+    records = []
+    for answer in (data.get('Answer') or []):
+        rdata = _json_answer_rdata(answer)
+        if rdata is None:
+            continue
+        records.append((answer.get('type'), answer.get('TTL') or 0, rdata))
+    header = struct.pack('>HHHHHH', 0x9c3d, 0x8400, 1, len(records), 0, 0)
+    body = qname + struct.pack('>HH', qtype, 1)
+    for rtype, ttl, rdata in records:
+        body += qname + struct.pack('>HHIH', rtype, 1, ttl, len(rdata)) + rdata
+    return header + body
 
 
 def _dns_query_udp(packet, resolver):
@@ -285,9 +409,9 @@ def _dns_decode(raw, qtype, first_error=None):
         rdata = raw[rdata_start:rdata_start + rlen]
         offset = rdata_start + rlen
         if rtype == 1 and len(rdata) == 4:  # A
-            values.append('.'.join(str(b) for b in rdata))
+            values.append(socket.inet_ntoa(rdata))
         elif rtype == 28 and len(rdata) == 16:  # AAAA
-            values.append('.'.join(str(b) for b in rdata))
+            values.append(socket.inet_ntop(socket.AF_INET6, rdata))
         elif rtype in (5, 2):  # CNAME / NS
             values.append(_dns_read_name(raw, rdata_start))
         elif rtype == 15 and rlen >= 3:  # MX: preference(2) + exchange name

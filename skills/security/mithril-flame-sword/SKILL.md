@@ -22,8 +22,9 @@ Two layers in one standard-library tool:
    Collects live observations for a caller-named domain using only the
    Python standard library: apex plus a fixed keyword subdomain list
    with HTTP(S) GET probes, TCP port checks on the apex (80/443/8080/
-   8443), raw DNS queries (A/AAAA/CNAME/NS/MX/TXT; UDP first, TCP/53
-   fallback), apex A records as real-IP (no CDN-origin guarantee), one
+   8443), DNS lookups (A/AAAA/CNAME/NS/MX/TXT; raw UDP/53 first,
+   TCP/53 fallback, then keyless DoH), apex A records as real-IP (no
+   CDN-origin guarantee), one
    TLS handshake on 443, vendored tech-signature detection, fixed
    login-path GET probes, and optional Mithril AI (explicit opt-in,
    fail-soft, `MITHRIL_API_KEY` or `op://` `MITHRIL_API_KEY_REF`).

@@ -62,7 +62,7 @@ Collection steps (all GET-only / no host mutation):
 | --- | --- | --- |
 | `subdomains` | apex + 17 fixed keywords, each probed over HTTP and HTTPS (status, final URL, byte size) | 18 hosts |
 | `ports` | TCP connect to the apex on 80/443/8080/8443 | 4 ports |
-| `dns` | raw DNS wire queries A/AAAA/CNAME/NS/MX/TXT (UDP 53, TCP 53 fallback) | 6 types |
+| `dns` | DNS lookups A/AAAA/CNAME/NS/MX/TXT (raw UDP/53, TCP/53 fallback, then keyless DoH: Cloudflare, then Google, over HTTPS) | 6 types |
 | `real_ip` | apex A records, labeled "no CDN-origin guarantee" | 1 query |
 | `tls` | one stdlib `ssl` handshake to the apex on 443 (version, cipher, subject, SANs, expiry vs fixed clock) | 1 handshake |
 | `tech` | vendored 30-signature table over the primary response (headers + body, 64 KiB cap) | vendored table |
@@ -121,6 +121,15 @@ input bytes therefore yield byte-identical output.
   therefore sends an explicit `flame-sword/0.2 (mithril-registry-skill)`
   UA. A non-2xx from the inference API is still surfaced as a labeled
   `ai.error`, never raised.
+- DoH (the last DNS backend) sends the same `flame-sword/0.2` UA plus an
+  `Accept: application/dns-message, application/dns-json` header
+  (Cloudflare's JSON DoH returns 400 without it). Per-type DNS outcomes
+  are labeled in the `dns` / `real_ip` observation, never raised: a
+  `NOERROR` response with no matching records is `dns_no_answer`, while
+  only when UDP/53, TCP/53 and both DoH providers all fail is it
+  `dns_unreachable (udp_unreachable; tcp 53 and DoH fallbacks also
+  failed)`. `SERVFAIL`/`REFUSED` from a provider fall through to the
+  next provider rather than being labeled.
 
 ## What this contract does not cover
 
