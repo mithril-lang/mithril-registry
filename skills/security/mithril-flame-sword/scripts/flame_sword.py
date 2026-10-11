@@ -579,9 +579,16 @@ def scan_domain(raw):
 
     if wanted['ports']:
         scan['observations']['ports'] = [_tcp_probe(domain, port) for port in DEFAULT_PORTS]
+    # The apex A query backs BOTH the `dns` observation and the `real_ip`
+    # observation, so it runs once (not twice) — on a network where raw
+    # port 53 is blocked, each A query burns the full UDP->TCP->DoH
+    # fallback chain, so the duplicate was a wasted round-trip.
+    apex_a = None
+    if wanted['dns'] or wanted['real_ip']:
+        apex_a = _dns_query(domain, 1)
     if wanted['dns']:
         scan['observations']['dns'] = {
-            'A': _dns_query(domain, 1),
+            'A': apex_a,
             'AAAA': _dns_query(domain, 28),
             'CNAME': _dns_query(domain, 5),
             'NS': _dns_query(domain, 2),
@@ -589,9 +596,9 @@ def scan_domain(raw):
             'TXT': _dns_query(domain, 16),
         }
     if wanted['real_ip']:
-        apex = _dns_query(domain, 1)
         scan['observations']['real_ip'] = {
-            'records': apex['records'], 'error': apex['error'],
+            'records': (apex_a or {'records': [], 'error': 'dns_unreachable'})['records'],
+            'error': (apex_a or {'records': [], 'error': 'dns_unreachable'})['error'],
             'guarantee': 'apex A records only; no CDN-origin guarantee',
         }
 
