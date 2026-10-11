@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "1",
+  "type": "workflow",
+  "id": "mithril-message-report",
+  "category": "security",
+  "name": "Mithril Message Report",
+  "version": "0.1.0",
+  "description": "Explicitly selected mobile message excerpts through the authenticated Fund gateway: private signal receipts, separately consented Knowledge submission, status and withdrawal. Independent review and confirmed publication gate a single $1 AI credit; no inbox monitoring or automatic approval.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://github.com/mithril-lang/mithril-system-one",
+  "tags": [
+    "spam",
+    "phishing",
+    "mobile",
+    "consent",
+    "knowledge"
+  ],
+  "permissions": [
+    "network:api.mithril.fund",
+    "knowledge:read",
+    "knowledge:write"
+  ],
+  "artifact": {
+    "format": "git",
+    "url": "https://github.com/mithril-lang/mithril-system-one",
+    "commit": "bf35e90c92025685317060c180151ddf34fbf29f",
+    "entry": "bin/mithril-message-report.mjs"
+  },
+  "command": "node",
+  "args": [
+    "${system_one_root}/bin/mithril-message-report.mjs",
+    "--stdin"
+  ],
+  "entry": "bin/mithril-message-report.mjs",
+  "requirements": {
+    "commands": [
+      "node"
+    ]
+  },
+  "configuration": {
+    "system_one_root": "Checkout artifact.commit; Node >=22, standard library only. Fund gateway release/schema and account-scoped knowledge token are separately required."
+  },
+  "env": {
+    "MITHRIL_API_KEY": "optional-owning-profile-reference"
+  },
+  "executable": true,
+  "tools": [
+    "mithril_message_report"
+  ],
+  "execution": {
+    "runtime": "mithril-system-one",
+    "input": "json-stdin",
+    "maxTasks": 1,
+    "stopOnFailure": true,
+    "retryUnknown": false
+  },
+  "readiness": {
+    "localContractTested": true,
+    "productionGatewayQualified": false,
+    "installedNativeQualified": false,
+    "rewardBudgetActivated": false
+  }
+}

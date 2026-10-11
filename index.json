@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 52,
+  "count": 53,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -1941,6 +1941,56 @@
       },
       "tools": [
         "mithril_coscientist_bb"
+      ],
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-message-report",
+      "type": "workflow",
+      "category": "security",
+      "name": "Mithril Message Report",
+      "version": "0.1.0",
+      "description": "Explicitly selected mobile message excerpts through the authenticated Fund gateway: private signal receipts, separately consented Knowledge submission, status and withdrawal. Independent review and confirmed publication gate a single $1 AI credit; no inbox monitoring or automatic approval.",
+      "tags": [
+        "spam",
+        "phishing",
+        "mobile",
+        "consent",
+        "knowledge"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "workflows/mithril-message-report",
+      "icon": null,
+      "checksum": "sha256:d372f58cedaeae177c538c4cfeeb05d9719220c609c6435d8d6d001f55474acc",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "network:api.mithril.fund",
+        "knowledge:read",
+        "knowledge:write"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-system-one",
+        "commit": "bf35e90c92025685317060c180151ddf34fbf29f",
+        "entry": "bin/mithril-message-report.mjs"
+      },
+      "execution": {
+        "runtime": "mithril-system-one",
+        "input": "json-stdin",
+        "maxTasks": 1,
+        "stopOnFailure": true,
+        "retryUnknown": false
+      },
+      "requirements": {
+        "commands": [
+          "node"
+        ]
+      },
+      "tools": [
+        "mithril_message_report"
       ],
       "solutionIds": []
     },
