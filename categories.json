@@ -105,7 +105,7 @@
     },
     {
       "type": "workflow",
-      "count": 6,
+      "count": 7,
       "categories": [
         {
           "name": "development",
@@ -117,7 +117,7 @@
         },
         {
           "name": "security",
-          "count": 4
+          "count": 5
         }
       ]
     }
