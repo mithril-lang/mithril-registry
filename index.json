@@ -1962,7 +1962,7 @@
       "license": "Apache-2.0",
       "path": "workflows/mithril-message-report",
       "icon": null,
-      "checksum": "sha256:d372f58cedaeae177c538c4cfeeb05d9719220c609c6435d8d6d001f55474acc",
+      "checksum": "sha256:f351d5914effeb9362a1d18f5332a5b5d0ad2d7497043e2eadfc8aa66023c2e5",
       "compatibility": null,
       "acceptsFunding": false,
       "permissions": [

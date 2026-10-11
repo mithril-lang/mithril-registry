@@ -28,4 +28,4 @@ A submitted report enters the existing private Knowledge queue. An independent h
 
 ## Qualification
 
-Source and local tests establish the workflow/client contract. Production gateway, migration `0058_message_report_receipts.sql`, existing contribution schemas/publisher, authorized finite reward budget, full signed standalone API receipts, current-main publication, native signed store artifacts and physical-device QA remain separate release gates. No production reward is promised by Registry installation. Follow the Fund design/runbook `docs/design/mobile-message-report-workflow.md`.
+Source and local tests establish the workflow/client contract. Production gateway, migration `0061_message_report_receipts.sql`, existing contribution schemas/publisher, authorized finite reward budget, full signed standalone API receipts, current-main publication, native signed store artifacts and physical-device QA remain separate release gates. No production reward is promised by Registry installation. Follow the Fund design/runbook `docs/design/mobile-message-report-workflow.md`.
