@@ -8,8 +8,9 @@ import importlib.util
 import json
 import os
 import re
-import subprocess
+import socket
 import struct
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -247,10 +248,109 @@ class TestScannerOffline(unittest.TestCase):
         self.assertEqual(self.fs._dns_read_name(record, len(name)), "a.b.example.com")
 
     def test_dns_query_timeout_is_labeled_not_raised(self):
-        # 0.0.0.0:53 must not raise; the failure comes back as a labeled error.
-        result = self.fs._dns_query("unavailable.example", 1, resolver="0.0.0.0")
+        # 0.0.0.0:53 must not raise; the failure comes back as a labeled
+        # error. DoH is stubbed so the test stays network-independent.
+        saved_doh = self.fs._dns_query_doh
+        try:
+            self.fs._dns_query_doh = lambda host, qtype: None
+            result = self.fs._dns_query("unavailable.example", 1, resolver="0.0.0.0")
+        finally:
+            self.fs._dns_query_doh = saved_doh
         self.assertIn("records", result)
         self.assertIsInstance(result["records"], list)
+
+    def _wire_a_packet(self, name, address):
+        """Build a raw DNS wire packet answering an A question."""
+        qname = self.fs._dns_name_bytes(name)
+        rdata = socket.inet_aton(address)
+        body = qname + struct.pack(">HH", 1, 1)
+        answer = qname + struct.pack(">HHIH", 1, 1, 60, len(rdata)) + rdata
+        return struct.pack(">HHHHHH", 0x9c3d, 0x8400, 1, 1, 0, 0) + body + answer
+
+    def test_dns_query_falls_back_to_doh(self):
+        # UDP + TCP/53 blocked, DoH answers: records come back, no error.
+        saved = (self.fs._dns_query_udp, self.fs._dns_query_tcp, self.fs._dns_query_doh)
+        try:
+            self.fs._dns_query_udp = lambda packet, resolver: None
+            self.fs._dns_query_tcp = lambda packet, resolver: None
+            self.fs._dns_query_doh = lambda host, qtype: self._wire_a_packet(host, "93.184.216.34")
+            result = self.fs._dns_query("example.com", 1, resolver="0.0.0.0")
+        finally:
+            (self.fs._dns_query_udp, self.fs._dns_query_tcp, self.fs._dns_query_doh) = saved
+        self.assertEqual(result["error"], None)
+        self.assertIn("93.184.216.34", result["records"])
+
+    def test_dns_query_all_backends_fail_is_labeled(self):
+        saved = (self.fs._dns_query_udp, self.fs._dns_query_tcp, self.fs._dns_query_doh)
+        try:
+            self.fs._dns_query_udp = lambda packet, resolver: None
+            self.fs._dns_query_tcp = lambda packet, resolver: None
+            self.fs._dns_query_doh = lambda host, qtype: None
+            result = self.fs._dns_query("unavailable.example", 1, resolver="0.0.0.0")
+        finally:
+            (self.fs._dns_query_udp, self.fs._dns_query_tcp, self.fs._dns_query_doh) = saved
+        self.assertEqual(result["records"], [])
+        self.assertIn("dns_unreachable", result["error"])
+        self.assertIn("DoH", result["error"])
+
+    def test_inet_helpers_round_trip(self):
+        self.assertEqual(self.fs._inet4_to_bytes("1.2.3.4"), socket.inet_aton("1.2.3.4"))
+        self.assertIsNone(self.fs._inet4_to_bytes("nope"))
+        self.assertEqual(self.fs._inet6_to_bytes("2001:db8::1"),
+                         socket.inet_pton(socket.AF_INET6, "2001:db8::1"))
+        self.assertIsNone(self.fs._inet6_to_bytes("nope"))
+        self.assertEqual(self.fs._txt_to_rdata('"v=spf1 -all"'),
+                         bytes([11]) + b"v=spf1 -all")
+        self.assertEqual(self.fs._txt_to_rdata("plain"), bytes([5]) + b"plain")
+        self.assertIsNone(self.fs._txt_to_rdata(""))
+
+    def test_dns_json_to_wire_round_trip(self):
+        # dns.google-shaped JSON answer for an A record must round-trip
+        # through the scanner's own wire decoder.
+        data = {"Status": 0, "Answer": [
+            {"name": "example.com.", "type": 1, "TTL": 300, "data": "93.184.216.34"},
+            {"name": "example.com.", "type": 5, "TTL": 300, "data": "alias.example.com."},
+        ]}
+        wire = self.fs._dns_json_to_wire(data, 1)
+        self.assertIsNotNone(wire)
+        result = self.fs._dns_decode(wire, 1)
+        self.assertIsNone(result["error"])
+        self.assertIn("93.184.216.34", result["records"])
+
+    def test_dns_json_to_wire_noanswer_labeled_not_unreachable(self):
+        # NOERROR with an empty Answer must decode to dns_no_answer,
+        # not dns_unreachable (a successful provider response).
+        wire = self.fs._dns_json_to_wire(
+            {"Status": 0, "Question": [{"name": "example.com."}], "Answer": []}, 5)
+        self.assertIsNotNone(wire)
+        result = self.fs._dns_decode(wire, 5)
+        self.assertEqual(result["records"], [])
+        self.assertEqual(result["error"], "dns_no_answer")
+        # SERVFAIL/REFUSED still fall through to the next provider.
+        self.assertIsNone(self.fs._dns_json_to_wire(
+            {"Status": 2, "Question": [{"name": "example.com."}], "Answer": []}, 1))
+
+    def test_dns_json_mx_root_exchange_decodes(self):
+        # A dns.google MX with a root exchange ("0 .") must round-trip to
+        # {'preference': 0, 'exchange': ''} instead of being silently dropped.
+        data = {"Status": 0, "Answer": [
+            {"name": "example.com.", "type": 15, "TTL": 261, "data": "0 ."},
+        ]}
+        wire = self.fs._dns_json_to_wire(data, 15)
+        self.assertIsNotNone(wire)
+        result = self.fs._dns_decode(wire, 15)
+        self.assertIsNone(result["error"])
+        self.assertEqual(result["records"], [{"preference": 0, "exchange": ""}])
+
+    def test_dns_decode_aaaa_is_colon_form(self):
+        qname = self.fs._dns_name_bytes("example.com")
+        rdata = socket.inet_pton(socket.AF_INET6, "2001:db8::1")
+        body = qname + struct.pack(">HH", 28, 1)
+        answer = qname + struct.pack(">HHIH", 28, 1, 60, len(rdata)) + rdata
+        wire = struct.pack(">HHHHHH", 0x9c3d, 0x8400, 1, 1, 0, 0) + body + answer
+        result = self.fs._dns_decode(wire, 28)
+        self.assertIsNone(result["error"])
+        self.assertEqual(result["records"], ["2001:db8::1"])
 
     def test_tcp_probe_closed_port_is_labeled(self):
         probe = self.fs._tcp_probe("127.0.0.1", 1)
