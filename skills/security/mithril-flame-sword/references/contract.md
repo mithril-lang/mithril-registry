@@ -71,7 +71,12 @@ Collection steps (all GET-only / no host mutation):
 
 Output: `{scan, domain, subdomains, execution:
 "local-cli-stdlib-scanner", evidence, limitations}`. `scan` carries
-`options` (the resolved booleans) and `observations` keyed by step.
+`options` (the resolved booleans) and `observations`. Most steps become
+an `observations` key (`ports`, `dns`, `real_ip`, `ai`); two are carried
+inline on the `subdomains` rows: `tech` is a per-row `tech` field, and
+`email` is a per-row `login_paths` list (6 `{path, status, error}`
+entries on hosts answering 200/301/302/401/403). `tls` is an apex-only
+row field. `ai` appears only when requested (absent otherwise).
 Probe-level failures are labeled per observation in `error` fields
 (e.g. `TimeoutError:timed out`, `dns_unreachable (udp_unreachable; tcp
 fallback also failed)`, `mithril_key_unavailable`); they never abort
