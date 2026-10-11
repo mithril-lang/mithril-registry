@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "count": 51,
+  "count": 52,
   "entries": [
     {
       "id": "mithril-system-one",
@@ -1941,6 +1941,86 @@
       },
       "tools": [
         "mithril_coscientist_bb"
+      ],
+      "solutionIds": []
+    },
+    {
+      "id": "mithril-polyglot-review-ops",
+      "type": "workflow",
+      "category": "security",
+      "name": "Mithril Polyglot Review Ops (worktree-scoped)",
+      "version": "0.1.0",
+      "description": "One owning profile (mithril-polyglot-review-ops) continues the Go/Rust polyglot extraction expansion on the pinned worktree system-one-polyglot-extraction (feat/polyglot-source-extraction). Each hourly tick runs the two deterministic test suites, measures public-review extraction against canonical targets (HEAD via git ls-remote; no GitHub API quota; target code never executed), commits and pushes to the feature branch only when tests are green, and archives receipts to R2 under polyglot-review/ and Google Drive jklux with read-back verification. review_incomplete is not safe; findings are affected-version candidates.",
+      "tags": [
+        "mithril",
+        "security",
+        "review",
+        "go",
+        "rust",
+        "polyglot",
+        "profile",
+        "google-drive",
+        "r2"
+      ],
+      "author": "Mithril",
+      "license": "Apache-2.0",
+      "path": "workflows/mithril-polyglot-review-ops",
+      "icon": null,
+      "checksum": "sha256:3159f4c322ea54e1ae3495e99978475f2cb800414976d5b7e103bea8ec82175f",
+      "compatibility": null,
+      "acceptsFunding": false,
+      "permissions": [
+        "network:api.github.com",
+        "network:github.com",
+        "network:raw.githubusercontent.com",
+        "network:api.osv.dev",
+        "network:knowledge.mithril.fund",
+        "network:oauth2.googleapis.com",
+        "network:www.googleapis.com",
+        "subprocess:node-fixed-entrypoint",
+        "subprocess:python-fixed-entrypoint",
+        "subprocess:wrangler",
+        "subprocess:git",
+        "filesystem:profile-data",
+        "filesystem:temporary-workspace",
+        "filesystem:worktree-feat-polyglot-source-extraction"
+      ],
+      "installable": true,
+      "artifact": {
+        "format": "git",
+        "url": "https://github.com/mithril-lang/mithril-registry",
+        "commit": "e1529b4bef540080b56622123de3e082cb0eff0a",
+        "entry": "bin/mithril-polyglot-review-ops.mjs"
+      },
+      "execution": {
+        "runtime": "mithril-system-one",
+        "input": "json-stdin",
+        "maxTasks": 1,
+        "stopOnFailure": true,
+        "retryUnknown": false
+      },
+      "requirements": {
+        "commands": [
+          "python3",
+          "node",
+          "git",
+          "wrangler"
+        ],
+        "python": [],
+        "env": [],
+        "envOptional": [
+          "MITHRIL_SOURCE_PYTHON",
+          "GH_TOKEN",
+          "POLYGLOT_WORKTREE",
+          "POLYGLOT_BRANCH",
+          "POLYGLOT_TICK",
+          "POLYGLOT_PROFILE_DIR",
+          "POLYGLOT_WRANGLER_PERSIST",
+          "CLOUDFLARE_ACCOUNT_ID"
+        ]
+      },
+      "tools": [
+        "mithril_public_repo_review"
       ],
       "solutionIds": []
     },

@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "1",
+  "id": "mithril-polyglot-review-ops",
+  "category": "security",
+  "name": "Mithril Polyglot Review Ops (worktree-scoped)",
+  "version": "0.1.0",
+  "description": "One owning profile (mithril-polyglot-review-ops) continues the Go/Rust polyglot extraction expansion on the pinned worktree system-one-polyglot-extraction (feat/polyglot-source-extraction). Each hourly tick runs the two deterministic test suites, measures public-review extraction against canonical targets (HEAD via git ls-remote; no GitHub API quota; target code never executed), commits and pushes to the feature branch only when tests are green, and archives receipts to R2 under polyglot-review/ and Google Drive jklux with read-back verification. review_incomplete is not safe; findings are affected-version candidates.",
+  "author": "Mithril",
+  "license": "Apache-2.0",
+  "source": "https://github.com/mithril-lang/mithril-registry",
+  "tags": [
+    "mithril",
+    "security",
+    "review",
+    "go",
+    "rust",
+    "polyglot",
+    "profile",
+    "google-drive",
+    "r2"
+  ],
+  "permissions": [
+    "network:api.github.com",
+    "network:github.com",
+    "network:raw.githubusercontent.com",
+    "network:api.osv.dev",
+    "network:knowledge.mithril.fund",
+    "network:oauth2.googleapis.com",
+    "network:www.googleapis.com",
+    "subprocess:node-fixed-entrypoint",
+    "subprocess:python-fixed-entrypoint",
+    "subprocess:wrangler",
+    "subprocess:git",
+    "filesystem:profile-data",
+    "filesystem:temporary-workspace",
+    "filesystem:worktree-feat-polyglot-source-extraction"
+  ],
+  "type": "workflow",
+  "artifact": {
+    "format": "git",
+    "url": "https://github.com/mithril-lang/mithril-registry",
+    "commit": "e1529b4bef540080b56622123de3e082cb0eff0a",
+    "entry": "bin/mithril-polyglot-review-ops.mjs"
+  },
+  "command": "node",
+  "args": [
+    "${system_one_root}/bin/mithril-polyglot-review-ops.mjs",
+    "--stdin"
+  ],
+  "entry": "bin/mithril-polyglot-review-ops.mjs",
+  "requirements": {
+    "commands": [
+      "python3",
+      "node",
+      "git",
+      "wrangler"
+    ],
+    "python": [],
+    "env": [],
+    "envOptional": [
+      "MITHRIL_SOURCE_PYTHON",
+      "GH_TOKEN",
+      "POLYGLOT_WORKTREE",
+      "POLYGLOT_BRANCH",
+      "POLYGLOT_TICK",
+      "POLYGLOT_PROFILE_DIR",
+      "POLYGLOT_WRANGLER_PERSIST",
+      "CLOUDFLARE_ACCOUNT_ID"
+    ]
+  },
+  "configuration": {
+    "worktree_binding": "The tick only operates on the worktree at POLYGLOT_WORKTREE (default /Users/junkawasaki/github/mithril-lang/system-one-polyglot-extraction) when it is on branch POLYGLOT_BRANCH (default feat/polyglot-source-extraction); any other branch stops the tick with TICK STOP and is never written.",
+    "targets": "The profile's data/canonical/targets.json lists the measured public repositories; operator-owned, one line per target. HEAD is resolved via git ls-remote (git protocol; GitHub API quota is not consumed).",
+    "parser": "MITHRIL_SOURCE_PYTHON (default ~/.venvs/mithril-source-parser/bin/python) is the pinned tree-sitter parser interpreter; without it every polyglot file is parser_runtime_unavailable and 0 files are extracted.",
+    "matching_engine": "Pinned security-core (runtime/dependency-engine-pin.json, commit c4d63825241e91347ec30fef4b7a2bbfee6768cd). Go/Cargo components carry the canonical lowercase keywords (go/cargo); OSV answers under Go/crates.io.",
+    "r2": "internal-security-nvd bucket (fund account 62e1fda53188460698f8c66d3aef59c6), prefix polyglot-review/ (profile-owned; no other profile writes these keys). Publish success = put+get sha256 read-back match only.",
+    "drive": "Google Drive jklux archive via the profile's rclone.conf (rclone public-client token refresh; no browser UI); warn-and-continue.",
+    "git": "Commit+push to feat/polyglot-source-extraction only, only when tests are green and the worktree is dirty. No merge, no PR, no main writes."
+  },
+  "env": {},
+  "executable": true,
+  "tools": [
+    "mithril_public_repo_review"
+  ],
+  "execution": {
+    "runtime": "mithril-system-one",
+    "input": "json-stdin",
+    "maxTasks": 1,
+    "stopOnFailure": true,
+    "retryUnknown": false
+  },
+  "profiles": [
+    {
+      "id": "mithril-polyglot-review-ops",
+      "worktree": "system-one-polyglot-extraction",
+      "branch": "feat/polyglot-source-extraction",
+      "cron": "0 * * * *"
+    }
+  ]
+}
