@@ -1,0 +1,106 @@
+{
+  "kind": "skill",
+  "name": "mithril-polyglot-review-ops",
+  "version": "0.1.0",
+  "category": "security",
+  "description": "Continues the Go/Rust polyglot extraction expansion on the pinned worktree system-one-polyglot-extraction (feat/polyglot-source-extraction): hourly deterministic test runs, public-review measurements against canonical targets (git ls-remote HEAD, no GitHub API quota), green-gated commit+push to the feature branch, and R2/Drive receipts under polyglot-review/.",
+  "tags": [
+    "security",
+    "mithril",
+    "review",
+    "go",
+    "rust",
+    "polyglot",
+    "r2",
+    "google-drive"
+  ],
+  "inputs": [
+    {
+      "name": "target",
+      "type": "object",
+      "required": false
+    }
+  ],
+  "outputs": [
+    {
+      "name": "tests",
+      "type": "object"
+    },
+    {
+      "name": "targets",
+      "type": "array"
+    },
+    {
+      "name": "git",
+      "type": "string"
+    },
+    {
+      "name": "r2_prefix",
+      "type": "string"
+    }
+  ],
+  "capabilities": [
+    "mithril-public-review",
+    "r2-publish",
+    "git-push-feature-branch"
+  ],
+  "environment": {
+    "required": [
+      "node",
+      "python3",
+      "wrangler"
+    ],
+    "optional": [
+      "rclone",
+      "MITHRIL_SOURCE_PYTHON",
+      "GH_TOKEN",
+      "POLYGLOT_WORKTREE",
+      "POLYGLOT_BRANCH",
+      "POLYGLOT_TICK"
+    ]
+  },
+  "entrypoint": {
+    "type": "python",
+    "path": "scripts/polyglot_review_tick.py"
+  },
+  "files": [
+    "manifest.json",
+    "scripts/polyglot_review_tick.py",
+    "tests/test_polyglot_review_tick.py"
+  ],
+  "permissions": [
+    {
+      "capability": "network",
+      "allowed": [
+        "github.com",
+        "api.github.com",
+        "raw.githubusercontent.com",
+        "api.osv.dev",
+        "knowledge.mithril.fund",
+        "oauth2.googleapis.com",
+        "www.googleapis.com"
+      ]
+    },
+    {
+      "capability": "process",
+      "allowed": [
+        "node",
+        "python3",
+        "git",
+        "wrangler",
+        "gh",
+        "rclone",
+        "bash"
+      ]
+    },
+    {
+      "capability": "filesystem",
+      "allowed": [
+        "profile:data",
+        "profile:scripts",
+        "profile:cache",
+        "worktree:feat-polyglot-source-extraction"
+      ]
+    }
+  ]
+}
